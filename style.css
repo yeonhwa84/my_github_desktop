@@ -615,18 +615,18 @@ p {
 
 .timeline-content .achievements ul {
     list-style: none;
-    padding: 0;
+    padding: 10px 0px 0px 0px;
 }
 
 .timeline-content .achievements li {
     position: relative;
-    padding-left: 1.5rem;
+    padding-left: 2rem;
     margin-bottom: 0.8rem;
     color: var(--light-text);
+   
 }
 
 .timeline-content .achievements li::before {
-    content: "•";
     position: absolute;
     left: 0;
     color: var(--primary-color);
