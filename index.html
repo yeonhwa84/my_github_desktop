@@ -1,0 +1,705 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Developer Portfolio</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/static/pretendard.min.css" />
+    <link href="https://cdn.jsdelivr.net/gh/sunn-us/SUIT/fonts/static/woff2/SUIT.css" rel="stylesheet">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="style.css">
+</head>
+<body>
+    <nav class="navbar">
+        <div class="nav-content">
+            <div class="logo">LY</div>
+            <ul class="nav-links">
+                <li><a href="#home">Home</a></li>
+                <li><a href="#about">About</a></li>
+                <li><a href="#skills">Skills</a></li>
+                <li><a href="#projects">Projects</a></li>
+                <li><a href="#experience">Experience</a></li>
+                <li><a href="#contact">Contact</a></li>
+            </ul>
+        </div>
+    </nav>
+
+    <section id="home" class="hero">
+        <div class="hero-content">
+            <div class="hero-text">
+                <h1 class="hero-title">안녕하세요</h1>
+                <p class="hero-intro">
+                    <span class="highlight">16년째 버그와 싸우며 성장 중인 개발자</span> <strong>이연화</strong>입니다.<br><br>
+                    웹 애플리케이션 아키텍처 설계부터 DB 모델링, API 명세, UI/UX 설계까지<br>
+                    기획서만 던져주면 구조부터 마무리까지 책임지는 개발팀 리더였습니다.<br>
+                    복잡한 비즈니스 로직을 모듈화하고, <span class="highlight">"어제의 코드가 오늘의 발목을 잡지 않도록"</span><br>
+                    늘 확장성과 유지보수성을 먼저 고민합니다.<br><br>
+                    개발에서 가장 짜릿한 순간은<br>
+                    <span class="highlight">"이거 될까?"</span> 싶었던 문제를 딱 풀어냈을 때.<br>
+                    문제를 만나면 피하지 않고, 그 안에 숨어 있는 기회부터 먼저 찾는 성격입니다.<br><br>
+                    기술은 도구일 뿐, 중요한 건 누구를 위한 코드인가라고 생각합니다.<br>
+                    앞으로도 사람과 시스템을 연결하고, 문제를 기회로 바꾸는 개발자가 되고자 합니다.
+                </p>
+                <div class="hero-buttons">
+                    <a href="#projects" class="btn">프로젝트 보기</a>
+                    <a href="#contact" class="btn secondary">연락하기</a>
+                </div>
+            </div>
+            <div class="hero-illustration">
+                <img src="greeting-character1.png" alt="인사하는 캐릭터" style="width: 220px; height: 320px; object-fit: contain; display: block; animation: float-character 3.5s ease-in-out infinite alternate; filter: drop-shadow(0 8px 32px rgba(176,125,74,0.18));">
+            </div>
+        </div>
+        <div class="hero-bg-bubble b1"></div>
+        <div class="hero-bg-bubble b2"></div>
+        <div class="hero-bg-bubble b3"></div>
+        <div class="hero-bg-bubble b4"></div>
+        <div class="hero-bg-bubble b5"></div>
+        <div class="hero-bg-bubble b6"></div>
+        <div class="hero-bg-flower flower1"></div>
+        <div class="hero-bg-flower flower2"></div>
+        <div class="hero-bg-flower flower3"></div>
+    </section>
+
+    <section id="about" class="about">
+        <div class="section-content">
+            <span class="section-subtitle">About Me</span>
+            <h2>나의 이야기</h2>
+            <div class="about-content">
+                <div class="about-text">
+                    <p>16년 이상의 개발 경력을 보유한 풀스택 개발자로서, 다양한 산업 분야의 대규모 시스템 구축 및 운영 경험을 보유하고 있습니다. 두산에너빌리티, 한화시스템, 현대위아 등 대기업 프로젝트에서 시스템 설계부터 개발, 운영까지 전반적인 개발 라이프사이클을 주도해왔습니다.</p>
+                    <div class="about-highlights">
+                        <div class="highlight-item">
+                            <span class="number">16+</span>
+                            <span class="label">Years</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="number">30+</span>
+                            <span class="label">Projects</span>
+                        </div>
+                        <div class="highlight-item">
+                            <span class="number">10+</span>
+                            <span class="label">Enterprise Systems</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="skills" class="skills">
+        <div class="section-content">
+            <span class="section-subtitle">My Skills</span>
+            <h2>전문 기술</h2>
+            <div class="skills-container">
+                <div class="skill-category">
+                    <div class="skill-items">
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <i class="fas fa-globe"></i>
+                                <div class="skill-info">
+                                    <h3>웹 개발</h3>
+                                    <p>Java, JSP, Servlet, Spring Framework, 전자정부프레임워크</p>
+                                </div>
+                            </div>
+                            <div class="skill-level-container">
+                                <div class="skill-level-label">
+                                    <span>숙련도</span>
+                                    <span>90%</span>
+                                </div>
+                                <div class="skill-level-bar">
+                                    <div class="skill-level-progress" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Java</span>
+                                <span class="skill-tag">Spring</span>
+                                <span class="skill-tag">JSP</span>
+                                <span class="skill-tag">엠로</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <i class="fas fa-mobile-alt"></i>
+                                <div class="skill-info">
+                                    <h3>앱 개발</h3>
+                                    <p>모바일 웹, 반응형 웹 애플리케이션 개발</p>
+                                </div>
+                            </div>
+                            <div class="skill-level-container">
+                                <div class="skill-level-label">
+                                    <span>숙련도</span>
+                                    <span>85%</span>
+                                </div>
+                                <div class="skill-level-bar">
+                                    <div class="skill-level-progress" style="width: 85%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">모바일</span>
+                                <span class="skill-tag">반응형</span>
+                                <span class="skill-tag">웹앱</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <i class="fas fa-database"></i>
+                                <div class="skill-info">
+                                    <h3>데이터베이스</h3>
+                                    <p>Oracle, PostgreSQL, DB 모델링, 성능 최적화</p>
+                                </div>
+                            </div>
+                            <div class="skill-level-container">
+                                <div class="skill-level-label">
+                                    <span>숙련도</span>
+                                    <span>95%</span>
+                                </div>
+                                <div class="skill-level-bar">
+                                    <div class="skill-level-progress" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">Oracle</span>
+                                <span class="skill-tag">PostgreSQL</span>
+                                <span class="skill-tag">DB 모델링</span>
+                            </div>
+                        </div>
+                        <div class="skill-item">
+                            <div class="skill-header">
+                                <i class="fas fa-paint-brush"></i>
+                                <div class="skill-info">
+                                    <h3>프론트엔드</h3>
+                                    <p>HTML5, CSS3, JavaScript, jQuery, 웹스퀘어</p>
+                                </div>
+                            </div>
+                            <div class="skill-level-container">
+                                <div class="skill-level-label">
+                                    <span>숙련도</span>
+                                    <span>80%</span>
+                                </div>
+                                <div class="skill-level-bar">
+                                    <div class="skill-level-progress" style="width: 80%"></div>
+                                </div>
+                            </div>
+                            <div class="skill-tags">
+                                <span class="skill-tag">HTML5</span>
+                                <span class="skill-tag">CSS3</span>
+                                <span class="skill-tag">JavaScript</span>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="projects" class="projects">
+        <div class="section-content">
+            <span class="section-subtitle">My Work</span>
+            <h2>주요 프로젝트</h2>
+            <div class="projects-list">
+                <div class="project-list-item">
+                    <div class="project-badge" style="background:linear-gradient(135deg,#f7c59f,#a5d8c2);">D</div>
+                    <div class="project-list-content">
+                        <div class="project-list-title">두산에너빌리티 원자력서비스 포털</div>
+                        <div class="project-list-desc">원자력서비스 관리 포털의 기능 개선 및 신규 개발. 대용량 데이터 처리, 트랜잭션 안정화, 신규 기능 오픈 등 핵심 업무를 주도.</div>
+                        <div class="project-list-tags">
+                            <span class="project-list-tag">Java</span>
+                            <span class="project-list-tag">Spring</span>
+                            <span class="project-list-tag">Oracle</span>
+                            <span class="project-list-tag">웹스퀘어</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-list-item">
+                    <div class="project-badge" style="background:linear-gradient(135deg,#f6eac2,#b7d5e5);">W</div>
+                    <div class="project-list-content">
+                        <div class="project-list-title">두산 풍력 시스템</div>
+                        <div class="project-list-desc">풍력발전 데이터 관리 시스템 신규 구축. DB 설계, 서버 비즈니스 로직, 프론트엔드 화면 구성 등 전반을 담당.</div>
+                        <div class="project-list-tags">
+                            <span class="project-list-tag">Java</span>
+                            <span class="project-list-tag">Spring Boot</span>
+                            <span class="project-list-tag">PostgreSQL</span>
+                            <span class="project-list-tag">React</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-list-item">
+                    <div class="project-badge" style="background:linear-gradient(135deg,#e2cfea,#f7c59f);">G</div>
+                    <div class="project-list-content">
+                        <div class="project-list-title">GQIS 웹 전환 구축</div>
+                        <div class="project-list-desc">현대위아 레거시 시스템을 웹 기반으로 전환. 데이터 마이그레이션, 신규 화면 및 API 개발, 시스템 안정화.</div>
+                        <div class="project-list-tags">
+                            <span class="project-list-tag">Java</span>
+                            <span class="project-list-tag">전자정부프레임워크</span>
+                            <span class="project-list-tag">Oracle</span>
+                            <span class="project-list-tag">EMRO</span>
+                        </div>
+                    </div>
+                </div>
+                <div class="project-list-item">
+                    <div class="project-badge" style="background:linear-gradient(135deg,#b7d5e5,#f6eac2);">H</div>
+                    <div class="project-list-content">
+                        <div class="project-list-title">S/4 HANA 전환 프로젝트</div>
+                        <div class="project-list-desc">한화오션(주) S/4 HANA 전환. 데이터 마이그레이션, 시스템 통합, 업무 프로세스 재설계 등 수행.</div>
+                        <div class="project-list-tags">
+                            <span class="project-list-tag">데이터관리</span>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="experience" class="experience">
+        <div class="section-content">
+            <span class="section-subtitle">Work Experience</span>
+            <h2>경력 사항</h2>
+            <div class="timeline">
+                <div class="timeline-item" data-company="비아이엠솔루션">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-atom"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">비아이엠솔루션</div>
+                            <div class="career-period">2024.04 - 현재</div>
+                            <h4>수석연구원</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> 두산에너빌리티 원자력서비스 포털 개발</div>
+                            <p>기존 원자력서비스 관리 포털의 기능 개선 및 신규 개발 지원을 수행했습니다. 사용자 요구사항을 분석하여 화면을 설계하고, 프론트엔드와 백엔드 기능을 추가 및 수정했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>다량의 데이터 처리를 위한 쿼리 최적화</li>
+                                    <li>트랜잭션 처리 안정화</li>
+                                    <li>사용성 개선 및 신규 기능 안정적 오픈</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>Java</span><span>Spring</span><span>Oracle</span><span>웹스퀘어</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="한국오픈솔루션">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-wind"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">한국오픈솔루션</div>
+                            <div class="career-period">2023.09 - 2024.01</div>
+                            <h4>IS 차장</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> 두산 풍력 시스템 신규 개발</div>
+                            <p>두산 풍력발전 데이터 관리 시스템을 신규 구축하는 프로젝트에 참여했습니다. 친환경 에너지 분야 신규 시스템 개발을 경험하며 사용자 중심 화면 설계 및 데이터 흐름 최적화를 수행했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 담당 업무</h5>
+                                <ul>
+                                    <li>DB 설계 및 모델링</li>
+                                    <li>서버단 비즈니스 로직 구현</li>
+                                    <li>프론트엔드 화면 구성 및 연동</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>Java</span><span>Spring Boot</span><span>PostgreSQL</span><span>React</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="현대위아">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">현대위아</div>
+                            <div class="career-period">2023.06 - 2023.09</div>
+                            <h4>전산실 차장</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> GQIS 웹 전환 구축</div>
+                            <p>기존 레거시 시스템을 웹 기반 시스템으로 전환하는 업무를 수행했습니다. 엠로(EMRO) 솔루션을 활용하여 기존 프로세스를 웹으로 재구성하고, 신규 화면 및 백엔드 API 개발을 담당했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>레거시 시스템 성공적 웹 전환</li>
+                                    <li>데이터 마이그레이션 완료</li>
+                                    <li>시스템 안정화</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>Java</span><span>전자정부프레임워크</span><span>Oracle</span><span>EMRO</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="한화오션(주)">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">한화오션(주)</div>
+                            <div class="career-period">2022.11 - 2023.05</div>
+                            <h4>전산실 차장</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> S/4 HANA 전환 프로젝트</div>
+                            <p>S/4 HANA 전환 프로젝트에 참여했습니다. 기존 시스템을 S/4 HANA로 마이그레이션하는 과정에서 데이터 마이그레이션, 시스템 통합, 업무 프로세스 재설계를 수행했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>데이터 마이그레이션 완료</li>
+                                    <li>시스템 통합 및 업무 프로세스 재설계</li>
+                                    <li>S/4 HANA 전환 성공</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>데이터관리</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="에스티">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">에스티</div>
+                            <div class="career-period">2022.07 - 2022.11</div>
+                            <h4>수주생산IT팀 차장</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> HR 채용업무 시스템 구축</div>
+                            <p>HR 채용업무를 위한 시스템을 구축했습니다. 채용 프로세스 자동화, 인사 정보 관리, 채용 프로세스 통합을 포함했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>채용 프로세스 자동화</li>
+                                    <li>인사 정보 관리 시스템 구축</li>
+                                    <li>채용 프로세스 통합</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>앱개발</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="두루소프트">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">두루소프트</div>
+                            <div class="career-period">2021.12 - 2022.03</div>
+                            <h4>전산실 차장</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> STX 엔진 ESP</div>
+                            <p>STX 엔진 ESP 개발 프로젝트에 참여했습니다. 엔진 제어 시스템을 개발했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>엔진 제어 시스템 개발</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>앱개발</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="한화시스템">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">한화시스템</div>
+                            <div class="career-period">2021.08 - 2021.12</div>
+                            <h4>전산실 차장</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> 웹 시스템 개발 및 유지</div>
+                            <p>웹 시스템을 개발하고 유지하는 업무를 수행했습니다. 기존 시스템을 현대화하고, 사용자 경험을 개선했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>기존 시스템 현대화</li>
+                                    <li>사용자 경험 개선</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>앱개발</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="(주)삼송">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">(주)삼송</div>
+                            <div class="career-period">2021.02 - 2021.08</div>
+                            <h4>SI개발팀 대리</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> ERP 개발</div>
+                            <p>ERP 개발 프로젝트에 참여했습니다. JAVA와 paramquery를 사용하여 ERP 시스템을 개발했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>ERP 시스템 개발</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>시스템엔지니어</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="가온소프트">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">가온소프트</div>
+                            <div class="career-period">2020.02 - 2021.01</div>
+                            <h4>솔루션팀 프리랜서</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> 쌤요아이누리 웹앱 개발</div>
+                            <p>쌤요아이누리 웹앱을 개발했습니다. 어린이 출결/원아관리 시스템과 주택분양, 웹스퀘어5를 개발했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>어린이 출결/원아관리 시스템 개발</li>
+                                    <li>주택분양 시스템 개발</li>
+                                    <li>웹스퀘어5 개발</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>앱개발</span><span>PostgreSQL</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="인터페이스정보기술">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">인터페이스정보기술</div>
+                            <div class="career-period">2017.10 - 2019.12</div>
+                            <h4>SI사업부 프리랜서</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> 한국전기연구원 통합시험운영시스템(LIMS) 구축 및 고도화</div>
+                            <p>한국전기연구원 통합시험운영시스템(LIMS)을 구축하고 고도화했습니다. 전자정부프레임워크를 사용하여 시스템을 개발했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>LIMS 시스템 구축</li>
+                                    <li>전자정부프레임워크 사용</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>웹개발</span><span>전자정부프레임워크</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="에코센스">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">에코센스</div>
+                            <div class="career-period">2015.12 - 2016.02</div>
+                            <h4>SI사업부 프리랜서</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> 부산시청 에너지모니터링 대시보드 개발</div>
+                            <p>부산시청 에너지모니터링 대시보드를 개발했습니다. 에너지 모니터링 시스템을 개발했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>에너지 모니터링 시스템 개발</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>웹개발</span><span>디자인</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="와이즈소프트">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">와이즈소프트</div>
+                            <div class="career-period">2014.05 - 2014.12</div>
+                            <h4>정보운영팀 대리</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> (주)STX PIPE PIECE 제작 공정 관리 시스템 구축</div>
+                            <p>(주)STX PIPE PIECE 제작 공정 관리 시스템을 구축했습니다. Oracle을 사용하여 시스템을 개발했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>제작 공정 관리 시스템 구축</li>
+                                    <li>Oracle 사용</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>웹개발</span><span>Oracle</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="프레임네트워크">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">프레임네트워크</div>
+                            <div class="career-period">2013.09 - 2014.03</div>
+                            <h4>연구개발팀 팀장</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> 마이윙 모바일 버전 개발</div>
+                            <p>마이윙 모바일 버전을 개발했습니다. 다수의 웹사이트를 개발했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>마이윙 모바일 버전 개발</li>
+                                    <li>다수의 웹사이트 개발</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>웹개발</span><span>디자인</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="지질연구원">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">지질연구원</div>
+                            <div class="career-period">2012.06 - 2013.01</div>
+                            <h4>지질코아센터</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> 프로그래밍 강의 및 SI 프로젝트 검증</div>
+                            <p>프로그래밍 강의를 진행하고 SI 프로젝트를 검증했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>프로그래밍 강의 진행</li>
+                                    <li>SI 프로젝트 검증</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>교육</span><span>컨설팅</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="크로스윈텍">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">크로스윈텍</div>
+                            <div class="career-period">2010.01 - 2010.09</div>
+                            <h4>전산팀</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> 교회 홈페이지 및 정보화시스템 다수 개발</div>
+                            <p>교회 홈페이지와 정보화시스템을 다수 개발했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>교회 홈페이지 개발</li>
+                                    <li>정보화시스템 다수 개발</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>웹개발</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="일주GNS">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">일주GNS</div>
+                            <div class="career-period">2006.10 - 2010.01</div>
+                            <h4>자재정보팀</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> (주)성동조선해양 자재/회계 시스템 개발 및 운영</div>
+                            <p>(주)성동조선해양의 자재/회계 시스템을 개발하고 운영했습니다. 전자협업정보시스템과 방문자관리시스템을 개발했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>(주)성동조선해양의 자재/회계 시스템 개발 및 운영</li>
+                                    <li>전자협업정보시스템 개발</li>
+                                    <li>방문자관리시스템 개발</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>시스템엔지니어</span><span>PowerBuilder</span><span>Oracle</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+                <div class="timeline-item" data-company="무학초등학교">
+                    <div class="timeline-header">
+                        <div class="timeline-icon"><i class="fas fa-industry"></i></div>
+                        <div class="timeline-main">
+                            <div class="career-label">무학초등학교</div>
+                            <div class="career-period">2003.03 - 2006.02</div>
+                            <h4>행정실</h4>
+                            <div class="project-title"><i class="fas fa-project-diagram"></i> 학교 공문서 사이트 관리</div>
+                            <p>학교 공문서 사이트를 관리했습니다.</p>
+                            <div class="achievements">
+                                <h5><i class="fas fa-star"></i> 주요 성과</h5>
+                                <ul>
+                                    <li>학교 공문서 사이트 관리</li>
+                                </ul>
+                            </div>
+                            <div class="tags">
+                                <span>사이트관리</span><span>행정업무</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="career-divider"></div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="contact" class="contact">
+        <div class="section-content">
+            <span class="section-subtitle">Contact</span>
+            <h2>연락하기</h2>
+            <div class="contact-content">
+                <div class="contact-info">
+                    <div class="contact-item">
+                        <i class="fas fa-envelope"></i>
+                        <div class="contact-details">
+                            <h3>Email</h3>
+                            <p>yeonhwa84@gmail.com</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-github"></i>
+                        <div class="contact-details">
+                            <h3>GitHub</h3>
+                            <p>github.com/username</p>
+                        </div>
+                    </div>
+                    <div class="contact-item">
+                        <i class="fab fa-linkedin"></i>
+                        <div class="contact-details">
+                            <h3>LinkedIn</h3>
+                            <p>linkedin.com/in/username</p>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer class="footer">
+        <div class="footer-content">
+            <p>&copy; 2024 Portfolio. Made with passion.</p>
+            <div class="social-links">
+                <a href="#" target="_blank"><i class="fab fa-github"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-linkedin"></i></a>
+                <a href="#" target="_blank"><i class="fab fa-twitter"></i></a>
+            </div>
+        </div>
+    </footer>
+
+    <script src="https://code.jquery.com/jquery-3.7.1.min.js"></script>
+    <script src="script.js"></script>
+</body>
+</html> 
