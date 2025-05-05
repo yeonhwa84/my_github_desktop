@@ -16,32 +16,154 @@ $(document).ready(function() {
         if (target.length) {
             $('html, body').animate({
                 scrollTop: target.offset().top - 80
-            }, 800);
+            }, 400);
             $('.nav-links').removeClass('nav-links-active');
         }
     });
 
-    // 모바일 메뉴 토글
-    $('.menu-toggle').click(function() {
-        $(this).toggleClass('active');
-        $('.nav-links').toggleClass('nav-links-active');
+    // DOM 요소 참조
+    const mobileMenuBtn = document.querySelector('.mobile-menu-btn');
+    const navLinks = document.querySelector('.nav-links');
+    const navOverlay = document.querySelector('.nav-overlay');
+    const body = document.body;
+
+    // 모바일 메뉴 토글 함수
+    function toggleMenu() {
+        if (navLinks && navOverlay) {
+            navLinks.classList.toggle('active');
+            navOverlay.classList.toggle('active');
+            if (body) {
+                body.style.overflow = navLinks.classList.contains('active') ? 'hidden' : '';
+            }
+        }
+    }
+
+    // 모바일 메뉴 버튼 이벤트 리스너
+    if (mobileMenuBtn) {
+        mobileMenuBtn.addEventListener('click', toggleMenu);
+    }
+
+    // 오버레이 클릭 이벤트
+    if (navOverlay) {
+        navOverlay.addEventListener('click', toggleMenu);
+    }
+
+    // 네비게이션 링크 클릭 이벤트
+    const navItems = document.querySelectorAll('.nav-links a');
+    navItems.forEach(item => {
+        item.addEventListener('click', function(e) {
+            e.preventDefault();
+            const targetId = this.getAttribute('href').substring(1);
+            const targetSection = document.getElementById(targetId);
+            
+            if (targetSection) {
+                // 모바일 메뉴가 열려있으면 닫기
+                if (navLinks && navLinks.classList.contains('active')) {
+                    toggleMenu();
+                }
+                
+                // 스크롤 애니메이션
+                const targetPosition = targetSection.offsetTop - 80;
+                const startPosition = window.pageYOffset;
+                const distance = targetPosition - startPosition;
+                const duration = 400;
+                let start = null;
+
+                function animation(currentTime) {
+                    if (start === null) start = currentTime;
+                    const timeElapsed = currentTime - start;
+                    const progress = Math.min(timeElapsed / duration, 1);
+                    const easeInOutCubic = progress < 0.5 
+                        ? 4 * progress * progress * progress 
+                        : 1 - Math.pow(-2 * progress + 2, 3) / 2;
+
+                    window.scrollTo(0, startPosition + distance * easeInOutCubic);
+
+                    if (timeElapsed < duration) {
+                        requestAnimationFrame(animation);
+                    }
+                }
+
+                requestAnimationFrame(animation);
+            }
+        });
+    });
+
+    // 스크롤 이벤트
+    let scrollTimeout;
+    window.addEventListener('scroll', function() {
+        if (scrollTimeout) {
+            window.cancelAnimationFrame(scrollTimeout);
+        }
+        
+        scrollTimeout = window.requestAnimationFrame(function() {
+            const navbar = document.querySelector('.navbar');
+            if (navbar) {
+                if (window.scrollY > 50) {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.98)';
+                    navbar.style.boxShadow = '0 2px 10px rgba(44, 82, 130, 0.15)';
+                } else {
+                    navbar.style.background = 'rgba(255, 255, 255, 0.95)';
+                    navbar.style.boxShadow = '0 2px 10px rgba(44, 82, 130, 0.1)';
+                }
+            }
+        });
+    });
+
+    // ESC 키로 모바일 메뉴 닫기
+    document.addEventListener('keydown', function(e) {
+        if (e.key === 'Escape' && navLinks && navLinks.classList.contains('active')) {
+            toggleMenu();
+        }
     });
 
     // 현재 섹션 하이라이트
     function updateActiveSection() {
-        const scrollPosition = $(window).scrollTop() + 100;
-
-        $('section').each(function() {
-            const sectionTop = $(this).offset().top;
-            const sectionHeight = $(this).height();
-            const sectionId = '#' + $(this).attr('id');
-
+        const scrollPosition = window.pageYOffset + 100;
+        const sections = document.querySelectorAll('section');
+        
+        sections.forEach(section => {
+            const sectionTop = section.offsetTop;
+            const sectionHeight = section.offsetHeight;
+            const sectionId = '#' + section.id;
+            
             if (scrollPosition >= sectionTop && scrollPosition < sectionTop + sectionHeight) {
-                $('.nav-links a').removeClass('active');
-                $('.nav-links a[href="' + sectionId + '"]').addClass('active');
+                document.querySelectorAll('.nav-links a').forEach(link => {
+                    link.classList.remove('active');
+                    if (link.getAttribute('href') === sectionId) {
+                        link.classList.add('active');
+                    }
+                });
             }
         });
     }
+
+    // 로고 클릭 시 최상단으로 스크롤
+    $('.logo').click(function() {
+        $('html, body').animate({
+            scrollTop: 0
+        }, 400);
+    });
+
+    // 스크롤 이벤트에 디바운스 적용
+    function debounce(func, wait) {
+        let timeout;
+        return function executedFunction(...args) {
+            const later = () => {
+                clearTimeout(timeout);
+                func(...args);
+            };
+            clearTimeout(timeout);
+            timeout = setTimeout(later, wait);
+        };
+    }
+
+    // 스크롤 이벤트에 디바운스 적용
+    const debouncedUpdateActiveSection = debounce(updateActiveSection, 100);
+    window.addEventListener('scroll', debouncedUpdateActiveSection);
+
+    // 초기 활성 섹션 설정
+    updateActiveSection();
 
     // 경력 사항 애니메이션 초기화
     function initExperienceAnimations() {
@@ -197,16 +319,6 @@ $(document).ready(function() {
             }, 300);
         }
     );
-
-    // 로고 클릭 시 최상단으로 스크롤
-    $('.logo').click(function() {
-        $('html, body').animate({
-            scrollTop: 0
-        }, 800);
-    });
-
-    // 초기 활성 섹션 설정
-    updateActiveSection();
 
     // 애니메이션 초기화
     initExperienceAnimations();
