@@ -45,12 +45,25 @@
     --highlight-blue: #4a90e2;
     --highlight-light-blue: #6ba8e9;
     --highlight-dark-blue: #2c5282;
+
+    /* 모바일 최적화 */
+    --mobile-blur: blur(10px);
+    --mobile-glass: rgba(255, 255, 255, 0.7);
+    --mobile-text: #2d3748;
+    --mobile-text-light: #4a5568;
+    --mobile-primary: #2c5282;
+    --mobile-secondary: #4299e1;
+    --mobile-background: #f7fafc;
 }
 
 * {
     margin: 0;
     padding: 0;
     box-sizing: border-box;
+    -webkit-tap-highlight-color: transparent;
+    -webkit-touch-callout: none;
+    -webkit-user-select: none;
+    user-select: none;
 }
 
 html {
@@ -66,6 +79,11 @@ body {
     word-wrap: break-word;
     -webkit-font-smoothing: antialiased;
     -moz-osx-font-smoothing: grayscale;
+    -webkit-text-size-adjust: 100%;
+    text-rendering: optimizeLegibility;
+    overflow-x: hidden;
+    width: 100%;
+    position: relative;
 }
 
 /* 컨테이너 */
