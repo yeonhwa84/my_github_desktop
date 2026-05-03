@@ -1,0 +1,165 @@
+// =========================================================
+// Mobile-only design system — Sky/Aqua + Sunshine 팔레트
+// 싱그러운 봄·바닷가 느낌, 데스크톱과 완전 분리
+// SELF-CONTAINED. 데스크톱 변수 임포트 금지.
+// =========================================================
+
+// === Surfaces (sky cream family — 맑고 가벼운) ===
+$mc-bg:          #EAF6FB;   // 메인 배경 — 맑은 하늘
+$mc-bg-soft:     #F4FAFD;   // 옅은 변형
+$mc-bg-tint:     #E0F2FE;   // 하늘 틴트
+$mc-bg-cream:    #FFFAEB;   // 햇살 크림 (포인트 섹션)
+$mc-surface:     #FFFFFF;
+$mc-surface-2:   #F8FCFE;
+
+// === Ink (deep ocean navy — 따뜻한 차콜이 아닌 푸른 깊이) ===
+$mc-ink:         #0F2B3D;
+$mc-ink-2:       #2E4A60;
+$mc-ink-3:       #5C7180;
+$mc-ink-4:       #8FA1AE;
+$mc-ink-5:       #C9D6DD;
+
+// === Borders ===
+$mc-border:      #CFEAF5;
+$mc-border-soft: #E5F2F8;
+
+// === Primary — Sky / Aqua ===
+$mc-aqua:        #0EA5E9;   // sky-500, 메인 액센트
+$mc-aqua-deep:   #0284C7;   // sky-600
+$mc-aqua-light:  #7DD3FC;   // sky-300
+$mc-aqua-bg:     #DCEFFA;   // very pale sky
+
+// === Pop accent — Sunshine Yellow ===
+$mc-sun:         #FACC15;   // yellow-400, 강조 포인트
+$mc-sun-deep:    #EAB308;   // yellow-500
+$mc-sun-light:   #FDE68A;   // yellow-200
+$mc-sun-bg:      #FEF3C7;   // yellow-100
+
+// === Fresh secondary — Lime / Mint pop ===
+$mc-lime:        #10B981;   // emerald-500
+$mc-lime-deep:   #059669;
+$mc-lime-light:  #6EE7B7;
+$mc-lime-bg:     #D1FAE5;
+
+// === Coral pop (warm contrast) ===
+$mc-coral:       #FB7185;   // rose-400, 다른 코랄
+$mc-coral-deep:  #E11D48;
+$mc-coral-bg:    #FEE2E5;
+
+// === Typography ===
+$mc-font-sans:    'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+$mc-font-display: 'Bricolage Grotesque', 'Pretendard', sans-serif;
+$mc-font-serif:   'Fraunces', Georgia, serif;
+$mc-font-mono:    'JetBrains Mono', 'SF Mono', monospace;
+
+// === Layout ===
+$mc-pad-x:        18px;
+$mc-pad-y:        56px;
+$mc-gap-sm:       10px;
+$mc-gap-md:       14px;
+$mc-gap-lg:       24px;
+
+// === Radii (큼직한 squircle 느낌) ===
+$mc-radius-sm:    14px;
+$mc-radius-md:    20px;
+$mc-radius-lg:    28px;
+$mc-radius-xl:    36px;
+$mc-radius-pill:  999px;
+
+// === Shadows (sky-tinted, soft) ===
+$mc-shadow-xs:    0 1px 3px rgba(15, 43, 61, 0.05);
+$mc-shadow-sm:    0 4px 14px rgba(15, 43, 61, 0.06);
+$mc-shadow-md:    0 10px 28px rgba(15, 43, 61, 0.08);
+$mc-shadow-lg:    0 18px 44px rgba(15, 43, 61, 0.12);
+$mc-shadow-aqua:  0 10px 28px rgba(14, 165, 233, 0.22);
+$mc-shadow-sun:   0 10px 28px rgba(250, 204, 21, 0.28);
+
+// === Motion ===
+$mc-ease:         cubic-bezier(0.22, 1, 0.36, 1);
+
+// === Touch ===
+$mc-touch:        46px;
+
+// =========================================================
+// Mixins
+// =========================================================
+@mixin mc-section($bg: $mc-bg) {
+    padding: $mc-pad-y $mc-pad-x;
+    background: $bg;
+    position: relative;
+    overflow: hidden;
+}
+
+@mixin mc-bento {
+    background: $mc-surface;
+    border-radius: $mc-radius-lg;
+    padding: 22px 20px;
+    box-shadow: $mc-shadow-sm;
+    border: 1px solid $mc-border-soft;
+}
+
+@mixin mc-button-primary {
+    min-height: $mc-touch;
+    padding: 14px 24px;
+    border-radius: $mc-radius-pill;
+    font-family: $mc-font-sans;
+    font-size: 15px;
+    font-weight: 700;
+    background: $mc-ink;
+    color: $mc-surface;
+    box-shadow: $mc-shadow-md;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.2s $mc-ease, background 0.2s $mc-ease, box-shadow 0.2s $mc-ease;
+    -webkit-tap-highlight-color: transparent;
+    border: none;
+    text-decoration: none;
+
+    &:active {
+        transform: scale(0.97);
+        background: $mc-aqua-deep;
+        box-shadow: $mc-shadow-aqua;
+    }
+}
+
+@mixin mc-button-soft {
+    min-height: $mc-touch;
+    padding: 14px 24px;
+    border-radius: $mc-radius-pill;
+    font-family: $mc-font-sans;
+    font-size: 15px;
+    font-weight: 600;
+    background: $mc-aqua-bg;
+    color: $mc-aqua-deep;
+    display: inline-flex;
+    align-items: center;
+    justify-content: center;
+    gap: 8px;
+    transition: transform 0.2s $mc-ease;
+    -webkit-tap-highlight-color: transparent;
+    border: none;
+    text-decoration: none;
+
+    &:active { transform: scale(0.97); }
+}
+
+@mixin mc-eyebrow {
+    font-family: $mc-font-mono;
+    font-size: 10.5px;
+    color: $mc-aqua-deep;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    font-weight: 700;
+}
+
+@keyframes mc-pulse-aqua {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.30); }
+    50%      { box-shadow: 0 0 0 7px rgba(14, 165, 233, 0); }
+}
+
+@keyframes mc-pulse-sun {
+    0%, 100% { box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.40); }
+    50%      { box-shadow: 0 0 0 7px rgba(250, 204, 21, 0); }
+}
