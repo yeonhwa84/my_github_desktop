@@ -1,0 +1,19 @@
+node_modules
+dist
+dist-ssr
+.vite
+.DS_Store
+*.log
+
+# Editor
+.vscode/*
+!.vscode/extensions.json
+.idea
+*.suo
+*.ntvs*
+*.njsproj
+*.sln
+*.sw?
+
+# Claude Code workspace
+.claude/

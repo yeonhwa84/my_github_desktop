@@ -1,0 +1,39 @@
+@use 'variables' as *;
+
+// Display heading — Bricolage Grotesque (variable optical size)
+// Tight tracking for big editorial type
+.display {
+    font-family: $font-display;
+    font-weight: 700;
+    line-height: 1.04;
+    letter-spacing: -0.035em;
+    font-variation-settings: 'opsz' 96;
+}
+
+// Italic accent — Fraunces serif italic
+.display-italic {
+    font-family: $font-serif;
+    font-style: italic;
+    font-weight: 500;
+    letter-spacing: -0.02em;
+    font-variation-settings: 'opsz' 144, 'SOFT' 100;
+}
+
+.eyebrow {
+    display: inline-block;
+    font-family: $font-mono;
+    font-size: 12px;
+    font-weight: 500;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: $coral;
+}
+
+.mono {
+    font-family: $font-mono;
+    font-feature-settings: 'liga' 0;
+}
+
+.serif {
+    font-family: $font-serif;
+}

@@ -1,0 +1,115 @@
+// =========================================================
+// Design Tokens — Editorial Warm 2026 Palette
+// =========================================================
+
+// Surface
+$bg-paper:     #f7f5f0;   // warm cream paper
+$bg-soft:      #fdfbf7;   // softer paper
+$bg-warm:      #f1ede4;   // deeper paper for contrast
+$surface:      #ffffff;
+$surface-2:    #faf8f3;
+
+// Ink (text & borders)
+$ink:          #1a1a1a;
+$ink-2:        #3d3d3d;
+$ink-3:        #6b6b6b;
+$ink-4:        #a3a3a3;
+$ink-5:        #d4d4d4;
+
+// Borders
+$border:       #e8e4dc;
+$border-soft:  #f0ebe1;
+
+// Brand — Coral (primary accent, vivid)
+$coral:        #ff5841;
+$coral-deep:   #e63d28;
+$coral-soft:   #ffb8ac;
+$coral-bg:     #fff1ee;
+
+// Brand — Sage (secondary, calm)
+$sage:         #3d5a4a;
+$sage-deep:    #284233;
+$sage-soft:    #b8c9bd;
+$sage-bg:      #ebf0ec;
+
+// Highlights
+$butter:       #fbe7c6;
+$butter-deep:  #f5d491;
+$butter-bg:    #fef9ee;
+
+$rose:         #d4838a;
+$rose-soft:    #f3cdd1;
+$rose-bg:      #fbeef0;
+
+// 2026 trendy accents
+$lilac:        #8c7bb6;
+$lilac-soft:   #d6cdea;
+$lilac-bg:     #f4f0fa;
+
+$mint:         #5b9b85;
+$mint-soft:    #b8dbcd;
+$mint-bg:      #ebf5f1;
+
+// Mocha (PANTONE 2025-26 vibe)
+$mocha:        #a4866a;
+$mocha-soft:   #d8c7b6;
+$mocha-bg:     #f6efe7;
+
+$ink-warm:     #2a1f15;   // warm dark brown alternative
+
+// =========================================================
+// Typography — 2026 trend stack
+// =========================================================
+// Pretendard: 한글 본문
+// Bricolage Grotesque: 디스플레이 (variable, 2026 트렌드)
+// Fraunces: 세리프 이탤릭 강조
+// JetBrains Mono: 코드/메타
+$font-sans:    'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, system-ui, sans-serif;
+$font-display: 'Bricolage Grotesque', 'Pretendard', 'Inter', sans-serif;
+$font-serif:   'Fraunces', 'Times New Roman', Georgia, serif;
+$font-mono:    'JetBrains Mono', 'SF Mono', Monaco, Consolas, monospace;
+
+// =========================================================
+// Layout
+// =========================================================
+$max-width:    1240px;
+$gutter:       28px;
+
+// =========================================================
+// Radii
+// =========================================================
+$radius-xs:    6px;
+$radius-sm:    10px;
+$radius-md:    14px;
+$radius-lg:    20px;
+$radius-xl:    28px;
+$radius-2xl:   40px;
+
+// =========================================================
+// Shadows (warm-tinted, editorial)
+// =========================================================
+$shadow-xs:    0 1px 2px rgba(60, 40, 20, 0.04);
+$shadow-sm:    0 2px 6px rgba(60, 40, 20, 0.05);
+$shadow-md:    0 6px 18px rgba(60, 40, 20, 0.07);
+$shadow-lg:    0 14px 40px rgba(60, 40, 20, 0.10);
+$shadow-coral: 0 10px 30px rgba(255, 88, 65, 0.22);
+
+// =========================================================
+// Motion
+// =========================================================
+$ease:         cubic-bezier(0.22, 1, 0.36, 1);
+$ease-back:    cubic-bezier(0.34, 1.56, 0.64, 1);
+
+// =========================================================
+// Breakpoints
+// =========================================================
+$bp-sm:        540px;
+$bp-md:        768px;
+$bp-lg:        980px;
+$bp-xl:        1240px;
+
+@mixin sm-down { @media (max-width: $bp-sm)  { @content; } }
+@mixin md-down { @media (max-width: $bp-md)  { @content; } }
+@mixin lg-down { @media (max-width: $bp-lg)  { @content; } }
+@mixin md-up   { @media (min-width: #{$bp-md + 1px}) { @content; } }
+@mixin lg-up   { @media (min-width: #{$bp-lg + 1px}) { @content; } }

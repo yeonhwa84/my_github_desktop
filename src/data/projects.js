@@ -1,0 +1,38 @@
+export const projects = [
+    {
+        num: '01',
+        title: '두산에너빌리티 원자력서비스 포털',
+        sector: 'Energy · Nuclear',
+        period: '2024 — Now',
+        description: '대용량 데이터 처리 최적화와 트랜잭션 안정화를 통해 신규 기능을 무중단 오픈. 사용자 워크플로우 재설계로 사용성 개선.',
+        stack: ['Java', 'Spring', 'Oracle', '웹스퀘어'],
+        accent: 'coral',
+    },
+    {
+        num: '02',
+        title: '두산 풍력 데이터 관리 시스템',
+        sector: 'Renewable Energy',
+        period: '2023 — 2024',
+        description: '친환경 에너지 도메인 신규 시스템을 그린필드로 구축. DB 설계부터 비즈니스 로직, 프론트엔드 연동까지 풀스택으로 담당.',
+        stack: ['Java', 'Spring Boot', 'PostgreSQL', 'JavaScript'],
+        accent: 'sage',
+    },
+    {
+        num: '03',
+        title: '현대위아 GQIS 웹 전환',
+        sector: 'Manufacturing',
+        period: '2023',
+        description: '레거시 시스템을 웹 기반으로 전환. 데이터 마이그레이션·신규 화면·API 개발을 통해 운영 안정성과 확장성을 동시에 확보.',
+        stack: ['Java', '전자정부', 'Oracle', 'EMRO'],
+        accent: 'butter',
+    },
+    {
+        num: '04',
+        title: '한화오션 S/4 HANA 전환',
+        sector: 'Enterprise',
+        period: '2022 — 2023',
+        description: '대규모 ERP 마이그레이션. 데이터 정합성 검증과 업무 프로세스 재설계, 시스템 통합을 단계적으로 수행.',
+        stack: ['SAP S/4 HANA', 'Data Migration'],
+        accent: 'rose',
+    },
+];
