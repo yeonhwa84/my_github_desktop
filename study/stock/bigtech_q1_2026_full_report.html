@@ -1,0 +1,1357 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>글로벌 빅테크 5사 1Q26 실적 리뷰 + 한국 반도체 메커니즘 분석</title>
+<style>
+  @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap');
+
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #0a2540;
+    --navy-light: #1e3a5f;
+    --orange: #d97706;
+    --orange-bg: #fef3e7;
+    --orange-text: #854f0b;
+    --red: #c0392b;
+    --blue: #1e40af;
+    --gray-50: #f8fafc;
+    --gray-100: #f1f5f9;
+    --gray-200: #e2e8f0;
+    --gray-300: #cbd5e1;
+    --gray-500: #64748b;
+    --gray-700: #334155;
+    --gray-900: #0f172a;
+  }
+
+  body {
+    font-family: 'Noto Sans KR', sans-serif;
+    font-size: 13px;
+    line-height: 1.6;
+    color: var(--gray-900);
+    background: var(--gray-100);
+    padding: 24px 16px;
+  }
+
+  .doc {
+    max-width: 1080px;
+    margin: 0 auto;
+    background: #ffffff;
+    border: 1px solid var(--gray-200);
+  }
+
+  .mono { font-family: 'JetBrains Mono', monospace; font-feature-settings: 'tnum'; }
+
+  .up { color: var(--red); }
+  .dn { color: var(--blue); }
+  .flat { color: var(--gray-500); }
+
+  /* ─── HEADER ────────────────────────────────────────────── */
+  .header {
+    background: var(--navy);
+    color: #ffffff;
+    padding: 18px 28px 14px;
+    border-bottom: 4px solid var(--orange);
+  }
+  .header-top {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 10px;
+    letter-spacing: 2px;
+    color: #94a3b8;
+    margin-bottom: 8px;
+    text-transform: uppercase;
+  }
+  .header-top .tag {
+    background: var(--orange);
+    color: #ffffff;
+    padding: 3px 10px;
+    letter-spacing: 1.5px;
+    font-weight: 700;
+  }
+  .header h1 {
+    font-size: 22px;
+    font-weight: 700;
+    margin-bottom: 6px;
+    letter-spacing: -0.3px;
+  }
+  .header .subtitle {
+    font-size: 13px;
+    color: #cbd5e1;
+    font-weight: 400;
+  }
+  .header-meta {
+    display: flex;
+    gap: 24px;
+    margin-top: 12px;
+    padding-top: 10px;
+    border-top: 1px solid #1e3a5f;
+    font-size: 11px;
+    color: #94a3b8;
+  }
+  .header-meta strong { color: #ffffff; font-weight: 500; margin-left: 6px; }
+
+  /* ─── BODY ──────────────────────────────────────────────── */
+  .body { padding: 24px 28px; }
+
+  .section { margin-bottom: 28px; }
+  .section:last-child { margin-bottom: 0; }
+
+  h2 {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 10px;
+    padding-bottom: 6px;
+    border-bottom: 2px solid var(--navy);
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  h2 .num {
+    background: var(--navy);
+    color: #ffffff;
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    padding: 2px 7px;
+    font-weight: 700;
+    letter-spacing: 0.5px;
+  }
+
+  h3 {
+    font-size: 12px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 14px 0 6px;
+  }
+
+  h4 {
+    font-size: 11.5px;
+    font-weight: 700;
+    color: var(--orange);
+    margin: 12px 0 4px;
+    letter-spacing: 0.3px;
+  }
+
+  p { margin-bottom: 6px; font-size: 12px; color: var(--gray-700); line-height: 1.7; }
+
+  /* ─── TOP RATING TABLE ─────────────────────────────────── */
+  .rating-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+  }
+  .rating-table thead th {
+    background: var(--gray-50);
+    color: var(--gray-700);
+    font-weight: 500;
+    padding: 8px 10px;
+    text-align: center;
+    border-top: 1.5px solid var(--navy);
+    border-bottom: 1px solid var(--gray-300);
+    font-size: 11px;
+    letter-spacing: 0.3px;
+  }
+  .rating-table thead th.l { text-align: left; }
+  .rating-table tbody td {
+    padding: 9px 10px;
+    border-bottom: 1px solid var(--gray-200);
+    text-align: center;
+  }
+  .rating-table tbody td.l { text-align: left; }
+  .rating-table tbody td.num { text-align: right; }
+  .rating-table tbody tr:hover { background: var(--gray-50); }
+  .rating-table .ticker { font-family: 'JetBrains Mono', monospace; color: var(--gray-500); font-size: 10.5px; }
+  .rating-table .name { font-weight: 700; color: var(--navy); }
+
+  .rating {
+    display: inline-block;
+    font-size: 10.5px;
+    font-weight: 700;
+    padding: 3px 10px;
+    letter-spacing: 0.5px;
+    min-width: 64px;
+  }
+  .r-buy { background: #fef2f2; color: var(--red); border: 1px solid var(--red); }
+  .r-add { background: #eff6ff; color: var(--blue); border: 1px solid var(--blue); }
+  .r-hold { background: #fffbeb; color: var(--orange); border: 1px solid var(--orange); }
+  .r-watch { background: var(--gray-100); color: var(--gray-700); border: 1px solid var(--gray-500); }
+
+  /* ─── EXECUTIVE THESIS ─────────────────────────────────── */
+  .thesis {
+    background: linear-gradient(0deg, var(--gray-50) 0%, #ffffff 100%);
+    border: 1px solid var(--gray-200);
+    border-left: 4px solid var(--orange);
+    padding: 14px 20px;
+    margin-bottom: 18px;
+  }
+  .thesis-tag {
+    font-size: 10px;
+    color: var(--orange);
+    font-weight: 700;
+    letter-spacing: 2px;
+    margin-bottom: 6px;
+  }
+  .thesis-headline {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+    line-height: 1.4;
+    letter-spacing: -0.2px;
+  }
+  .thesis-text {
+    font-size: 12.5px;
+    color: var(--gray-700);
+    line-height: 1.7;
+  }
+
+  /* ─── BULLETS ──────────────────────────────────────────── */
+  .key-points {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+    margin-top: 12px;
+  }
+  .kp-item {
+    border-top: 2px solid var(--navy);
+    padding: 8px 4px 4px;
+  }
+  .kp-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 10px;
+    color: var(--orange);
+    font-weight: 700;
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+  }
+  .kp-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+    line-height: 1.4;
+  }
+  .kp-desc {
+    font-size: 11.5px;
+    color: var(--gray-700);
+    line-height: 1.6;
+  }
+
+  /* ─── COMPANY CARDS ────────────────────────────────────── */
+  .company {
+    border: 1px solid var(--gray-200);
+    margin-bottom: 10px;
+  }
+  .company-head {
+    display: flex;
+    align-items: center;
+    background: var(--gray-50);
+    border-bottom: 1px solid var(--gray-200);
+    padding: 10px 16px;
+    gap: 14px;
+  }
+  .company-head .name-block { flex: 1; }
+  .company-head .name {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-right: 8px;
+  }
+  .company-head .ticker {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 11px;
+    color: var(--gray-500);
+  }
+  .company-head .move {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 14px;
+    font-weight: 700;
+    margin-right: 14px;
+    min-width: 60px;
+    text-align: right;
+  }
+  .company-body {
+    display: grid;
+    grid-template-columns: 280px 1fr;
+    gap: 0;
+  }
+  .metric-strip {
+    background: #fafafa;
+    border-right: 1px solid var(--gray-200);
+    padding: 12px 14px;
+  }
+  .metric-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    padding: 4px 0;
+    font-size: 11.5px;
+    border-bottom: 1px dashed var(--gray-200);
+  }
+  .metric-row:last-child { border-bottom: 0; }
+  .metric-row .lbl { color: var(--gray-500); }
+  .metric-row .val { font-family: 'JetBrains Mono', monospace; font-weight: 500; color: var(--gray-900); }
+  .metric-row .val.up { color: var(--red); }
+  .metric-row .val.dn { color: var(--blue); }
+
+  .commentary { padding: 12px 16px; }
+  .comm-block { margin-bottom: 8px; }
+  .comm-block:last-child { margin-bottom: 0; }
+  .comm-tag {
+    font-size: 10px;
+    letter-spacing: 1px;
+    font-weight: 700;
+    margin-bottom: 3px;
+  }
+  .comm-tag.bull { color: var(--red); }
+  .comm-tag.bear { color: var(--blue); }
+  .comm-tag.view { color: var(--orange); }
+  .comm-text {
+    font-size: 11.5px;
+    color: var(--gray-700);
+    line-height: 1.6;
+  }
+  .comm-text .em { color: var(--navy); font-weight: 500; }
+
+  /* ─── COMPARISON MATRIX ────────────────────────────────── */
+  .matrix {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+    margin: 4px 0 10px;
+  }
+  .matrix thead th {
+    background: var(--navy);
+    color: #ffffff;
+    padding: 7px 8px;
+    font-weight: 500;
+    text-align: center;
+    font-size: 10.5px;
+    letter-spacing: 0.3px;
+  }
+  .matrix thead th.l { text-align: left; }
+  .matrix tbody td {
+    padding: 7px 8px;
+    border-bottom: 1px solid var(--gray-200);
+    text-align: center;
+    font-family: 'JetBrains Mono', monospace;
+  }
+  .matrix tbody td.l { text-align: left; font-family: 'Noto Sans KR'; color: var(--gray-700); font-weight: 500; }
+  .matrix tbody tr:nth-child(even) td { background: var(--gray-50); }
+  .matrix tbody tr.highlight td { font-weight: 700; background: #fef3e7; }
+  .cell-best { color: var(--red); font-weight: 700; }
+  .cell-worst { color: var(--blue); font-weight: 700; }
+  .cell-korea { color: var(--orange); font-weight: 700; }
+
+  /* ─── KOREA INSIGHT ────────────────────────────────────── */
+  .korea-insight {
+    background: var(--navy);
+    color: #ffffff;
+    padding: 18px 22px;
+    margin-bottom: 14px;
+  }
+  .korea-insight .tag {
+    font-size: 10px;
+    color: var(--orange);
+    letter-spacing: 2px;
+    font-weight: 700;
+    margin-bottom: 6px;
+  }
+  .korea-insight .head {
+    font-size: 16px;
+    font-weight: 700;
+    color: #ffffff;
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .korea-insight .body {
+    font-size: 12px;
+    color: #cbd5e1;
+    line-height: 1.7;
+  }
+  .korea-insight .body strong { color: #ffffff; }
+
+  /* ─── FLOW DIAGRAM ─────────────────────────────────────── */
+  .flow-wrapper {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    padding: 14px 16px 8px;
+    margin: 8px 0 14px;
+  }
+  .flow-svg { display: block; width: 100%; max-width: 720px; margin: 0 auto; }
+  .flow-svg .box-gray { fill: #f1f5f9; stroke: #64748b; stroke-width: 1; }
+  .flow-svg .box-orange { fill: var(--orange-bg); stroke: var(--orange); stroke-width: 1.5; }
+  .flow-svg .title-gray { fill: var(--gray-900); font-weight: 700; font-family: 'Noto Sans KR'; font-size: 13px; }
+  .flow-svg .sub-gray { fill: var(--gray-500); font-family: 'Noto Sans KR'; font-size: 11.5px; }
+  .flow-svg .title-orange { fill: var(--orange-text); font-weight: 700; font-family: 'Noto Sans KR'; font-size: 13px; }
+  .flow-svg .sub-orange { fill: var(--orange); font-family: 'Noto Sans KR'; font-size: 11px; font-weight: 500; }
+  .flow-svg .arrow { stroke: var(--gray-500); stroke-width: 1; fill: none; }
+  .flow-caption {
+    text-align: center;
+    font-size: 10.5px;
+    color: var(--gray-500);
+    margin-top: 6px;
+    font-style: italic;
+  }
+
+  /* ─── STAGE BOX ────────────────────────────────────────── */
+  .stage {
+    margin: 12px 0;
+    border-left: 3px solid var(--orange);
+    padding: 4px 0 4px 14px;
+  }
+  .stage-label {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9.5px;
+    color: var(--orange);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 2px;
+  }
+  .stage-title {
+    font-size: 13.5px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .stage-text {
+    font-size: 12px;
+    color: var(--gray-700);
+    line-height: 1.7;
+  }
+  .stage-text .em { color: var(--navy); font-weight: 700; }
+  .stage-text .num { font-family: 'JetBrains Mono', monospace; color: var(--navy); font-weight: 700; }
+
+  /* ─── SUMMARY HIGHLIGHT BOX ────────────────────────────── */
+  .highlight-box {
+    background: var(--orange-bg);
+    border: 1px solid var(--orange);
+    padding: 12px 16px;
+    margin: 10px 0;
+  }
+  .highlight-box .label {
+    font-size: 9.5px;
+    color: var(--orange);
+    font-weight: 700;
+    letter-spacing: 1.5px;
+    margin-bottom: 4px;
+  }
+  .highlight-box .text {
+    font-size: 12px;
+    color: var(--orange-text);
+    line-height: 1.7;
+  }
+  .highlight-box .text strong { color: var(--orange-text); font-weight: 700; }
+
+  /* ─── RISK BOX ─────────────────────────────────────────── */
+  .risk-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 10px;
+  }
+  .risk-card {
+    border: 1px solid var(--gray-200);
+    border-top: 3px solid var(--orange);
+    padding: 10px 14px;
+  }
+  .risk-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--orange);
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+  .risk-title {
+    font-size: 12.5px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .risk-desc {
+    font-size: 11px;
+    color: var(--gray-700);
+    line-height: 1.6;
+  }
+
+  /* ─── CALENDAR ─────────────────────────────────────────── */
+  .calendar {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 11.5px;
+  }
+  .calendar thead th {
+    background: var(--gray-100);
+    color: var(--navy);
+    padding: 7px 10px;
+    font-weight: 700;
+    text-align: left;
+    border-bottom: 2px solid var(--navy);
+    font-size: 10.5px;
+    letter-spacing: 0.3px;
+  }
+  .calendar tbody td {
+    padding: 7px 10px;
+    border-bottom: 1px solid var(--gray-200);
+    color: var(--gray-700);
+    vertical-align: top;
+  }
+  .calendar tbody td.date { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--orange); white-space: nowrap; }
+  .calendar tbody td.event { font-weight: 500; color: var(--navy); }
+
+  /* ─── FOOTER ───────────────────────────────────────────── */
+  .footer {
+    background: var(--gray-50);
+    padding: 14px 28px;
+    border-top: 1px solid var(--gray-200);
+    font-size: 10px;
+    color: var(--gray-500);
+    line-height: 1.6;
+  }
+  .footer strong { color: var(--gray-700); font-weight: 700; }
+  .footer p + p { margin-top: 4px; }
+</style>
+</head>
+<body>
+
+<div class="doc">
+
+<!-- ═══════════════════ HEADER ═══════════════════ -->
+<div class="header">
+  <div class="header-top">
+    <span><span class="tag">EQUITY RESEARCH</span> &nbsp; INDUSTRY · TECHNOLOGY · GLOBAL BIG TECH + KOREAN SEMICONDUCTORS</span>
+    <span>Report No. 2026-Q1-BT-001</span>
+  </div>
+  <h1>글로벌 빅테크 5사 1Q26 실적 리뷰 + 한국 반도체 메커니즘 분석</h1>
+  <div class="subtitle">
+    어닝 서프라이즈는 모두 같았다. 주가는 갈렸다 — 그리고 1,000조원의 캐펙스가 한국 메모리로 흘러드는 4단계 경로
+  </div>
+  <div class="header-meta">
+    <span>발행일<strong>2026.05.03</strong></span>
+    <span>대상 분기<strong>FY2026 1Q (1~3월)</strong></span>
+    <span>커버리지<strong>GOOGL · AMZN · AAPL · MSFT · META · 005930.KS · 000660.KS</strong></span>
+  </div>
+</div>
+
+<div class="body">
+
+<!-- ═══════════════════ INVESTMENT SUMMARY TABLE ═══════════════════ -->
+<div class="section">
+  <h2><span class="num">01</span>투자의견 요약 (Investment Summary)</h2>
+
+  <table class="rating-table">
+    <thead>
+      <tr>
+        <th class="l">종목</th>
+        <th>티커</th>
+        <th>투자의견</th>
+        <th>매출 (B$)</th>
+        <th>YoY</th>
+        <th>핵심 AI 사업</th>
+        <th>주가 반응</th>
+        <th>코멘트</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="l"><span class="name">알파벳</span></td>
+        <td><span class="ticker">GOOGL</span></td>
+        <td><span class="rating r-buy">BUY</span></td>
+        <td class="num mono">109.9</td>
+        <td class="num mono up">+22%</td>
+        <td><span class="mono">Cloud +63%</span></td>
+        <td class="num mono up">+7.0%</td>
+        <td class="l" style="font-size: 11px; color: var(--gray-500);">ROI 가시성 최상</td>
+      </tr>
+      <tr>
+        <td class="l"><span class="name">아마존</span></td>
+        <td><span class="ticker">AMZN</span></td>
+        <td><span class="rating r-add">ADD</span></td>
+        <td class="num mono">181.5</td>
+        <td class="num mono up">+17%</td>
+        <td><span class="mono">AWS +28%</span></td>
+        <td class="num mono up">+5.0%</td>
+        <td class="l" style="font-size: 11px; color: var(--gray-500);">방향 ○ / 단기 현금 압박</td>
+      </tr>
+      <tr>
+        <td class="l"><span class="name">애플</span></td>
+        <td><span class="ticker">AAPL</span></td>
+        <td><span class="rating r-hold">HOLD</span></td>
+        <td class="num mono">111.2</td>
+        <td class="num mono up">+17%</td>
+        <td><span class="mono">N/A (HW)</span></td>
+        <td class="num mono up">+3.0%</td>
+        <td class="l" style="font-size: 11px; color: var(--gray-500);">9월 CEO 교체 후 재평가</td>
+      </tr>
+      <tr>
+        <td class="l"><span class="name">마이크로소프트</span></td>
+        <td><span class="ticker">MSFT</span></td>
+        <td><span class="rating r-hold">HOLD</span></td>
+        <td class="num mono">82.9</td>
+        <td class="num mono up">+18%</td>
+        <td><span class="mono">Azure +40%</span></td>
+        <td class="num mono flat">−0.9%</td>
+        <td class="l" style="font-size: 11px; color: var(--gray-500);">기대 충분 반영</td>
+      </tr>
+      <tr>
+        <td class="l"><span class="name">메타</span></td>
+        <td><span class="ticker">META</span></td>
+        <td><span class="rating r-watch">WATCH</span></td>
+        <td class="num mono">56.3</td>
+        <td class="num mono up">+33%</td>
+        <td><span class="mono">광고 효율</span></td>
+        <td class="num mono dn">−7.0%</td>
+        <td class="l" style="font-size: 11px; color: var(--gray-500);">AI 회수경로 불투명</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════ EXECUTIVE THESIS ═══════════════════ -->
+<div class="section">
+  <h2><span class="num">02</span>핵심 투자 논리 (Investment Thesis)</h2>
+
+  <div class="thesis">
+    <div class="thesis-tag">CORE THESIS</div>
+    <div class="thesis-headline">"AI에 쏟아부은 돈이 매출로 돌아왔는가" — 시장은 이 질문에 숫자로 'YES'를 증명한 회사만 보상한다.</div>
+    <div class="thesis-text">
+      4월 29~30일 발표된 빅테크 5사의 매출과 EPS는 모두 시장 예상치를 상회했다. 그럼에도 주가는 알파벳 +7%부터 메타 −7%까지 14%p 갈렸다. 핵심 변수는 더 이상 'AI 투자 규모'가 아니라 그 투자가 매출로 환산되는 가시성이다. 클라우드라는 직접 회수 채널을 가진 알파벳·아마존은 보상받았고, 회수 경로가 광고 효율 개선뿐인 메타는 처벌받았다. <strong>그리고 이 투자의 종착지에 한국 메모리 반도체가 자리잡고 있다.</strong>
+    </div>
+  </div>
+
+  <div class="key-points">
+    <div class="kp-item">
+      <div class="kp-num">POINT 01</div>
+      <div class="kp-title">5사 합산 캐펙스 약 1,000조원</div>
+      <div class="kp-desc">2026년 5사 합산 ~$700B 투자. 전년 대비 +80% 급증. 메모리 부품가 상승이 주된 캐펙스 상향 사유로 명시됨.</div>
+    </div>
+    <div class="kp-item">
+      <div class="kp-num">POINT 02</div>
+      <div class="kp-title">현금 체력 양극화</div>
+      <div class="kp-desc">아마존 FCF −95%, 메타·알파벳 회사채 발행. 빅테크조차 자체 현금으로 캐펙스 감당이 어려운 단계 진입.</div>
+    </div>
+    <div class="kp-item">
+      <div class="kp-num">POINT 03</div>
+      <div class="kp-title">한국 메모리 사이클 우호적</div>
+      <div class="kp-desc">애플 GP 마진 가이던스 49.3% → 47.5~48.5% 하향. 사유는 메모리 비용. 삼성·SK하이닉스에는 직접적 호재.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ COMPANY DETAILS ═══════════════════ -->
+<div class="section">
+  <h2><span class="num">03</span>종목별 상세 분석 (Company Analysis)</h2>
+
+  <div class="company">
+    <div class="company-head">
+      <div class="name-block">
+        <span class="name">알파벳</span>
+        <span class="ticker">GOOGL · NASDAQ</span>
+      </div>
+      <div class="move up">+7.0%</div>
+      <span class="rating r-buy">BUY</span>
+    </div>
+    <div class="company-body">
+      <div class="metric-strip">
+        <div class="metric-row"><span class="lbl">매출</span><span class="val">$109.9B</span></div>
+        <div class="metric-row"><span class="lbl">YoY 성장률</span><span class="val up">+22%</span></div>
+        <div class="metric-row"><span class="lbl">EPS</span><span class="val">$5.11</span></div>
+        <div class="metric-row"><span class="lbl">EPS vs 컨센</span><span class="val up">$2.62</span></div>
+        <div class="metric-row"><span class="lbl">Cloud 매출</span><span class="val">$20.0B</span></div>
+        <div class="metric-row"><span class="lbl">Cloud 성장률</span><span class="val up">+63%</span></div>
+        <div class="metric-row"><span class="lbl">수주잔고(RPO)</span><span class="val">$460B</span></div>
+        <div class="metric-row"><span class="lbl">2026 캐펙스</span><span class="val">$180~190B</span></div>
+        <div class="metric-row"><span class="lbl">시가총액</span><span class="val">$4.1T</span></div>
+      </div>
+      <div class="commentary">
+        <div class="comm-block">
+          <div class="comm-tag bull">▲ BULL CASE</div>
+          <div class="comm-text">11분기 연속 두 자릿수 성장. <span class="em">수주잔고 $240B → $460B</span>로 거의 2배 — 향후 24개월간 매출로 환산 예정. 자체 칩 TPU v8t/v8i 외부 판매 시작(Anthropic 공급). 반독점 분할 제재 리스크 해소.</div>
+        </div>
+        <div class="comm-block">
+          <div class="comm-tag bear">▼ BEAR CASE</div>
+          <div class="comm-text">캐펙스 가이던스 추가 상향. YouTube 광고 컨센서스 소폭 미달. 1개월 +28% 단기 과열.</div>
+        </div>
+        <div class="comm-block">
+          <div class="comm-tag view">► HOUSE VIEW</div>
+          <div class="comm-text"><span class="em">5사 중 ROI 가시성 가장 선명</span>. Goldman PT $400→$450, Stifel $387→$420, JPM $395→$460 등 동시 상향. 코어 종목 비중 유지 또는 확대.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="company">
+    <div class="company-head">
+      <div class="name-block">
+        <span class="name">아마존</span>
+        <span class="ticker">AMZN · NASDAQ</span>
+      </div>
+      <div class="move up">+5.0%</div>
+      <span class="rating r-add">ADD</span>
+    </div>
+    <div class="company-body">
+      <div class="metric-strip">
+        <div class="metric-row"><span class="lbl">매출</span><span class="val">$181.5B</span></div>
+        <div class="metric-row"><span class="lbl">YoY 성장률</span><span class="val up">+17%</span></div>
+        <div class="metric-row"><span class="lbl">EPS</span><span class="val">$2.78</span></div>
+        <div class="metric-row"><span class="lbl">EPS vs 컨센</span><span class="val up">+70%</span></div>
+        <div class="metric-row"><span class="lbl">AWS 매출</span><span class="val">$37.6B</span></div>
+        <div class="metric-row"><span class="lbl">AWS 성장률</span><span class="val up">+28%</span></div>
+        <div class="metric-row"><span class="lbl">FCF (TTM)</span><span class="val dn">$1.2B</span></div>
+        <div class="metric-row"><span class="lbl">FCF YoY</span><span class="val dn">−95%</span></div>
+        <div class="metric-row"><span class="lbl">Trainium 누적계약</span><span class="val">$225B</span></div>
+      </div>
+      <div class="commentary">
+        <div class="comm-block">
+          <div class="comm-tag bull">▲ BULL CASE</div>
+          <div class="comm-text">AWS <span class="em">15분기 만에 최고 성장률</span>. 자체 칩(Graviton+Trainium+Nitro) ARR $20B. OpenAI·Anthropic·Uber가 Trainium 도입 확정. Q2 가이던스 $194~199B로 컨센서스 큰 폭 상회.</div>
+        </div>
+        <div class="comm-block">
+          <div class="comm-tag bear">▼ BEAR CASE</div>
+          <div class="comm-text"><span class="em">FCF $25.9B → $1.2B로 95% 급감</span>. Q1 캐펙스만 $44.2B, 연간 ~$200B. 데이터센터 감가상각 본격화로 단기 마진 압박.</div>
+        </div>
+        <div class="comm-block">
+          <div class="comm-tag view">► HOUSE VIEW</div>
+          <div class="comm-text">방향은 맞으나 단기 현금이 빡빡. 장기 자금으로 분할 매수 적정. Trainium 외부 판매 본격화하는 2027년이 변곡점.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="company">
+    <div class="company-head">
+      <div class="name-block">
+        <span class="name">애플</span>
+        <span class="ticker">AAPL · NASDAQ</span>
+      </div>
+      <div class="move up">+3.0%</div>
+      <span class="rating r-hold">HOLD</span>
+    </div>
+    <div class="company-body">
+      <div class="metric-strip">
+        <div class="metric-row"><span class="lbl">매출</span><span class="val">$111.2B</span></div>
+        <div class="metric-row"><span class="lbl">YoY 성장률</span><span class="val up">+17%</span></div>
+        <div class="metric-row"><span class="lbl">EPS</span><span class="val">$2.01</span></div>
+        <div class="metric-row"><span class="lbl">iPhone 매출</span><span class="val">$57.0B</span></div>
+        <div class="metric-row"><span class="lbl">Services 매출</span><span class="val">$31.0B</span></div>
+        <div class="metric-row"><span class="lbl">Greater China</span><span class="val up">+28%</span></div>
+        <div class="metric-row"><span class="lbl">GP 마진 (Q3 가이드)</span><span class="val dn">47.5~48.5%</span></div>
+        <div class="metric-row"><span class="lbl">자사주 매입</span><span class="val">$100B</span></div>
+        <div class="metric-row"><span class="lbl">배당 인상</span><span class="val up">+4%</span></div>
+      </div>
+      <div class="commentary">
+        <div class="comm-block">
+          <div class="comm-tag bull">▲ BULL CASE</div>
+          <div class="comm-text"><span class="em">역대 2분기 최고 매출</span>. iPhone 17 시리즈 호조로 +22% 성장. 중국 매출 +28%로 컨센서스($18.9B) 큰 폭 상회. Services 사상 최고. $100B 자사주 매입 + 배당 4% 인상.</div>
+        </div>
+        <div class="comm-block">
+          <div class="comm-tag bear">▼ BEAR CASE</div>
+          <div class="comm-text">iPhone 컨센서스 $57.2B 소폭 미달(공급 제약). <span class="em">메모리 비용 상승</span>이 6월 분기 GP 마진 1~1.5%p 하락 압박. <span class="em">9월 1일 팀쿡→존 터너스 CEO 교체</span> — 15년 만의 수장 교체.</div>
+        </div>
+        <div class="comm-block">
+          <div class="comm-tag view">► HOUSE VIEW</div>
+          <div class="comm-text">실적은 사상 최고지만 두 변수가 하반기에 중첩. 신임 CEO의 AI 로드맵 확인 후 비중 조정 권고.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="company">
+    <div class="company-head">
+      <div class="name-block">
+        <span class="name">마이크로소프트</span>
+        <span class="ticker">MSFT · NASDAQ</span>
+      </div>
+      <div class="move flat">−0.9%</div>
+      <span class="rating r-hold">HOLD</span>
+    </div>
+    <div class="company-body">
+      <div class="metric-strip">
+        <div class="metric-row"><span class="lbl">매출</span><span class="val">$82.9B</span></div>
+        <div class="metric-row"><span class="lbl">YoY 성장률</span><span class="val up">+18%</span></div>
+        <div class="metric-row"><span class="lbl">영업이익</span><span class="val">$38.4B</span></div>
+        <div class="metric-row"><span class="lbl">Azure 성장률</span><span class="val up">+40%</span></div>
+        <div class="metric-row"><span class="lbl">AI ARR</span><span class="val">$37B</span></div>
+        <div class="metric-row"><span class="lbl">AI ARR YoY</span><span class="val up">+123%</span></div>
+        <div class="metric-row"><span class="lbl">상업 RPO</span><span class="val">$627B</span></div>
+        <div class="metric-row"><span class="lbl">RPO YoY</span><span class="val up">+99%</span></div>
+        <div class="metric-row"><span class="lbl">GP 마진</span><span class="val dn">67.6%</span></div>
+      </div>
+      <div class="commentary">
+        <div class="comm-block">
+          <div class="comm-tag bull">▲ BULL CASE</div>
+          <div class="comm-text">Azure +40%로 컨센서스(39%) 상회. AI ARR <span class="em">$37B(+123%)</span>로 구체적 수익화 증명. Copilot 유료 좌석 2,000만석 돌파(1월 1,500만→).</div>
+        </div>
+        <div class="comm-block">
+          <div class="comm-tag bear">▼ BEAR CASE</div>
+          <div class="comm-text"><span class="em">GP 마진 67.6%로 2022년 이후 최저</span>. 데이터센터 감가상각 압박 향후 수분기 지속. 2026 캐펙스 $190B로 추가 상향, 부품가 영향만 $25B. FCF 22% 감소.</div>
+        </div>
+        <div class="comm-block">
+          <div class="comm-tag view">► HOUSE VIEW</div>
+          <div class="comm-text">서프라이즈 폭이 크지 않음 — "좋지만 놀랍지 않다". 안정적 코어 보유, 추가 매수보다는 비중 유지.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div class="company">
+    <div class="company-head">
+      <div class="name-block">
+        <span class="name">메타</span>
+        <span class="ticker">META · NASDAQ</span>
+      </div>
+      <div class="move dn">−7.0%</div>
+      <span class="rating r-watch">WATCH</span>
+    </div>
+    <div class="company-body">
+      <div class="metric-strip">
+        <div class="metric-row"><span class="lbl">매출</span><span class="val">$56.3B</span></div>
+        <div class="metric-row"><span class="lbl">YoY 성장률</span><span class="val up">+33%</span></div>
+        <div class="metric-row"><span class="lbl">광고 노출</span><span class="val up">+19%</span></div>
+        <div class="metric-row"><span class="lbl">광고 단가</span><span class="val up">+12%</span></div>
+        <div class="metric-row"><span class="lbl">DAP</span><span class="val">3.56B</span></div>
+        <div class="metric-row"><span class="lbl">DAP QoQ</span><span class="val dn">−0.6%</span></div>
+        <div class="metric-row"><span class="lbl">2026 캐펙스</span><span class="val dn">$125~145B</span></div>
+        <div class="metric-row"><span class="lbl">Reality Labs 적자</span><span class="val dn">−$4.0B</span></div>
+        <div class="metric-row"><span class="lbl">회사채 발행</span><span class="val">$30B</span></div>
+      </div>
+      <div class="commentary">
+        <div class="comm-block">
+          <div class="comm-tag bull">▲ BULL CASE</div>
+          <div class="comm-text">매출 +33%로 본업 광고 강력. 광고 노출(+19%)·단가(+12%) 모두 상승. 운영이익률 41% 유지. MTIA Gen 2(Broadcom 협업) 양산 진입.</div>
+        </div>
+        <div class="comm-block">
+          <div class="comm-tag bear">▼ BEAR CASE</div>
+          <div class="comm-text"><span class="em">캐펙스 $115~135B → $125~145B로 추가 상향</span>(2분기 연속). <span class="em">클라우드 사업 부재</span> → AI 투자 회수 경로가 광고 효율 개선뿐. Reality Labs 영업적자 지속. DAP 분기 감소(이란·러시아 장애 영향).</div>
+        </div>
+        <div class="comm-block">
+          <div class="comm-tag view">► HOUSE VIEW</div>
+          <div class="comm-text">본업은 강력하나 <span class="em">"AI 투자가 광고 매출 X% 향상에 기여했다"는 구체적 수치가 나오는 분기까지 관망</span>. 단기 추격매수 비권고.</div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ COMPARISON MATRIX ═══════════════════ -->
+<div class="section">
+  <h2><span class="num">04</span>비교 매트릭스 (Cross-Section View)</h2>
+
+  <table class="matrix">
+    <thead>
+      <tr>
+        <th class="l">평가 항목</th>
+        <th>GOOGL</th>
+        <th>AMZN</th>
+        <th>AAPL</th>
+        <th>MSFT</th>
+        <th>META</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="l">매출 성장률</td>
+        <td>+22%</td>
+        <td>+17%</td>
+        <td>+17%</td>
+        <td>+18%</td>
+        <td class="cell-best">+33%</td>
+      </tr>
+      <tr>
+        <td class="l">AI/Cloud 사업 성장률</td>
+        <td class="cell-best">+63%</td>
+        <td>+28%</td>
+        <td>—</td>
+        <td>+40%</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td class="l">2026 캐펙스 ($B)</td>
+        <td>180~190</td>
+        <td>~200</td>
+        <td>—</td>
+        <td>~190</td>
+        <td>125~145</td>
+      </tr>
+      <tr>
+        <td class="l">FCF 추세 (TTM)</td>
+        <td>감소</td>
+        <td class="cell-worst">−95%</td>
+        <td>유지</td>
+        <td>−22%</td>
+        <td>+12.4B</td>
+      </tr>
+      <tr>
+        <td class="l">수주잔고 ($B)</td>
+        <td>460</td>
+        <td>364+</td>
+        <td>—</td>
+        <td class="cell-best">627</td>
+        <td>—</td>
+      </tr>
+      <tr>
+        <td class="l">주가 반응</td>
+        <td class="cell-best">+7.0%</td>
+        <td>+5.0%</td>
+        <td>+3.0%</td>
+        <td>−0.9%</td>
+        <td class="cell-worst">−7.0%</td>
+      </tr>
+      <tr class="highlight">
+        <td class="l">최종 투자의견</td>
+        <td>BUY</td>
+        <td>ADD</td>
+        <td>HOLD</td>
+        <td>HOLD</td>
+        <td>WATCH</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════ KOREA SEMI MECHANISM (EXPANDED) ═══════════════════ -->
+<div class="section">
+  <h2><span class="num">05</span>한국 반도체 호재 메커니즘 (Mechanism Analysis)</h2>
+
+  <div class="korea-insight">
+    <div class="tag">CORE INSIGHT</div>
+    <div class="head">캐펙스 약 1,000조원 → AI 서버 → 메모리 폭증 → 한국 메모리 3사 호재</div>
+    <div class="body">
+      빅테크 캐펙스가 한국 반도체로 흘러드는 메커니즘은 <strong>4단계</strong>로 나뉜다. 각 단계마다 대체 불가능한 한국 의존이 박혀있어 호재라고 부른다. 마이크로소프트·메타·애플 모두 캐펙스 상향 사유로 <strong>"메모리 부품 가격 상승"</strong>을 명시했고, 마이크로소프트는 부품가 인상이 캐펙스에 미친 영향만 $25B로 추산했다. 이는 삼성전자·SK하이닉스 입장에서 수요와 가격 모두 우호적인 환경이 적어도 2027년까지 이어진다는 의미다.
+    </div>
+  </div>
+
+  <h3>5.1 머니 흐름 4단계 — 캐펙스가 한국 메모리에 도달하는 경로</h3>
+
+  <div class="flow-wrapper">
+    <svg class="flow-svg" viewBox="0 0 680 360">
+      <defs>
+        <marker id="arrow-flow" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="#64748b" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
+        </marker>
+      </defs>
+
+      <rect class="box-gray" x="180" y="30" width="320" height="60" rx="6"/>
+      <text class="title-gray" x="340" y="55" text-anchor="middle" dominant-baseline="central">빅테크 5사 2026 캐펙스</text>
+      <text class="sub-gray" x="340" y="74" text-anchor="middle" dominant-baseline="central">약 $700B (1,000조원)</text>
+
+      <line class="arrow" x1="340" y1="90" x2="340" y2="133" marker-end="url(#arrow-flow)"/>
+
+      <rect class="box-gray" x="140" y="135" width="400" height="60" rx="6"/>
+      <text class="title-gray" x="340" y="160" text-anchor="middle" dominant-baseline="central">AI 가속기 서버</text>
+      <text class="sub-gray" x="340" y="179" text-anchor="middle" dominant-baseline="central">NVIDIA GB200 + 자체칩 (TPU/Trainium/MTIA)</text>
+
+      <line class="arrow" x1="340" y1="195" x2="340" y2="218"/>
+      <line class="arrow" x1="115" y1="218" x2="565" y2="218"/>
+      <line class="arrow" x1="115" y1="218" x2="115" y2="238" marker-end="url(#arrow-flow)"/>
+      <line class="arrow" x1="265" y1="218" x2="265" y2="238" marker-end="url(#arrow-flow)"/>
+      <line class="arrow" x1="415" y1="218" x2="415" y2="238" marker-end="url(#arrow-flow)"/>
+      <line class="arrow" x1="565" y1="218" x2="565" y2="238" marker-end="url(#arrow-flow)"/>
+
+      <rect class="box-gray" x="50" y="240" width="130" height="60" rx="6"/>
+      <text class="title-gray" x="115" y="265" text-anchor="middle" dominant-baseline="central">GPU 칩</text>
+      <text class="sub-gray" x="115" y="284" text-anchor="middle" dominant-baseline="central">NVIDIA 지배</text>
+
+      <rect class="box-orange" x="200" y="240" width="130" height="60" rx="6"/>
+      <text class="title-orange" x="265" y="265" text-anchor="middle" dominant-baseline="central">HBM ★</text>
+      <text class="sub-orange" x="265" y="284" text-anchor="middle" dominant-baseline="central">한국 75~90%</text>
+
+      <rect class="box-orange" x="350" y="240" width="130" height="60" rx="6"/>
+      <text class="title-orange" x="415" y="265" text-anchor="middle" dominant-baseline="central">DDR5 ★</text>
+      <text class="sub-orange" x="415" y="284" text-anchor="middle" dominant-baseline="central">한국 약 70%</text>
+
+      <rect class="box-orange" x="500" y="240" width="130" height="60" rx="6"/>
+      <text class="title-orange" x="565" y="265" text-anchor="middle" dominant-baseline="central">NAND ★</text>
+      <text class="sub-orange" x="565" y="284" text-anchor="middle" dominant-baseline="central">삼성 글로벌 1위</text>
+    </svg>
+    <div class="flow-caption">자료: NVIDIA, Counterpoint Research, Omdia, 한국투자증권 추정. 한국 점유율은 2025년 4분기 기준.</div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-label">STAGE 01</div>
+    <div class="stage-title">클라우드 매출 → 데이터센터 건설</div>
+    <div class="stage-text">
+      알파벳 Cloud <span class="num">+63%</span>, MS Azure <span class="num">+40%</span>, AWS <span class="num">+28%</span>. 이 클라우드 매출을 받으려면 더 많은 컴퓨팅 용량이 필요하고, 그러면 데이터센터를 더 지어야 한다. 빅테크 5사 2026 캐펙스 약 $700B 중 <span class="em">60~70%가 AI 데이터센터 인프라</span>로 흘러간다. 이 자금이 모든 메모리 수요의 출발점이다.
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-label">STAGE 02</div>
+    <div class="stage-title">데이터센터 → AI 가속기 서버</div>
+    <div class="stage-text">
+      데이터센터에 들어가는 핵심 장비는 NVIDIA의 AI 가속기 서버다. 가장 최신 모델은 GB200 NVL72 랙(72개 GPU) 또는 표준 HGX B200 서버(8개 GPU). 빅테크 자체 칩(TPU·Trainium·MTIA)도 동일한 구조 — GPU 옆에 메모리가 직접 부착된다. <span class="em">DGX B200 1대(8 GPU)의 메모리 구성</span>:
+    </div>
+
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th class="l">구분</th>
+          <th>용량</th>
+          <th>기술</th>
+          <th>주요 공급처</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="l">GPU 부착 메모리 (HBM)</td>
+          <td class="cell-korea">1.5 TB</td>
+          <td>HBM3e</td>
+          <td class="cell-korea">SK하이닉스 + 삼성</td>
+        </tr>
+        <tr>
+          <td class="l">시스템 메모리 (DRAM)</td>
+          <td class="cell-korea">~4 TB</td>
+          <td>DDR5</td>
+          <td class="cell-korea">한국 메모리 3사</td>
+        </tr>
+        <tr>
+          <td class="l">스토리지 (SSD)</td>
+          <td class="cell-korea">수십 TB</td>
+          <td>3D NAND</td>
+          <td class="cell-korea">삼성전자 (글로벌 1위)</td>
+        </tr>
+        <tr>
+          <td class="l">GPU 다이</td>
+          <td>—</td>
+          <td>Blackwell</td>
+          <td>NVIDIA / TSMC</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="stage-text" style="margin-top: 6px;">
+      서버 1대를 켠다는 것은 <span class="em">한국 메모리 수 TB가 출하된다는 의미</span>다.
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-label">STAGE 03</div>
+    <div class="stage-title">AI 서버 → 메모리 폭증 (가장 핵심 단계)</div>
+    <div class="stage-text">
+      AI 모델 성능의 진짜 병목은 <span class="em">연산이 아니라 메모리 대역폭</span>이다. 모델 파라미터를 GPU 옆에 빠르게 올려놔야 하는데, 그게 HBM이다. NVIDIA Blackwell B200 GPU 1개에는 <span class="num">192GB HBM3e</span>가 8개 스택으로 부착되어 <span class="num">8 TB/s</span> 대역폭을 제공한다. GPU 세대가 바뀔 때마다 메모리 함량이 폭증하는 구조다.
+    </div>
+
+    <h4>GPU 세대별 HBM 함량 비교</h4>
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th class="l">GPU 세대</th>
+          <th>출시 시기</th>
+          <th>HBM 용량</th>
+          <th>대역폭</th>
+          <th>HBM 종류</th>
+          <th>전세대 대비</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="l">H100 (Hopper)</td>
+          <td>2023</td>
+          <td>80 GB</td>
+          <td>3.4 TB/s</td>
+          <td>HBM3</td>
+          <td>—</td>
+        </tr>
+        <tr>
+          <td class="l">H200 (Hopper Refresh)</td>
+          <td>2024</td>
+          <td>141 GB</td>
+          <td>4.8 TB/s</td>
+          <td>HBM3e</td>
+          <td>+76%</td>
+        </tr>
+        <tr>
+          <td class="l">B200 (Blackwell)</td>
+          <td>2025</td>
+          <td class="cell-best">192 GB</td>
+          <td class="cell-best">8.0 TB/s</td>
+          <td>HBM3e</td>
+          <td>+36%</td>
+        </tr>
+        <tr>
+          <td class="l">B300 (Blackwell Ultra)</td>
+          <td>2026</td>
+          <td class="cell-best">288 GB</td>
+          <td>~10 TB/s</td>
+          <td>HBM3e (12-Hi)</td>
+          <td>+50%</td>
+        </tr>
+        <tr>
+          <td class="l">Rubin (차세대)</td>
+          <td>2026~27</td>
+          <td class="cell-best">288 GB</td>
+          <td>~13 TB/s</td>
+          <td>HBM4</td>
+          <td>대역폭+30%</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <h4>HBM 가격 변화 — 세대 올라갈수록 비싸진다</h4>
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th class="l">세대</th>
+          <th>1 스택(24GB) 가격</th>
+          <th>전세대 대비</th>
+          <th>탑재 GPU</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="l">HBM3</td>
+          <td>약 $200</td>
+          <td>—</td>
+          <td>H100</td>
+        </tr>
+        <tr>
+          <td class="l">HBM3E</td>
+          <td>약 $300</td>
+          <td class="cell-korea">+50%</td>
+          <td>H200, B200, B300</td>
+        </tr>
+        <tr>
+          <td class="l">HBM4</td>
+          <td>약 $500 (추정)</td>
+          <td class="cell-korea">+67%</td>
+          <td>Rubin (2026~27)</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="stage-text" style="margin-top: 6px;">
+      B200 1개당 HBM 부품가만 <span class="num">약 $2,400~3,000</span>. 빅테크가 매년 수십만 개의 GPU를 사들이는 상황에서 <span class="em">출하량 × GPU당 함량 × 단가</span> 세 가지가 모두 동시에 오르는 슈퍼사이클 구조다.
+    </div>
+  </div>
+
+  <div class="stage">
+    <div class="stage-label">STAGE 04</div>
+    <div class="stage-title">HBM = 한국 과점</div>
+    <div class="stage-text">
+      여기서 한국이 등장한다. HBM 시장은 사실상 <span class="em">3개 회사가 모든 것을 공급</span>하는 과점 구조이고, 그중 2개가 한국 기업이다.
+    </div>
+
+    <h4>HBM 시장 점유율 (2025년 3분기 기준)</h4>
+    <table class="matrix">
+      <thead>
+        <tr>
+          <th class="l">기업</th>
+          <th>국적</th>
+          <th>점유율</th>
+          <th>주요 고객</th>
+          <th>2026 전망</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr>
+          <td class="l">SK하이닉스</td>
+          <td>한국</td>
+          <td class="cell-korea">53~57%</td>
+          <td>NVIDIA (~90%)</td>
+          <td>HBM4 세계 최초 양산</td>
+        </tr>
+        <tr>
+          <td class="l">삼성전자</td>
+          <td>한국</td>
+          <td class="cell-korea">22~35%</td>
+          <td>NVIDIA, AMD, Google</td>
+          <td>HBM3E 본격 진입, 30%+ 회복</td>
+        </tr>
+        <tr>
+          <td class="l">마이크론</td>
+          <td>미국</td>
+          <td>11~21%</td>
+          <td>NVIDIA, AMD</td>
+          <td>컨슈머 사업 철수, AI DC 집중</td>
+        </tr>
+        <tr class="highlight">
+          <td class="l">한국 합계</td>
+          <td>—</td>
+          <td>75~90%</td>
+          <td>—</td>
+          <td>독점적 지위 유지</td>
+        </tr>
+      </tbody>
+    </table>
+
+    <div class="stage-text" style="margin-top: 6px;">
+      게다가 <span class="em">SK하이닉스·마이크론·삼성 모든 주요 공급사의 HBM 캐파가 2026년까지 매진 상태</span>다. 빅테크가 아무리 돈을 더 써도 공급이 부족한 상황이라 가격이 더 끌어올려진다. SK하이닉스는 <span class="num">2030년까지 HBM 매출 연 30% 성장</span>, 시장 전체 TAM은 <span class="num">2025년 $35B → 2028년 $100B</span> (~40% CAGR) 전망.
+    </div>
+  </div>
+
+  <h3>5.2 부품별 한국 의존도 정리</h3>
+
+  <table class="matrix">
+    <thead>
+      <tr>
+        <th class="l">AI 서버 부품</th>
+        <th>BOM 비중</th>
+        <th>공급 지배</th>
+        <th>한국 의존</th>
+        <th>가격 추세</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="l">GPU 칩 (Blackwell)</td>
+        <td>~60~70%</td>
+        <td>NVIDIA 90%+</td>
+        <td>×</td>
+        <td>상승</td>
+      </tr>
+      <tr>
+        <td class="l">HBM 메모리</td>
+        <td>~15~20%</td>
+        <td>한국 75~90%</td>
+        <td class="cell-korea">○</td>
+        <td class="cell-korea">급등</td>
+      </tr>
+      <tr>
+        <td class="l">DDR5 시스템 메모리</td>
+        <td>~5%</td>
+        <td>한국 약 70%</td>
+        <td class="cell-korea">○</td>
+        <td class="cell-korea">상승</td>
+      </tr>
+      <tr>
+        <td class="l">NAND 스토리지</td>
+        <td>~3%</td>
+        <td>삼성 글로벌 1위</td>
+        <td class="cell-korea">○</td>
+        <td class="cell-korea">상승</td>
+      </tr>
+      <tr>
+        <td class="l">기타 (네트워킹·전력 등)</td>
+        <td>~5%</td>
+        <td>다양</td>
+        <td>일부</td>
+        <td>—</td>
+      </tr>
+    </tbody>
+  </table>
+
+  <div class="highlight-box">
+    <div class="label">BOTTOM LINE</div>
+    <div class="text">
+      AI 서버 BOM 중 <strong>GPU 칩(약 60~70%)을 빼면 나머지 메모리·스토리지 영역의 절대 다수가 한국 의존</strong>이다. 빅테크 캐펙스가 늘어나는 만큼, NVIDIA가 더 많은 GPU를 팔수록, GPU당 HBM 함량이 늘어나는 만큼 — <strong>세 가지 트렌드가 모두 한국 메모리 매출에 곱셈으로 작용한다.</strong> 미국 빅테크 본주를 직접 사는 것보다 그 흐름의 종착지에 베팅하는 게 환율·시차 부담 없이 같은 사이클에 올라타는 가장 직접적인 경로다.
+    </div>
+  </div>
+
+  <h3>5.3 한국 메모리 3사 투자 포인트</h3>
+
+  <table class="matrix">
+    <thead>
+      <tr>
+        <th class="l">기업</th>
+        <th>티커</th>
+        <th>HBM 점유율</th>
+        <th>핵심 모멘텀</th>
+        <th>주요 리스크</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="l">SK하이닉스</td>
+        <td>000660.KS</td>
+        <td class="cell-korea">53~57%</td>
+        <td>NVIDIA 단독 공급에 가까움. HBM4 세계 최초 양산. 2030년까지 30% CAGR.</td>
+        <td>NVIDIA 의존도 90%+ 단일 고객 리스크</td>
+      </tr>
+      <tr>
+        <td class="l">삼성전자</td>
+        <td>005930.KS</td>
+        <td class="cell-korea">22~35%</td>
+        <td>HBM3E 본격 양산. 메모리 + 파운드리 + 디바이스 종합 노출. NAND 글로벌 1위.</td>
+        <td>HBM 진입 지연 만회 진행 중</td>
+      </tr>
+      <tr>
+        <td class="l">마이크론 (참고)</td>
+        <td>MU.US</td>
+        <td>11~21%</td>
+        <td>2025년 12월 컨슈머 메모리 사업 철수, AI DC만 집중.</td>
+        <td>한국 두 회사 추격 어려움</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+<!-- ═══════════════════ RISKS ═══════════════════ -->
+<div class="section">
+  <h2><span class="num">06</span>리스크 점검 (Key Risks)</h2>
+
+  <div class="risk-grid">
+    <div class="risk-card">
+      <div class="risk-num">01</div>
+      <div class="risk-title">캐펙스 증가율 둔화</div>
+      <div class="risk-desc">2026년 절대액은 늘지만 2027년 증가율 둔화 가능. 키움증권 등은 빅테크 설비투자 증가율 감소를 지적. 절대액이 아닌 <strong>증가율의 변곡점</strong>이 메모리 사이클의 진짜 변수.</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-num">02</div>
+      <div class="risk-title">잉여현금흐름 악화</div>
+      <div class="risk-desc">아마존 FCF −95%, 메타 $30B·알파벳 회사채 발행. 빅테크조차 자체 현금으로 캐펙스 감당이 어려운 단계. <strong>경기 침체 시 투자 축소 압력</strong> 가능.</div>
+    </div>
+    <div class="risk-card">
+      <div class="risk-num">03</div>
+      <div class="risk-title">AI 서비스 마진 압박</div>
+      <div class="risk-desc">MS GP 마진 67.6%로 4년 최저. AI 서비스 마진(약 60%)이 기존 SW(70%대)보다 낮아 <strong>매출 증가에도 이익률이 깎이는 구간</strong>이 길어질 가능성.</div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══════════════════ MONITORING CALENDAR ═══════════════════ -->
+<div class="section">
+  <h2><span class="num">07</span>2026 하반기 모니터링 캘린더</h2>
+
+  <table class="calendar">
+    <thead>
+      <tr>
+        <th style="width: 18%;">시점</th>
+        <th style="width: 32%;">이벤트</th>
+        <th>왜 중요한가</th>
+      </tr>
+    </thead>
+    <tbody>
+      <tr>
+        <td class="date">2026.07~08</td>
+        <td class="event">메타 Q2 실적 발표</td>
+        <td>AI 투자 ROI 첫 가시화 분기. 관망 → 매수 전환 판단의 분기점.</td>
+      </tr>
+      <tr>
+        <td class="date">2026.07~08</td>
+        <td class="event">삼성·SK하이닉스 Q2 실적 + HBM 가이던스</td>
+        <td>한국 메모리 3사 매출·이익률 컨센서스 조정. ASP 추이 핵심 관찰.</td>
+      </tr>
+      <tr>
+        <td class="date">2026.09.01</td>
+        <td class="event">애플 CEO 교체 (팀쿡 → 존 터너스)</td>
+        <td>15년 만의 수장 교체. 신임 CEO의 AI 로드맵 발표 후 비중 조정 권고.</td>
+      </tr>
+      <tr>
+        <td class="date">2026.10~11</td>
+        <td class="event">빅테크 4사 Q3 실적 + 2027 캐펙스 첫 가이던스</td>
+        <td>메모리 슈퍼사이클 지속 여부의 결정적 신호. 한국 반도체 비중 결정 시점.</td>
+      </tr>
+      <tr>
+        <td class="date">2026 Q4</td>
+        <td class="event">NVIDIA Rubin (HBM4) 양산 발표</td>
+        <td>HBM4 세대 전환 본격화. 한국 메모리 ASP 추가 상향 트리거.</td>
+      </tr>
+    </tbody>
+  </table>
+</div>
+
+</div>
+
+<!-- ═══════════════════ FOOTER ═══════════════════ -->
+<div class="footer">
+  <p><strong>자료 출처.</strong> Alphabet Q1 2026 8-K · Microsoft FY26 Q3 8-K · Meta Platforms Q1 2026 Press Release · Amazon.com Q1 2026 8-K · Apple Q2 FY26 8-K · CNBC · Reuters · Yahoo Finance · NVIDIA Datasheet (B200, GB200 NVL72) · Counterpoint Research · Omdia · Goldman Sachs Equity Research · Stifel Nicolaus · Morgan Stanley · JPMorgan · Bank of America · Silicon Analysts (HBM Pricing).</p>
+  <p><strong>면책 조항.</strong> 본 보고서는 공개된 1차 자료를 기반으로 작성된 분석 자료이며, 특정 종목의 매수·매도를 권유하거나 보장하지 않는다. 투자 결정과 그에 따른 책임은 투자자 본인에게 있다.</p>
+</div>
+
+</div>
+
+</body>
+</html>
