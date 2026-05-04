@@ -1,0 +1,2545 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>2026년 5월 한국 주식시장 리스크 분석 보고서 (통합 최종판)</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+KR:wght@300;400;500;700;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  * { margin: 0; padding: 0; box-sizing: border-box; }
+  
+  :root {
+    --navy: #1a365d;
+    --navy-dark: #0f2942;
+    --navy-light: #2c5282;
+    --orange: #e85d24;
+    --orange-light: #fef3ed;
+    --orange-dark: #c44a17;
+    --orange-bright: #ff7847;
+    --gray-900: #1a202c;
+    --gray-800: #2d3748;
+    --gray-700: #4a5568;
+    --gray-600: #718096;
+    --gray-500: #a0aec0;
+    --gray-400: #cbd5e0;
+    --gray-300: #e2e8f0;
+    --gray-200: #edf2f7;
+    --gray-100: #f7fafc;
+    --green: #2f855a;
+    --green-light: #c6f6d5;
+    --green-bg: #f0fdf4;
+    --amber: #b7791f;
+    --amber-light: #fef0c7;
+    --amber-bg: #fffbeb;
+    --red: #c53030;
+    --red-light: #fed7d7;
+    --red-bg: #fef2f2;
+    --blue: #2b6cb0;
+    --blue-bg: #ebf8ff;
+    --purple: #6b46c1;
+    --purple-bg: #faf5ff;
+  }
+
+  body {
+    font-family: 'Noto Sans KR', -apple-system, sans-serif;
+    font-weight: 400;
+    color: var(--gray-800);
+    background: #ffffff;
+    line-height: 1.7;
+    font-size: 10.5pt;
+  }
+
+  .page {
+    width: 210mm;
+    min-height: 297mm;
+    padding: 18mm 16mm 22mm;
+    margin: 0 auto 8mm;
+    background: white;
+    box-shadow: 0 0 8px rgba(0,0,0,0.08);
+    page-break-after: always;
+    position: relative;
+    overflow: hidden;
+  }
+
+  .page:last-child { page-break-after: auto; }
+  .num { font-family: 'JetBrains Mono', monospace; font-weight: 500; }
+
+  /* ============ 표지 ============ */
+  .cover {
+    background: var(--navy-dark);
+    color: white;
+    padding: 0;
+  }
+
+  .cover-inner {
+    padding: 24mm 18mm;
+    height: 100%;
+    min-height: 297mm;
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    background: 
+      radial-gradient(circle at 90% 10%, rgba(232, 93, 36, 0.15) 0%, transparent 40%),
+      radial-gradient(circle at 10% 90%, rgba(44, 82, 130, 0.3) 0%, transparent 50%),
+      var(--navy-dark);
+  }
+
+  .cover-top-bar {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid rgba(255,255,255,0.2);
+    padding-bottom: 12px;
+    margin-bottom: 50px;
+    font-size: 9pt;
+    letter-spacing: 1.5px;
+    color: rgba(255,255,255,0.7);
+  }
+
+  .cover-tag {
+    background: var(--orange);
+    color: white;
+    padding: 4px 12px;
+    font-size: 8.5pt;
+    font-weight: 500;
+    letter-spacing: 1px;
+  }
+
+  .cover-tag.verified { background: var(--green); }
+
+  .cover-eyebrow {
+    color: var(--orange-bright);
+    font-size: 11pt;
+    font-weight: 500;
+    letter-spacing: 3px;
+    margin-bottom: 16px;
+  }
+
+  .cover-title-main {
+    font-size: 42pt;
+    font-weight: 900;
+    line-height: 1.15;
+    color: white;
+    margin-bottom: 16px;
+  }
+
+  .cover-title-sub {
+    font-size: 13pt;
+    color: rgba(255,255,255,0.6);
+    font-weight: 300;
+    margin-bottom: 50px;
+    letter-spacing: 0.5px;
+  }
+
+  .cover-hero {
+    flex: 1;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    margin: 30px 0;
+  }
+
+  .cover-stats {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 12px;
+    margin-top: 30px;
+    padding-top: 24px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+  }
+
+  .cover-stat-label {
+    font-size: 8pt;
+    color: rgba(255,255,255,0.5);
+    letter-spacing: 1px;
+    margin-bottom: 4px;
+    text-transform: uppercase;
+  }
+
+  .cover-stat-value {
+    font-size: 22pt;
+    font-weight: 700;
+    color: white;
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1;
+  }
+
+  .cover-stat-change {
+    font-size: 9pt;
+    color: var(--orange-bright);
+    margin-top: 4px;
+  }
+
+  .cover-bottom {
+    display: flex;
+    justify-content: space-between;
+    margin-top: 30px;
+    padding-top: 16px;
+    border-top: 1px solid rgba(255,255,255,0.2);
+    font-size: 9pt;
+    color: rgba(255,255,255,0.6);
+  }
+
+  /* ============ 페이지 헤더 ============ */
+  .page-header {
+    border-bottom: 2px solid var(--navy);
+    padding-bottom: 10px;
+    margin-bottom: 16px;
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-end;
+  }
+
+  .page-header-left { display: flex; align-items: baseline; gap: 16px; }
+
+  .page-header-num {
+    font-size: 24pt;
+    font-weight: 900;
+    color: var(--orange);
+    line-height: 1;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .page-header-title-area { display: flex; flex-direction: column; }
+
+  .page-header-eyebrow {
+    font-size: 8pt;
+    color: var(--gray-500);
+    letter-spacing: 1.5px;
+    text-transform: uppercase;
+  }
+
+  .page-header-title {
+    font-size: 18pt;
+    font-weight: 700;
+    color: var(--navy-dark);
+    line-height: 1.2;
+  }
+
+  .page-header-meta {
+    font-size: 8.5pt;
+    color: var(--gray-600);
+    text-align: right;
+  }
+
+  /* ============ 일반 ============ */
+  h2 {
+    font-size: 13pt;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 16px 0 10px;
+    padding-left: 12px;
+    border-left: 4px solid var(--orange);
+  }
+
+  h3 {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--navy-dark);
+    margin: 12px 0 6px;
+  }
+
+  p { margin-bottom: 8px; }
+
+  /* ============ 상세 타임라인 카드 ============ */
+  .chrono-detailed {
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-left: 4px solid var(--gray-400);
+    margin-bottom: 8px;
+    overflow: hidden;
+  }
+
+  .chrono-detailed.high { border-left-color: var(--red); }
+  .chrono-detailed.med { border-left-color: var(--amber); }
+  .chrono-detailed.low { border-left-color: var(--green); }
+  .chrono-detailed.holiday { border-left-color: var(--red); background: var(--red-bg); }
+  .chrono-detailed.reaction { border-left-color: var(--orange); background: var(--orange-light); }
+
+  .chrono-d-header {
+    display: grid;
+    grid-template-columns: 70px 1fr 100px;
+    gap: 12px;
+    align-items: center;
+    padding: 8px 12px;
+    background: var(--gray-100);
+    border-bottom: 1px solid var(--gray-300);
+  }
+
+  .chrono-detailed.high .chrono-d-header { background: #fff5f5; }
+  .chrono-detailed.med .chrono-d-header { background: #fffbf0; }
+  .chrono-detailed.holiday .chrono-d-header { background: #fef2f2; }
+  .chrono-detailed.reaction .chrono-d-header { background: var(--orange-light); }
+
+  .chrono-d-date {
+    text-align: center;
+    border-right: 1px solid var(--gray-300);
+    padding-right: 8px;
+  }
+
+  .chrono-d-date-num {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 16pt;
+    font-weight: 700;
+    color: var(--navy-dark);
+    line-height: 1;
+  }
+
+  .chrono-d-date-day {
+    font-size: 8pt;
+    color: var(--gray-600);
+    margin-top: 2px;
+    letter-spacing: 1px;
+  }
+
+  .chrono-d-title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--navy-dark);
+    line-height: 1.3;
+  }
+
+  .chrono-d-subtitle {
+    font-size: 8.5pt;
+    color: var(--gray-600);
+    margin-top: 2px;
+  }
+
+  .chrono-d-impact {
+    text-align: center;
+    background: white;
+    border: 1px dashed var(--orange);
+    padding: 4px 6px;
+    font-size: 8.5pt;
+  }
+
+  .chrono-d-impact-label {
+    font-size: 7pt;
+    color: var(--gray-600);
+    letter-spacing: 0.5px;
+  }
+
+  .chrono-d-impact-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-weight: 700;
+    color: var(--orange-dark);
+    margin-top: 2px;
+  }
+
+  .chrono-d-body {
+    padding: 10px 14px;
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    gap: 10px;
+    font-size: 8.5pt;
+    line-height: 1.5;
+  }
+
+  .chrono-d-body-2col {
+    grid-template-columns: 1fr 1fr;
+  }
+
+  .chrono-d-body-1col {
+    grid-template-columns: 1fr;
+  }
+
+  .chrono-d-section {
+    border-left: 2px solid var(--gray-300);
+    padding-left: 10px;
+  }
+
+  .chrono-d-section-title {
+    font-size: 7.5pt;
+    font-weight: 700;
+    color: var(--orange);
+    letter-spacing: 1px;
+    margin-bottom: 3px;
+    text-transform: uppercase;
+  }
+
+  .chrono-d-section-content {
+    font-size: 8.5pt;
+    color: var(--gray-700);
+    line-height: 1.55;
+  }
+
+  .term {
+    background: var(--purple-bg);
+    color: var(--purple);
+    padding: 1px 4px;
+    border-radius: 2px;
+    font-weight: 500;
+    font-size: 8pt;
+    border-bottom: 1px dotted var(--purple);
+    cursor: help;
+  }
+
+  .chrono-d-tags {
+    background: var(--gray-100);
+    padding: 6px 14px;
+    font-size: 7.5pt;
+    color: var(--gray-600);
+    border-top: 1px solid var(--gray-200);
+  }
+
+  .chrono-d-tags strong {
+    color: var(--navy);
+    font-weight: 700;
+    margin-right: 4px;
+  }
+
+  /* ============ 단순 타임라인 ============ */
+  .chrono-simple {
+    display: grid;
+    grid-template-columns: 56px 14px 1fr;
+    gap: 10px;
+    align-items: start;
+    padding: 4px 0;
+    font-size: 9pt;
+  }
+
+  .chrono-simple-date {
+    font-family: 'JetBrains Mono', monospace;
+    font-size: 9pt;
+    font-weight: 700;
+    color: var(--navy-dark);
+  }
+
+  .chrono-simple-day {
+    font-size: 7.5pt;
+    color: var(--gray-500);
+    font-weight: 400;
+  }
+
+  .chrono-marker {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    margin-top: 5px;
+  }
+
+  .chrono-marker.high { background: var(--red); }
+  .chrono-marker.med { background: var(--amber); }
+  .chrono-marker.low { background: var(--green); }
+  .chrono-marker.holiday { background: white; border: 2px solid var(--red); }
+  .chrono-marker.reaction { background: white; border: 2px solid var(--orange); }
+
+  /* ============ 용어 사전 ============ */
+  .glossary-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 8px;
+    margin: 12px 0;
+  }
+
+  .glossary-card {
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-top: 3px solid var(--purple);
+    padding: 10px 12px;
+  }
+
+  .glossary-card.economic { border-top-color: var(--blue); }
+  .glossary-card.policy { border-top-color: var(--red); }
+  .glossary-card.market { border-top-color: var(--orange); }
+  .glossary-card.technical { border-top-color: var(--green); }
+  .glossary-card.corporate { border-top-color: var(--amber); }
+
+  .glossary-term {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+  }
+
+  .glossary-term-main {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--navy-dark);
+  }
+
+  .glossary-term-en {
+    font-size: 7.5pt;
+    color: var(--gray-500);
+    font-style: italic;
+  }
+
+  .glossary-def {
+    font-size: 8.5pt;
+    color: var(--gray-700);
+    line-height: 1.55;
+    margin-bottom: 5px;
+  }
+
+  .glossary-context {
+    font-size: 7.5pt;
+    color: var(--gray-600);
+    background: var(--gray-100);
+    padding: 4px 8px;
+    border-radius: 2px;
+    line-height: 1.5;
+  }
+
+  .glossary-context strong {
+    color: var(--orange);
+  }
+
+  .glossary-section {
+    margin-bottom: 14px;
+  }
+
+  .glossary-section-title {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+    padding: 4px 10px;
+    background: var(--gray-100);
+    border-left: 4px solid var(--orange);
+  }
+
+  /* ============ 캘린더 (이전 페이지) ============ */
+  .calendar-v2 {
+    border: 1px solid var(--gray-300);
+    background: white;
+    margin: 12px 0;
+  }
+
+  .cal-v2-header {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    background: var(--navy);
+  }
+
+  .cal-v2-dh {
+    padding: 8px;
+    text-align: center;
+    font-size: 9pt;
+    font-weight: 500;
+    color: white;
+    letter-spacing: 1px;
+    border-right: 1px solid rgba(255,255,255,0.15);
+  }
+
+  .cal-v2-dh:last-child { border-right: none; }
+  .cal-v2-dh.sun { color: #ffc4a3; }
+  .cal-v2-dh.sat { color: #a3d4ff; }
+
+  .cal-v2-grid {
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+  }
+
+  .cal-v2-cell {
+    min-height: 88px;
+    padding: 6px 7px;
+    border-right: 1px solid var(--gray-200);
+    border-bottom: 1px solid var(--gray-200);
+    font-size: 8pt;
+    background: white;
+  }
+
+  .cal-v2-cell:nth-child(7n) { border-right: none; }
+  .cal-v2-cell.empty { background: var(--gray-100); }
+  .cal-v2-cell.weekend { background: #f7f8fa; }
+  .cal-v2-cell.kr-closed { background: #fef2f2; border: 1.5px solid var(--red) !important; }
+  .cal-v2-cell.risk-high { background: #fff5f5; }
+  .cal-v2-cell.risk-med { background: #fffbf0; }
+  .cal-v2-cell.kr-reaction { background: linear-gradient(135deg, #fff7ed 0%, white 50%); }
+
+  .cal-v2-date-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: baseline;
+    margin-bottom: 4px;
+  }
+
+  .cal-v2-date {
+    font-size: 11pt;
+    font-weight: 700;
+    color: var(--gray-800);
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .cal-v2-date.holiday-date { color: var(--red); }
+
+  .cal-v2-status {
+    font-size: 7pt;
+    font-weight: 500;
+    color: var(--gray-500);
+    letter-spacing: 0.5px;
+  }
+
+  .cal-v2-status.closed { color: var(--red); font-weight: 700; }
+
+  .cal-v2-event {
+    display: block;
+    margin-top: 3px;
+    padding: 2px 5px;
+    border-radius: 2px;
+    font-size: 7.5pt;
+    font-weight: 500;
+    line-height: 1.3;
+    border-left: 2px solid;
+  }
+
+  .cal-v2-event.kr-event { background: var(--red-bg); color: var(--red); border-color: var(--red); }
+  .cal-v2-event.us-event { background: var(--blue-bg); color: var(--blue); border-color: var(--blue); }
+  .cal-v2-event.global-event { background: var(--amber-bg); color: var(--amber); border-color: var(--amber); }
+  .cal-v2-event.holiday-event { background: var(--red); color: white; text-align: center; font-weight: 700; border: none; }
+  .cal-v2-event.reaction-event { background: var(--orange-light); color: var(--orange-dark); border-color: var(--orange); font-style: italic; }
+
+  .cal-v2-flag {
+    display: inline-block;
+    font-size: 6.5pt;
+    font-weight: 700;
+    padding: 1px 4px;
+    margin-right: 3px;
+    border-radius: 2px;
+    vertical-align: 1px;
+  }
+
+  .cal-v2-flag.kr { background: var(--red); color: white; }
+  .cal-v2-flag.us { background: var(--blue); color: white; }
+  .cal-v2-flag.gl { background: var(--amber); color: white; }
+
+  /* ============ KPI / 게이지 / 등 ============ */
+  .dashboard-kpis {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 10px;
+    margin: 12px 0;
+  }
+
+  .kpi-tile {
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-top: 3px solid var(--navy);
+    padding: 12px 14px;
+  }
+
+  .kpi-tile.warn { border-top-color: var(--orange); }
+
+  .kpi-tile-label {
+    font-size: 8.5pt;
+    color: var(--gray-600);
+    margin-bottom: 4px;
+  }
+
+  .kpi-tile-value {
+    font-size: 22pt;
+    font-weight: 700;
+    color: var(--navy-dark);
+    font-family: 'JetBrains Mono', monospace;
+    line-height: 1;
+    margin-bottom: 4px;
+  }
+
+  .kpi-tile-meta {
+    font-size: 8.5pt;
+    color: var(--gray-700);
+  }
+
+  .kpi-tile-meta .up { color: var(--orange); font-weight: 500; }
+
+  .timeline-strip {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 0;
+    margin: 12px 0;
+    border: 1px solid var(--gray-300);
+  }
+
+  .timeline-week {
+    padding: 12px 10px;
+    border-right: 1px solid var(--gray-300);
+  }
+
+  .timeline-week:last-child { border-right: none; }
+  .timeline-week.low { background: var(--green-bg); }
+  .timeline-week.med { background: var(--amber-bg); }
+  .timeline-week.high { background: var(--red-bg); }
+
+  .timeline-week-bar { height: 5px; border-radius: 3px; margin-bottom: 8px; }
+  .timeline-week-bar.low { background: var(--green); }
+  .timeline-week-bar.med { background: var(--amber); }
+  .timeline-week-bar.high { background: var(--red); }
+
+  .timeline-week-num { font-size: 7.5pt; color: var(--gray-600); letter-spacing: 1px; }
+  .timeline-week-date { font-family: 'JetBrains Mono', monospace; font-size: 10.5pt; font-weight: 700; color: var(--navy-dark); margin-bottom: 4px; }
+  .timeline-week-title { font-size: 9.5pt; font-weight: 700; color: var(--gray-900); margin-bottom: 3px; }
+  .timeline-week-desc { font-size: 8pt; color: var(--gray-700); line-height: 1.4; }
+
+  /* ============ 체크리스트 ============ */
+  .checklist {
+    background: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    padding: 14px 18px;
+    margin: 12px 0;
+  }
+
+  .checklist-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+    padding-bottom: 6px;
+    border-bottom: 1px solid var(--gray-300);
+  }
+
+  .checklist ul { list-style: none; padding: 0; }
+  .checklist li {
+    padding: 5px 0 5px 22px;
+    position: relative;
+    font-size: 9.5pt;
+    line-height: 1.6;
+  }
+
+  .checklist li::before {
+    content: "□";
+    position: absolute;
+    left: 0;
+    color: var(--orange);
+    font-size: 12pt;
+    line-height: 1.4;
+  }
+
+  .warning-box {
+    background: #fff5f5;
+    border: 1px solid var(--red);
+    border-left: 5px solid var(--red);
+    padding: 12px 16px;
+    margin: 12px 0;
+    display: flex;
+    gap: 14px;
+  }
+
+  .warning-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: var(--red);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 16pt;
+    font-family: 'JetBrains Mono', monospace;
+  }
+
+  .warning-title { font-size: 10.5pt; font-weight: 700; color: var(--red); margin-bottom: 4px; }
+  .warning-content { font-size: 9.5pt; color: var(--gray-800); line-height: 1.6; }
+
+  .correction-note {
+    background: var(--green-bg);
+    border: 1px solid var(--green);
+    border-left: 5px solid var(--green);
+    padding: 12px 16px;
+    margin: 12px 0;
+    display: flex;
+    gap: 14px;
+  }
+
+  .correction-icon {
+    flex-shrink: 0;
+    width: 32px;
+    height: 32px;
+    background: var(--green);
+    color: white;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 700;
+    font-size: 14pt;
+  }
+
+  .correction-title { font-size: 10pt; font-weight: 700; color: var(--green); margin-bottom: 4px; }
+  .correction-content { font-size: 9pt; color: var(--gray-800); line-height: 1.6; }
+
+  strong { color: var(--navy-dark); font-weight: 700; }
+  .accent { color: var(--orange); font-weight: 700; }
+
+  .page-footer {
+    position: absolute;
+    bottom: 12mm;
+    left: 16mm;
+    right: 16mm;
+    border-top: 1px solid var(--gray-300);
+    padding-top: 6px;
+    display: flex;
+    justify-content: space-between;
+    font-size: 8pt;
+    color: var(--gray-600);
+  }
+
+  @page { size: A4; margin: 0; }
+  @media print {
+    body { background: white; }
+    .page { box-shadow: none; margin: 0; }
+  }
+
+  .two-col {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+    margin: 10px 0;
+  }
+
+  .panel {
+    background: white;
+    border: 1px solid var(--gray-300);
+    padding: 12px 14px;
+  }
+
+  .panel-title {
+    font-size: 10pt;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+    padding-bottom: 5px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+
+  .verified-badge {
+    display: inline-block;
+    background: var(--green);
+    color: white;
+    font-size: 8pt;
+    padding: 3px 10px;
+    letter-spacing: 1px;
+    margin-left: 8px;
+    font-weight: 500;
+  }
+
+  .event-card {
+    display: grid;
+    grid-template-columns: 70px 1fr 90px 80px;
+    gap: 12px;
+    align-items: center;
+    background: white;
+    border: 1px solid var(--gray-300);
+    border-left: 4px solid var(--gray-400);
+    padding: 12px 14px;
+    margin-bottom: 8px;
+  }
+
+  .event-card.high { border-left-color: var(--red); background: var(--red-bg); }
+  .event-card.med { border-left-color: var(--amber); background: var(--amber-bg); }
+
+  .event-card-date {
+    text-align: center;
+    background: white;
+    border: 1px solid var(--gray-400);
+    padding: 6px 4px;
+  }
+
+  .event-card.high .event-card-date { border-color: var(--red); }
+  .event-card.med .event-card-date { border-color: var(--amber); }
+
+  .event-card-day { font-size: 8pt; color: var(--gray-600); }
+  .event-card-num { font-size: 16pt; font-weight: 700; color: var(--navy-dark); font-family: 'JetBrains Mono', monospace; line-height: 1; }
+  .event-card-title { font-size: 11pt; font-weight: 700; color: var(--navy-dark); margin-bottom: 4px; }
+  .event-card-desc { font-size: 9pt; color: var(--gray-700); line-height: 1.5; }
+  .event-card-reaction { text-align: center; background: white; border: 1px dashed var(--orange); padding: 4px 6px; font-size: 8.5pt; color: var(--orange-dark); }
+  .event-card-reaction-label { font-size: 7pt; color: var(--gray-600); letter-spacing: 0.5px; }
+  .event-card-reaction-date { font-family: 'JetBrains Mono', monospace; font-weight: 700; color: var(--orange-dark); margin-top: 2px; }
+  .event-card-tag { text-align: center; font-size: 9pt; font-weight: 500; padding: 4px 10px; border-radius: 3px; }
+  .event-card-tag.high { background: var(--red); color: white; }
+  .event-card-tag.med { background: var(--amber); color: white; }
+
+  .legend-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 12px;
+    margin: 12px 0;
+    padding: 10px 14px;
+    background: var(--gray-100);
+    border: 1px solid var(--gray-300);
+    font-size: 8.5pt;
+  }
+
+  .legend-section { display: flex; flex-direction: column; gap: 4px; }
+  .legend-section-title { font-size: 9pt; font-weight: 700; color: var(--navy); margin-bottom: 4px; }
+  .legend-item { display: flex; align-items: center; gap: 6px; font-size: 8.5pt; color: var(--gray-700); }
+  .legend-swatch { width: 14px; height: 14px; border: 1px solid var(--gray-400); flex-shrink: 0; }
+  .legend-flag { display: inline-block; font-size: 7pt; font-weight: 700; padding: 1px 5px; border-radius: 2px; color: white; flex-shrink: 0; width: 24px; text-align: center; }
+</style>
+</head>
+<body>
+
+<!-- ============ 표지 ============ -->
+<div class="page cover">
+<div class="cover-inner">
+  <div class="cover-top-bar">
+    <span>INVESTMENT RESEARCH · KOREA EQUITY · MAY 2026 · 통합 최종판</span>
+    <div>
+      <span class="cover-tag verified">VERIFIED</span>
+      <span class="cover-tag">투자 참고용</span>
+    </div>
+  </div>
+
+  <div class="cover-eyebrow">KOSPI MAY 2026 RISK MAP · COMPLETE EDITION</div>
+  <h1 class="cover-title-main">5월의 함정,<br>그리고 기회</h1>
+  <div class="cover-title-sub">2026년 5월 한국 주식시장 리스크 분석 보고서 — 통합 최종판 (용어 해설 포함)</div>
+
+  <div class="cover-hero">
+    <svg width="100%" viewBox="0 0 660 280" xmlns="http://www.w3.org/2000/svg">
+      <g stroke="rgba(255,255,255,0.08)" stroke-width="0.5">
+        <line x1="0" y1="40" x2="660" y2="40"/>
+        <line x1="0" y1="100" x2="660" y2="100"/>
+        <line x1="0" y1="160" x2="660" y2="160"/>
+        <line x1="0" y1="220" x2="660" y2="220"/>
+      </g>
+      <text x="10" y="45" fill="rgba(255,255,255,0.4)" font-size="9" font-family="JetBrains Mono">7,000</text>
+      <text x="10" y="105" fill="rgba(255,255,255,0.4)" font-size="9" font-family="JetBrains Mono">6,500</text>
+      <text x="10" y="165" fill="rgba(255,255,255,0.4)" font-size="9" font-family="JetBrains Mono">6,000</text>
+      <text x="10" y="225" fill="rgba(255,255,255,0.4)" font-size="9" font-family="JetBrains Mono">5,500</text>
+      <path d="M 60 130 L 90 145 L 120 175 L 150 230 L 180 245 L 210 240 L 240 215 L 270 195 L 300 180 L 330 150 L 360 125 L 390 95 L 420 75 L 450 60 L 480 50 L 510 55 L 540 70 L 570 65 L 600 70 L 600 260 L 60 260 Z" fill="url(#areaGrad)" opacity="0.3"/>
+      <defs>
+        <linearGradient id="areaGrad" x1="0" y1="0" x2="0" y2="1">
+          <stop offset="0%" stop-color="#ff7847"/>
+          <stop offset="100%" stop-color="#ff7847" stop-opacity="0"/>
+        </linearGradient>
+      </defs>
+      <path d="M 60 130 L 90 145 L 120 175 L 150 230 L 180 245 L 210 240 L 240 215 L 270 195 L 300 180 L 330 150 L 360 125 L 390 95 L 420 75 L 450 60 L 480 50 L 510 55 L 540 70 L 570 65 L 600 70" stroke="#ff7847" stroke-width="2.5" fill="none" stroke-linejoin="round" stroke-linecap="round"/>
+      <g>
+        <circle cx="180" cy="245" r="5" fill="#fff" stroke="#e85d24" stroke-width="2"/>
+        <line x1="180" y1="240" x2="180" y2="195" stroke="rgba(255,255,255,0.3)" stroke-dasharray="2 2"/>
+        <text x="185" y="190" fill="rgba(255,255,255,0.7)" font-size="9">3월 중순 · 5,050</text>
+        <text x="185" y="178" fill="rgba(255,255,255,0.5)" font-size="8">미·이란 전쟁 충격</text>
+        <circle cx="480" cy="50" r="5" fill="#fff" stroke="#e85d24" stroke-width="2"/>
+        <line x1="480" y1="55" x2="480" y2="20" stroke="rgba(255,255,255,0.3)" stroke-dasharray="2 2"/>
+        <text x="370" y="18" fill="#ff7847" font-size="10" font-weight="700">4월 30일 · 6,750 사상 최고</text>
+        <circle cx="600" cy="70" r="6" fill="#ff7847"/>
+        <circle cx="600" cy="70" r="11" fill="none" stroke="#ff7847" stroke-width="1" opacity="0.5"/>
+        <text x="608" y="74" fill="#fff" font-size="11" font-weight="700">6,598</text>
+        <text x="608" y="86" fill="rgba(255,255,255,0.6)" font-size="8">현재 (5/1)</text>
+      </g>
+      <text x="60" y="275" fill="rgba(255,255,255,0.4)" font-size="9">3/1</text>
+      <text x="180" y="275" fill="rgba(255,255,255,0.4)" font-size="9">3/15</text>
+      <text x="330" y="275" fill="rgba(255,255,255,0.4)" font-size="9">4/1</text>
+      <text x="480" y="275" fill="rgba(255,255,255,0.4)" font-size="9">4/30</text>
+    </svg>
+  </div>
+
+  <div class="cover-stats">
+    <div>
+      <div class="cover-stat-label">KOSPI</div>
+      <div class="cover-stat-value">6,598</div>
+      <div class="cover-stat-change">▲ 4월 +30%</div>
+    </div>
+    <div>
+      <div class="cover-stat-label">USD/KRW</div>
+      <div class="cover-stat-value">1,489</div>
+      <div class="cover-stat-change">위험 라인 1,500</div>
+    </div>
+    <div>
+      <div class="cover-stat-label">BRENT</div>
+      <div class="cover-stat-value">$111</div>
+      <div class="cover-stat-change">▲ 지정학 리스크</div>
+    </div>
+    <div>
+      <div class="cover-stat-label">FED RATE</div>
+      <div class="cover-stat-value">3.50%</div>
+      <div class="cover-stat-change">5/15 의장 교체</div>
+    </div>
+  </div>
+
+  <div class="cover-bottom">
+    <span>2026.05.03 발행 · 통합 최종판 · 대상기간 2026.05.01 ~ 05.31</span>
+    <span>Page 01 / 12</span>
+  </div>
+</div>
+</div>
+
+<!-- ============ Page 2 - 한눈에 보기 ============ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-header-num">01</div>
+      <div class="page-header-title-area">
+        <div class="page-header-eyebrow">EXECUTIVE SUMMARY</div>
+        <div class="page-header-title">한눈에 보는 5월</div>
+      </div>
+    </div>
+    <div class="page-header-meta">5월 시장 진단 · 검증 완료</div>
+  </div>
+
+  <div class="correction-note">
+    <div class="correction-icon">✓</div>
+    <div>
+      <div class="correction-title">통합 최종판 구성</div>
+      <div class="correction-content">
+        <strong>총 12페이지 구성:</strong> ① 표지 → ② 한눈에 보기 → ③ 5월 캘린더 → ④~⑤ 일별 상세 타임라인 → <strong>⑥ 핵심 이벤트 7선</strong> → ⑦ 시나리오 결정 트리 → <strong>⑧ 섹터 포지셔닝 매트릭스</strong> → <strong>⑨ 일일 모니터링 신호등</strong> → ⑩~⑪ 전문 용어 사전 → ⑫ 결론.<br>
+        본문에 등장하는 전문 용어는 <span class="term">자주색 표시</span>로 강조되어 있으며, 페이지 ⑩~⑪의 용어 사전에서 25개 핵심 용어 풀이를 제공합니다.
+      </div>
+    </div>
+  </div>
+
+  <div style="background: white; border: 1px solid var(--gray-300); padding: 14px; margin-bottom: 12px;">
+    <div style="text-align: center; margin-bottom: 4px;">
+      <div style="font-size: 9pt; color: var(--gray-600); letter-spacing: 1px;">5월 종합 리스크 수준</div>
+    </div>
+    <svg width="100%" viewBox="0 0 660 200" xmlns="http://www.w3.org/2000/svg">
+      <path d="M 130 170 A 200 200 0 0 1 240 46" stroke="#2f855a" stroke-width="22" fill="none"/>
+      <path d="M 240 46 A 200 200 0 0 1 420 46" stroke="#b7791f" stroke-width="22" fill="none"/>
+      <path d="M 420 46 A 200 200 0 0 1 530 170" stroke="#c53030" stroke-width="22" fill="none"/>
+      <text x="130" y="190" fill="#2f855a" font-size="11" font-weight="500" text-anchor="middle">안전</text>
+      <text x="330" y="30" fill="#b7791f" font-size="11" font-weight="500" text-anchor="middle">주의</text>
+      <text x="530" y="190" fill="#c53030" font-size="11" font-weight="500" text-anchor="middle">위험</text>
+      <g transform="rotate(60 330 170)">
+        <line x1="330" y1="170" x2="330" y2="70" stroke="#1a365d" stroke-width="3" stroke-linecap="round"/>
+        <circle cx="330" cy="70" r="5" fill="#e85d24"/>
+      </g>
+      <circle cx="330" cy="170" r="10" fill="#1a365d"/>
+      <circle cx="330" cy="170" r="4" fill="#e85d24"/>
+      <text x="330" y="132" fill="#1a365d" font-size="32" font-weight="900" text-anchor="middle" font-family="JetBrains Mono">75</text>
+      <text x="330" y="150" fill="#718096" font-size="9" text-anchor="middle">/ 100</text>
+    </svg>
+    <div style="text-align: center; font-size: 10.5pt; color: var(--gray-800); padding-top: 4px;">
+      <strong>높은 주의 구간</strong> · 신규 매수 자제 · 분할 매수 가격대 사전 설정 필요
+    </div>
+  </div>
+
+  <h2>핵심 지표 4선</h2>
+  <div class="dashboard-kpis">
+    <div class="kpi-tile">
+      <div class="kpi-tile-label">KOSPI 종가 (5/1)</div>
+      <div class="kpi-tile-value">6,598</div>
+      <div class="kpi-tile-meta"><span class="up">▲ +30%</span> 4월 한 달</div>
+    </div>
+    <div class="kpi-tile warn">
+      <div class="kpi-tile-label">원/달러 환율</div>
+      <div class="kpi-tile-value">1,489</div>
+      <div class="kpi-tile-meta">1,500 돌파 시 <span class="up">위험</span></div>
+    </div>
+    <div class="kpi-tile warn">
+      <div class="kpi-tile-label">브렌트유</div>
+      <div class="kpi-tile-value">$111</div>
+      <div class="kpi-tile-meta">$120 동시 시 <span class="up">디펜시브</span></div>
+    </div>
+    <div class="kpi-tile">
+      <div class="kpi-tile-label">미 기준금리</div>
+      <div class="kpi-tile-value">3.50%</div>
+      <div class="kpi-tile-meta">5/15 의장 교체 예정</div>
+    </div>
+  </div>
+
+  <h2>5월 리스크의 3대 축</h2>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 10px 0;">
+    <div style="background: var(--gray-100); border-top: 4px solid var(--orange); padding: 12px 14px;">
+      <div style="font-size: 22pt; font-weight: 900; color: var(--orange); font-family: 'JetBrains Mono'; line-height: 1;">01</div>
+      <div style="font-size: 11pt; font-weight: 700; color: var(--navy-dark); margin: 6px 0 4px;">캘린더 리스크</div>
+      <div style="font-size: 8.5pt; color: var(--gray-700); line-height: 1.5;">5/8 <span class="term">NFP</span> · 5/12 <span class="term">CPI</span> · 5/14 <span class="term">옵션만기</span> + 5/25 대체공휴일</div>
+    </div>
+    <div style="background: var(--gray-100); border-top: 4px solid var(--orange); padding: 12px 14px;">
+      <div style="font-size: 22pt; font-weight: 900; color: var(--orange); font-family: 'JetBrains Mono'; line-height: 1;">02</div>
+      <div style="font-size: 11pt; font-weight: 700; color: var(--navy-dark); margin: 6px 0 4px;">정책 불확실성</div>
+      <div style="font-size: 8.5pt; color: var(--gray-700); line-height: 1.5;">5/15 파월 임기 종료 · 6/16 첫 <span class="term">FOMC</span>까지 정책 공백</div>
+    </div>
+    <div style="background: var(--gray-100); border-top: 4px solid var(--orange); padding: 12px 14px;">
+      <div style="font-size: 22pt; font-weight: 900; color: var(--orange); font-family: 'JetBrains Mono'; line-height: 1;">03</div>
+      <div style="font-size: 11pt; font-weight: 700; color: var(--navy-dark); margin: 6px 0 4px;">기술적 부담</div>
+      <div style="font-size: 8.5pt; color: var(--gray-700); line-height: 1.5;">1998년 이후 4월 최대 상승률 · <span class="term">이격도</span> 과열 구간</div>
+    </div>
+  </div>
+
+  <h2>투자자 행동 강령</h2>
+  <div class="checklist" style="margin-top: 8px;">
+    <ul>
+      <li>5월 첫째~둘째 주는 <strong>신규 매수를 자제</strong>하고 현금 비중 10~20%p 확보</li>
+      <li>매수 가격대 <strong>6,400 / 6,200 / 6,000</strong>을 미리 종이에 적어둘 것</li>
+      <li>핵심 이벤트(<span class="num">5/12, 5/15, 5/20</span>) 전후 2~3일은 무리한 베팅 금지</li>
+      <li>환율 <strong>1,500원 돌파</strong>는 외국인 매도 가속의 신호</li>
+      <li>코스피 <strong>6,500 이탈 시</strong> 현금 비중 30%로 즉시 확대</li>
+    </ul>
+  </div>
+
+  <div class="page-footer">
+    <span>2026년 5월 한국 주식시장 리스크 분석 보고서 · 통합 최종판</span>
+    <span>Page <span class="num">02</span></span>
+  </div>
+</div>
+
+<!-- ============ Page 3 - 캘린더 ============ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-header-num">02</div>
+      <div class="page-header-title-area">
+        <div class="page-header-eyebrow">VERIFIED EVENT CALENDAR · MAY 2026</div>
+        <div class="page-header-title">5월 캘린더 한눈에<span class="verified-badge">VERIFIED</span></div>
+      </div>
+    </div>
+    <div class="page-header-meta">검증 완료된 모든 일정</div>
+  </div>
+
+  <p style="margin-bottom: 8px; font-size: 9.5pt;">2026년 5월 달력에 한국 거래소 휴장일·미국 경제지표·글로벌 이벤트를 모두 표기. 각 셀에 일자, 거래일/휴장 여부, 출처별 이벤트가 표시됩니다.</p>
+
+  <div class="legend-grid">
+    <div class="legend-section">
+      <div class="legend-section-title">셀 배경 · 한국 시장 기준</div>
+      <div class="legend-item"><div class="legend-swatch" style="background: #fef2f2; border: 1.5px solid var(--red);"></div>한국 거래소 휴장일</div>
+      <div class="legend-item"><div class="legend-swatch" style="background: #fff5f5;"></div>위험 일정 (변동성↑)</div>
+      <div class="legend-item"><div class="legend-swatch" style="background: #fffbf0;"></div>주의 일정</div>
+      <div class="legend-item"><div class="legend-swatch" style="background: linear-gradient(135deg, #fff7ed 0%, white 50%);"></div>한국 시장 반영일</div>
+    </div>
+    <div class="legend-section">
+      <div class="legend-section-title">이벤트 출처 플래그</div>
+      <div class="legend-item"><span class="legend-flag" style="background: var(--red);">韓</span>한국 이벤트</div>
+      <div class="legend-item"><span class="legend-flag" style="background: var(--blue);">美</span>미국 경제지표 / 정책</div>
+      <div class="legend-item"><span class="legend-flag" style="background: var(--amber);">글</span>글로벌 이벤트</div>
+      <div class="legend-item" style="font-style: italic; color: var(--orange-dark);">→ 한국 시장 반영일은 별도 표시</div>
+    </div>
+  </div>
+
+  <div class="calendar-v2">
+    <div class="cal-v2-header">
+      <div class="cal-v2-dh sun">SUN</div>
+      <div class="cal-v2-dh">MON</div>
+      <div class="cal-v2-dh">TUE</div>
+      <div class="cal-v2-dh">WED</div>
+      <div class="cal-v2-dh">THU</div>
+      <div class="cal-v2-dh">FRI</div>
+      <div class="cal-v2-dh sat">SAT</div>
+    </div>
+    <div class="cal-v2-grid">
+      <div class="cal-v2-cell empty"></div>
+      <div class="cal-v2-cell empty"></div>
+      <div class="cal-v2-cell empty"></div>
+      <div class="cal-v2-cell empty"></div>
+      <div class="cal-v2-cell empty"></div>
+      <div class="cal-v2-cell kr-closed">
+        <div class="cal-v2-date-row"><div class="cal-v2-date holiday-date">1</div><div class="cal-v2-status closed">휴장</div></div>
+        <span class="cal-v2-event holiday-event">근로자의 날</span>
+        <span class="cal-v2-event global-event"><span class="cal-v2-flag gl">글</span>OPEC+ 증산</span>
+      </div>
+      <div class="cal-v2-cell weekend">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">2</div><div class="cal-v2-status">주말</div></div>
+      </div>
+
+      <div class="cal-v2-cell weekend">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">3</div><div class="cal-v2-status">주말</div></div>
+      </div>
+      <div class="cal-v2-cell">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">4</div><div class="cal-v2-status">거래</div></div>
+        <span class="cal-v2-event global-event"><span class="cal-v2-flag gl">글</span>中·日 휴장</span>
+      </div>
+      <div class="cal-v2-cell kr-closed">
+        <div class="cal-v2-date-row"><div class="cal-v2-date holiday-date">5</div><div class="cal-v2-status closed">휴장</div></div>
+        <span class="cal-v2-event holiday-event">어린이날</span>
+      </div>
+      <div class="cal-v2-cell">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">6</div><div class="cal-v2-status">거래</div></div>
+      </div>
+      <div class="cal-v2-cell">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">7</div><div class="cal-v2-status">거래</div></div>
+      </div>
+      <div class="cal-v2-cell risk-med">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">8</div><div class="cal-v2-status">거래</div></div>
+        <span class="cal-v2-event us-event"><span class="cal-v2-flag us">美</span>NFP 4월</span>
+        <span style="display: block; font-size: 7pt; color: var(--gray-600); margin-top: 2px;">21:30 KST</span>
+      </div>
+      <div class="cal-v2-cell weekend">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">9</div><div class="cal-v2-status">주말</div></div>
+      </div>
+
+      <div class="cal-v2-cell weekend">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">10</div><div class="cal-v2-status">주말</div></div>
+      </div>
+      <div class="cal-v2-cell kr-reaction">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">11</div><div class="cal-v2-status">거래</div></div>
+        <span class="cal-v2-event reaction-event">→ NFP 반영</span>
+        <span class="cal-v2-event us-event"><span class="cal-v2-flag us">美</span>워시 인준 주</span>
+      </div>
+      <div class="cal-v2-cell risk-high">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">12</div><div class="cal-v2-status">거래</div></div>
+        <span class="cal-v2-event us-event"><span class="cal-v2-flag us">美</span>CPI 4월</span>
+        <span class="cal-v2-event global-event"><span class="cal-v2-flag gl">글</span>MSCI 발표</span>
+      </div>
+      <div class="cal-v2-cell kr-reaction">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">13</div><div class="cal-v2-status">거래</div></div>
+        <span class="cal-v2-event reaction-event">→ CPI 반영</span>
+        <span class="cal-v2-event us-event"><span class="cal-v2-flag us">美</span>PPI 발표</span>
+      </div>
+      <div class="cal-v2-cell risk-high">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">14</div><div class="cal-v2-status">거래</div></div>
+        <span class="cal-v2-event kr-event"><span class="cal-v2-flag kr">韓</span>옵션 만기</span>
+      </div>
+      <div class="cal-v2-cell risk-high">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">15</div><div class="cal-v2-status">거래</div></div>
+        <span class="cal-v2-event us-event"><span class="cal-v2-flag us">美</span>파월 임기 종료</span>
+        <span class="cal-v2-event kr-event"><span class="cal-v2-flag kr">韓</span>방산 보호예수</span>
+      </div>
+      <div class="cal-v2-cell weekend">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">16</div><div class="cal-v2-status">주말</div></div>
+      </div>
+
+      <div class="cal-v2-cell weekend">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">17</div><div class="cal-v2-status">주말</div></div>
+      </div>
+      <div class="cal-v2-cell">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">18</div><div class="cal-v2-status">거래</div></div>
+      </div>
+      <div class="cal-v2-cell risk-med">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">19</div><div class="cal-v2-status">거래</div></div>
+        <span class="cal-v2-event us-event"><span class="cal-v2-flag us">美</span>Google I/O</span>
+      </div>
+      <div class="cal-v2-cell risk-med">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">20</div><div class="cal-v2-status">거래</div></div>
+        <span class="cal-v2-event us-event"><span class="cal-v2-flag us">美</span>NVIDIA 실적</span>
+        <span style="display: block; font-size: 7pt; color: var(--gray-600); margin-top: 2px;">장 마감 후</span>
+      </div>
+      <div class="cal-v2-cell kr-reaction">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">21</div><div class="cal-v2-status">거래</div></div>
+        <span class="cal-v2-event reaction-event">→ NVIDIA 반영</span>
+        <span class="cal-v2-event kr-event"><span class="cal-v2-flag kr">韓</span>삼성 파업</span>
+      </div>
+      <div class="cal-v2-cell">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">22</div><div class="cal-v2-status">거래</div></div>
+        <span style="display: block; font-size: 7.5pt; color: var(--gray-600); margin-top: 2px;">3일 연휴 직전</span>
+      </div>
+      <div class="cal-v2-cell weekend">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">23</div><div class="cal-v2-status">주말</div></div>
+      </div>
+
+      <div class="cal-v2-cell kr-closed">
+        <div class="cal-v2-date-row"><div class="cal-v2-date holiday-date">24</div><div class="cal-v2-status closed">주말</div></div>
+        <span class="cal-v2-event holiday-event">부처님오신날</span>
+      </div>
+      <div class="cal-v2-cell kr-closed">
+        <div class="cal-v2-date-row"><div class="cal-v2-date holiday-date">25</div><div class="cal-v2-status closed">휴장</div></div>
+        <span class="cal-v2-event holiday-event">대체공휴일</span>
+      </div>
+      <div class="cal-v2-cell">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">26</div><div class="cal-v2-status">거래</div></div>
+        <span style="display: block; font-size: 7.5pt; color: var(--gray-600); margin-top: 2px;">연휴 후 첫날</span>
+      </div>
+      <div class="cal-v2-cell">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">27</div><div class="cal-v2-status">거래</div></div>
+      </div>
+      <div class="cal-v2-cell">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">28</div><div class="cal-v2-status">거래</div></div>
+      </div>
+      <div class="cal-v2-cell risk-med">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">29</div><div class="cal-v2-status">거래</div></div>
+        <span class="cal-v2-event global-event"><span class="cal-v2-flag gl">글</span>MSCI 리밸런싱</span>
+        <span style="display: block; font-size: 7pt; color: var(--gray-600); margin-top: 2px;">마감 종가 기준</span>
+      </div>
+      <div class="cal-v2-cell weekend">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">30</div><div class="cal-v2-status">주말</div></div>
+      </div>
+
+      <div class="cal-v2-cell weekend">
+        <div class="cal-v2-date-row"><div class="cal-v2-date">31</div><div class="cal-v2-status">주말</div></div>
+      </div>
+      <div class="cal-v2-cell empty"></div>
+      <div class="cal-v2-cell empty"></div>
+      <div class="cal-v2-cell empty"></div>
+      <div class="cal-v2-cell empty"></div>
+      <div class="cal-v2-cell empty"></div>
+      <div class="cal-v2-cell empty"></div>
+    </div>
+  </div>
+
+  <p style="font-size: 8.5pt; color: var(--gray-600); margin-top: 8px; line-height: 1.5;">
+    ※ 미국 경제지표는 한국시간 기준. 美 NFP·CPI는 동부시간 8:30(한국 21:30) 발표 → 한국 시장 마감 후이므로 다음 거래일 반영. NVIDIA는 미국 장 마감 후 발표라 한국 5/21 새벽 기준 → 5/21(목) 반영.
+  </p>
+
+  <div class="page-footer">
+    <span>2026년 5월 한국 주식시장 리스크 분석 보고서 · 통합 최종판</span>
+    <span>Page <span class="num">03</span></span>
+  </div>
+</div>
+
+<!-- ============ Page 4 - 일별 상세 타임라인 (1) ============ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-header-num">03</div>
+      <div class="page-header-title-area">
+        <div class="page-header-eyebrow">DAILY CHRONOLOGY · DETAILED</div>
+        <div class="page-header-title">일별 상세 타임라인 (전반부)</div>
+      </div>
+    </div>
+    <div class="page-header-meta">5/1 ~ 5/15 · 무엇·왜·액션</div>
+  </div>
+
+  <p style="font-size: 9.5pt; margin-bottom: 8px;">5월 한 달의 모든 핵심 일정을 카드 형식으로 풀어 정리했습니다. 각 카드는 <strong>무엇이 일어나는지</strong>, <strong>왜 코스피에 영향을 주는지</strong>, <strong>투자자가 무엇을 해야 하는지</strong>를 분리해 명시합니다. <span class="term">자주색 표시</span>된 용어는 다음 페이지의 용어 사전에서 확인하세요.</p>
+
+  <!-- 5/1 -->
+  <div class="chrono-detailed holiday">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/1</div>
+        <div class="chrono-d-date-day">FRI</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">한국 거래소 휴장 (근로자의 날)</div>
+        <div class="chrono-d-subtitle">한국 시장 폐장 / 미국 시장은 정상 개장</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">韓 영향</div>
+        <div class="chrono-d-impact-date">5/4 월</div>
+      </div>
+    </div>
+    <div class="chrono-d-body chrono-d-body-2col">
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">무엇이 일어나나</div>
+        <div class="chrono-d-section-content">한국 주식시장은 노동절로 휴장. 같은 날 <span class="term">OPEC+</span>는 일일 20.6만 배럴 원유 증산 시작. 미국에서는 <span class="term">ISM 제조업 지수</span>가 발표됩니다.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">투자자가 할 일</div>
+        <div class="chrono-d-section-content">한국 시장이 닫혀 있는 동안 글로벌 변동성 누적 가능. 5/4(월) 갭 출발 가능성 대비. 큰손들은 보통 연휴 전 포지션 축소.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5/4 -->
+  <div class="chrono-detailed low">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/4</div>
+        <div class="chrono-d-date-day">MON</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">정상 거래일 (中·日 골든위크)</div>
+        <div class="chrono-d-subtitle">중국·일본 휴장으로 아시아 거래량 위축</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">상태</div>
+        <div class="chrono-d-impact-date">거래</div>
+      </div>
+    </div>
+    <div class="chrono-d-body chrono-d-body-1col">
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">유의 사항</div>
+        <div class="chrono-d-section-content">중국·일본 휴장으로 아시아 전체 거래량 감소. 외국인이 한국 단독 시장에서 활동하는 형태가 되어 <span class="term">외국인 순매도</span>가 강하게 나올 경우 코스피가 흔들릴 수 있음. 주말+5/1+5/4 미국 데이터까지 반영되는 압축 구간.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5/5 -->
+  <div class="chrono-detailed holiday">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/5</div>
+        <div class="chrono-d-date-day">TUE</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">한국 거래소 휴장 (어린이날)</div>
+        <div class="chrono-d-subtitle">한국 시장 폐장</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">韓 영향</div>
+        <div class="chrono-d-impact-date">5/6 수</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5/8 -->
+  <div class="chrono-detailed med">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/8</div>
+        <div class="chrono-d-date-day">FRI</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">美 4월 NFP (비농업 고용지수) 발표</div>
+        <div class="chrono-d-subtitle">미국 동부시간 8:30 = 한국시간 21:30 · 한국 마감 후 발표</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">韓 반영</div>
+        <div class="chrono-d-impact-date">5/11 월</div>
+      </div>
+    </div>
+    <div class="chrono-d-body">
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">무엇이 발표되나</div>
+        <div class="chrono-d-section-content"><span class="term">NFP</span>는 미국에서 한 달간 농업 외 부문에 새로 고용된 사람 수를 보여주는 통계. 미국 경제 건강 상태를 가장 빠르게 보여주는 핵심 지표. 4월 컨센서스는 17.8만 명 수준.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">왜 코스피에 영향</div>
+        <div class="chrono-d-section-content">고용 강함 → <span class="term">연준</span>이 금리를 안 내림 → 달러 강세 → <span class="term">원/달러 환율</span> 상승 → 외국인 입장에서 한국 주식이 비싸짐 → <span class="term">외국인 순매도</span> 가속.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">투자자가 할 일</div>
+        <div class="chrono-d-section-content">5/11(월) 개장 시 환율 <strong>1,500원 돌파 여부</strong>가 1차 시그널. 돌파 시 비중 축소 검토. 미돌파 시 관망 유지.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5/11 -->
+  <div class="chrono-detailed reaction">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/11</div>
+        <div class="chrono-d-date-day">MON</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">→ NFP 영향 반영 / 워시 인준 표결 주간 시작</div>
+        <div class="chrono-d-subtitle">한국 시장이 NFP를 처음 소화하는 거래일</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">韓 당일</div>
+        <div class="chrono-d-impact-date">5/11 월</div>
+      </div>
+    </div>
+    <div class="chrono-d-body chrono-d-body-2col">
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">시장 반응 포인트</div>
+        <div class="chrono-d-section-content">개장 직후 30분간 환율·금리·외국인 수급의 방향이 결정됨. 이번 주 수요일 인준 표결을 앞두고 <span class="term">워시</span>의 <span class="term">비둘기파</span> 정책 기대감이 살아날 가능성도.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">투자자가 할 일</div>
+        <div class="chrono-d-section-content">개장 후 30분 외국인 매매 동향 확인. 환율 1,500원 돌파 + 외국인 순매도 1조 이상이면 <strong>리스크 신호</strong>. 두 조건 모두 미충족이면 5/12 CPI까지 관망.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5/12 -->
+  <div class="chrono-detailed high">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/12</div>
+        <div class="chrono-d-date-day">TUE</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">美 4월 CPI + MSCI 분기 리뷰 발표</div>
+        <div class="chrono-d-subtitle">한국시간 21:30 발표 (CPI) · MSCI는 발표만 (효력은 5/29)</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">韓 반영</div>
+        <div class="chrono-d-impact-date">5/13 수</div>
+      </div>
+    </div>
+    <div class="chrono-d-body">
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">무엇이 발표되나</div>
+        <div class="chrono-d-section-content"><span class="term">CPI</span>는 소비자물가지수, 즉 우리가 마트에서 사는 물건들의 가격이 얼마나 올랐는지를 측정. 3월에는 3.3%였음. <span class="term">MSCI</span> 분기 리뷰는 한국 종목의 글로벌 인덱스 비중을 조정하는 발표.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">왜 코스피에 영향</div>
+        <div class="chrono-d-section-content">CPI 3.5% 초과 → 인플레이션 재확산 우려 → 금리 인하 후퇴 → 코스피 단기 천장. MSCI 한국 비중 축소 시 → 5/29 마감에 <span class="term">패시브 펀드</span>의 자동 매도 약 1,800억 원 발생.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">투자자가 할 일</div>
+        <div class="chrono-d-section-content">5/13(수) 개장 시 CPI 결과 반영. CPI 3.5% 초과 시 6,400 도달 가능 → <strong>1차 분할 매수 기회</strong>. CPI 3% 미만이면 7,000 시도 시나리오.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5/13 -->
+  <div class="chrono-detailed reaction">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/13</div>
+        <div class="chrono-d-date-day">WED</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">→ CPI 영향 반영 / 美 PPI 발표</div>
+        <div class="chrono-d-subtitle"><span class="term">PPI</span>는 생산자물가지수 — CPI에 선행하는 물가 신호</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">韓 당일</div>
+        <div class="chrono-d-impact-date">5/13 수</div>
+      </div>
+    </div>
+    <div class="chrono-d-body chrono-d-body-2col">
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">시장 반응 포인트</div>
+        <div class="chrono-d-section-content">CPI 결과에 따른 본격 가격 조정. CPI 높으면 환율·금리 동시 상승 압력. PPI까지 높으면 다음 달 CPI도 상승 신호.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">투자자가 할 일</div>
+        <div class="chrono-d-section-content">코스피 6,400 도달 시 자금의 1/3 분할 매수 (반도체 대형주 우선). 환율 1,500원+CPI 3.5%+유가 $120 동시 충족 시 <span class="term">디펜시브 모드</span> 즉시 전환.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>2026년 5월 한국 주식시장 리스크 분석 보고서 · 통합 최종판</span>
+    <span>Page <span class="num">04</span></span>
+  </div>
+</div>
+
+<!-- ============ Page 5 - 일별 상세 타임라인 (2) ============ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-header-num">03</div>
+      <div class="page-header-title-area">
+        <div class="page-header-eyebrow">DAILY CHRONOLOGY · DETAILED (CONT.)</div>
+        <div class="page-header-title">일별 상세 타임라인 (후반부)</div>
+      </div>
+    </div>
+    <div class="page-header-meta">5/14 ~ 5/29 · 무엇·왜·액션</div>
+  </div>
+
+  <!-- 5/14 -->
+  <div class="chrono-detailed high">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/14</div>
+        <div class="chrono-d-date-day">THU</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">KOSPI200 옵션 만기일</div>
+        <div class="chrono-d-subtitle">매월 둘째 목요일 = 한국 옵션 만기 · 5월물 청산일</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">韓 당일</div>
+        <div class="chrono-d-impact-date">5/14 목</div>
+      </div>
+    </div>
+    <div class="chrono-d-body">
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">무엇이 일어나나</div>
+        <div class="chrono-d-section-content"><span class="term">옵션 만기일</span>은 <span class="term">옵션</span>이라는 금융상품의 유효기간이 끝나는 날. 만기 직전에 옵션 매수자들이 한꺼번에 청산하면서 코스피200 종목들이 출렁임. 4월 30%+ 폭등 후 옵션 매수자들의 수익 확정 매물이 쏟아질 가능성.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">왜 변동성이 커지나</div>
+        <div class="chrono-d-section-content">코스닥 <span class="term">보호예수</span> 해제 물량과 시기가 겹침. 5월 보호예수 해제는 56개사·2억 242만 주(코스닥 77%). 만기일 전후 매물 압력 + 청산 거래 동시 발생.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">투자자가 할 일</div>
+        <div class="chrono-d-section-content">만기 전후 2~3일은 신규 진입 자제. 만기일 당일 장 마감 30분 변동성 폭증 가능. <strong>코스닥 중소형주는 5월 전체 회피 권장.</strong></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5/15 -->
+  <div class="chrono-detailed high">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/15</div>
+        <div class="chrono-d-date-day">FRI</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">파월 임기 종료 → 워시 신임 의장 시작</div>
+        <div class="chrono-d-subtitle">미 연준 의장 교체 · 6/16 첫 FOMC까지 정책 공백 1개월</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">韓 당일</div>
+        <div class="chrono-d-impact-date">5/15 금</div>
+      </div>
+    </div>
+    <div class="chrono-d-body">
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">무엇이 일어나나</div>
+        <div class="chrono-d-section-content">미국 <span class="term">연준(Fed)</span> 의장이 파월에서 워시로 교체. 5/11 주 본회의 인준 표결 통과 가정. 같은 날 <strong>한화에어로스페이스 보호예수 해제(171만 주)</strong>도 발생.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">왜 코스피에 영향</div>
+        <div class="chrono-d-section-content"><span class="term">워시</span>는 <span class="term">매파적</span>으로 보이지만 실제로는 금리를 내리고 싶어하는 <span class="term">비둘기파</span>적 성향. 시장은 첫 한 달간 워시의 발언에 과민 반응. 6/16~17 첫 <span class="term">FOMC</span>까지 정책 공백.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">투자자가 할 일</div>
+        <div class="chrono-d-section-content">코스피 6,200 도달 시 2차 분할 매수. 방산은 보호예수 해제 직후 일주일 눌림목에서 진입. 워시 첫 발언 점검.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5/19 -->
+  <div class="chrono-detailed med">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/19</div>
+        <div class="chrono-d-date-day">TUE</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">Google I/O 2026 1일차 (한국시간 5/20 02:00)</div>
+        <div class="chrono-d-subtitle">구글 연례 개발자 컨퍼런스 · AI·Gemini·Android 17 발표</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">韓 반영</div>
+        <div class="chrono-d-impact-date">5/20 수</div>
+      </div>
+    </div>
+    <div class="chrono-d-body chrono-d-body-2col">
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">왜 한국 시장에 영향</div>
+        <div class="chrono-d-section-content">구글의 AI <span class="term">capex</span> 지출 계획이 발표됨. 데이터센터 투자 확대 = 삼성전자·SK하이닉스의 <span class="term">HBM</span> 메모리 수요 증가 신호.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">투자자가 할 일</div>
+        <div class="chrono-d-section-content">5/20 한국 개장 시 반도체 대형주 갭 출발 가능. AI 인프라 투자 가이던스 상향 시 매수 모멘텀.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5/20 -->
+  <div class="chrono-detailed high">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/20</div>
+        <div class="chrono-d-date-day">WED</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">NVIDIA Q1 FY27 실적 발표</div>
+        <div class="chrono-d-subtitle">미국 장 마감 후 발표 = 한국시간 5/21 새벽 05:00</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">韓 반영</div>
+        <div class="chrono-d-impact-date">5/21 목</div>
+      </div>
+    </div>
+    <div class="chrono-d-body">
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">무엇이 발표되나</div>
+        <div class="chrono-d-section-content">엔비디아 회계연도 2027 1분기 실적. 가이던스는 매출 $78B(±2%), 데이터센터 중심 성장 지속. <span class="term">capex</span>(자본지출) 가이던스가 핵심.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">왜 코스피에 영향</div>
+        <div class="chrono-d-section-content">엔비디아 = AI 칩의 셰프, 삼성·SK하이닉스 = <span class="term">HBM</span> 식재료 농장. 셰프가 더 많이 주문하면 농장도 호황. 코스피 시총의 약 40%가 이 두 종목.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">투자자가 할 일</div>
+        <div class="chrono-d-section-content">5/21(목) 개장 시 갭 방향이 핵심. capex 상향 → 반도체 매수, 보합·하향 → 차익 실현 매물 대비. 발표 직전 무리한 베팅 금지.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5/21 -->
+  <div class="chrono-detailed reaction">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/21</div>
+        <div class="chrono-d-date-day">THU</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">→ NVIDIA 영향 반영 / 삼성전자 파업 예고일</div>
+        <div class="chrono-d-subtitle">반도체 대형주 갭 출발 + 삼성 노조 파업 시점</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">韓 당일</div>
+        <div class="chrono-d-impact-date">5/21 목</div>
+      </div>
+    </div>
+    <div class="chrono-d-body chrono-d-body-2col">
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">시장 반응 포인트</div>
+        <div class="chrono-d-section-content">NVIDIA 가이던스 + 삼성 파업 두 변수가 동시. 파업은 자체보다 <strong>타결 여부가 핵심 시그널</strong>. 타결 시 불확실성 해소로 반등.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">투자자가 할 일</div>
+        <div class="chrono-d-section-content">개장 30분간 반도체 갭과 삼성 동향 동시 점검. 파업 타결 뉴스 + NVIDIA 호실적 = 매수 기회 중첩.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5/25 -->
+  <div class="chrono-detailed holiday">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/25</div>
+        <div class="chrono-d-date-day">MON</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">★ 한국 거래소 휴장 (대체공휴일)</div>
+        <div class="chrono-d-subtitle">부처님오신날(5/24 일) 대체 · 5/22 금 → 5/26 화 사이 4일 갭</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">韓 영향</div>
+        <div class="chrono-d-impact-date">5/26 화</div>
+      </div>
+    </div>
+    <div class="chrono-d-body chrono-d-body-1col">
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">왜 중요한가</div>
+        <div class="chrono-d-section-content">5/22(금) 마감부터 5/26(화) 개장까지 한국 시장이 4일간 닫혀 있음. 이 기간 동안 미국 시장은 정상 거래되고 글로벌 변동성이 누적될 수 있음. 5/22 단기 포지션 정리 권장. 5/26 개장 시 갭 출발 대비.</div>
+      </div>
+    </div>
+  </div>
+
+  <!-- 5/29 -->
+  <div class="chrono-detailed med">
+    <div class="chrono-d-header">
+      <div class="chrono-d-date">
+        <div class="chrono-d-date-num">5/29</div>
+        <div class="chrono-d-date-day">FRI</div>
+      </div>
+      <div>
+        <div class="chrono-d-title">MSCI 분기 리밸런싱 발효</div>
+        <div class="chrono-d-subtitle">패시브 자금 약 1,800억 원 실제 이동 · 마감 종가 기준</div>
+      </div>
+      <div class="chrono-d-impact">
+        <div class="chrono-d-impact-label">韓 당일</div>
+        <div class="chrono-d-impact-date">5/29 금</div>
+      </div>
+    </div>
+    <div class="chrono-d-body">
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">무엇이 일어나나</div>
+        <div class="chrono-d-section-content">5/12 발표된 <span class="term">MSCI</span> 한국 비중 변화가 실제로 적용되는 날. <span class="term">패시브 펀드</span>(인덱스 추종 펀드)들이 새 비중에 맞춰 자동 매매 실행.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">왜 변동성이 커지나</div>
+        <div class="chrono-d-section-content">전 세계 패시브 자금이 마감 종가 기준으로 한꺼번에 매매. 한국 비중 축소면 1,800억 원 규모 자동 매도 발생. 장 마감 30분간 변동성 집중.</div>
+      </div>
+      <div class="chrono-d-section">
+        <div class="chrono-d-section-title">투자자가 할 일</div>
+        <div class="chrono-d-section-content">장 마감 30분 동시호가 변동성 활용 가능. 단, 종가 베팅은 위험. 일반 투자자는 14:30 이후 신규 진입 자제 권장.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>2026년 5월 한국 주식시장 리스크 분석 보고서 · 통합 최종판</span>
+    <span>Page <span class="num">05</span></span>
+  </div>
+</div>
+
+
+<!-- ============ Page 6 - 핵심 이벤트 7선 ============ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-header-num">04</div>
+      <div class="page-header-title-area">
+        <div class="page-header-eyebrow">7 KEY EVENTS</div>
+        <div class="page-header-title">5월 핵심 이벤트 7선</div>
+      </div>
+    </div>
+    <div class="page-header-meta">반드시 표시해 둘 일정</div>
+  </div>
+
+  <p style="font-size: 9.5pt;">5월에 시장을 움직일 7개 핵심 이벤트입니다. 빨간색 카드(위험)는 신규 진입을 자제, 노란색 카드(주의)는 변동성을 활용할 수 있는 기회 구간으로 봅니다. 한국 반영일 박스에는 미국 발표가 한국 시장에 처음 영향을 미치는 거래일을 표시했습니다.</p>
+
+  <div class="event-card med">
+    <div class="event-card-date">
+      <div class="event-card-day">금 · FRI</div>
+      <div class="event-card-num">5/8</div>
+    </div>
+    <div>
+      <div class="event-card-title">美 4월 NFP (고용지표)</div>
+      <div class="event-card-desc">한국시간 21:30 발표. 고용 강하면 금리 인하 후퇴 → 환율 1,500원 돌파 가능성. <span class="term">외국인 순매도</span> 가속의 1차 시그널.</div>
+    </div>
+    <div class="event-card-reaction">
+      <div class="event-card-reaction-label">韓 반영</div>
+      <div class="event-card-reaction-date">5/11 월</div>
+    </div>
+    <div class="event-card-tag med">주의</div>
+  </div>
+
+  <div class="event-card high">
+    <div class="event-card-date">
+      <div class="event-card-day">화 · TUE</div>
+      <div class="event-card-num">5/12</div>
+    </div>
+    <div>
+      <div class="event-card-title">美 4월 CPI + MSCI 분기 리뷰</div>
+      <div class="event-card-desc">CPI 3.5% 초과 시 단기 천장. <span class="term">MSCI</span> 한국 비중 변화는 5/29 마감 종가 기준 발효 (<span class="term">패시브 펀드</span> 약 1,800억).</div>
+    </div>
+    <div class="event-card-reaction">
+      <div class="event-card-reaction-label">韓 반영</div>
+      <div class="event-card-reaction-date">5/13 수</div>
+    </div>
+    <div class="event-card-tag high">위험</div>
+  </div>
+
+  <div class="event-card high">
+    <div class="event-card-date">
+      <div class="event-card-day">목 · THU</div>
+      <div class="event-card-num">5/14</div>
+    </div>
+    <div>
+      <div class="event-card-title">KOSPI200 옵션 만기일</div>
+      <div class="event-card-desc">월물 <span class="term">옵션</span> 청산 압력 + 코스닥 <span class="term">보호예수</span> 해제 집중(56개사 2억 242만 주). 만기 전후 2~3일 변동성 폭증.</div>
+    </div>
+    <div class="event-card-reaction">
+      <div class="event-card-reaction-label">韓 당일</div>
+      <div class="event-card-reaction-date">5/14 목</div>
+    </div>
+    <div class="event-card-tag high">위험</div>
+  </div>
+
+  <div class="event-card high">
+    <div class="event-card-date">
+      <div class="event-card-day">금 · FRI</div>
+      <div class="event-card-num">5/15</div>
+    </div>
+    <div>
+      <div class="event-card-title">파월 임기 종료 → 워시 체제</div>
+      <div class="event-card-desc"><span class="term">워시</span> 인준 5/11 주 본회의 표결. 6/16 첫 <span class="term">FOMC</span>까지 정책 공백. 같은 날 한화에어로 보호예수 해제(171만 주).</div>
+    </div>
+    <div class="event-card-reaction">
+      <div class="event-card-reaction-label">韓 당일</div>
+      <div class="event-card-reaction-date">5/15 금</div>
+    </div>
+    <div class="event-card-tag high">위험</div>
+  </div>
+
+  <div class="event-card med">
+    <div class="event-card-date">
+      <div class="event-card-day">수 · WED</div>
+      <div class="event-card-num">5/20</div>
+    </div>
+    <div>
+      <div class="event-card-title">NVIDIA Q1 FY27 실적 발표</div>
+      <div class="event-card-desc">美 장 마감 후 발표(한국 5/21 새벽 05:00). 데이터센터 <span class="term">capex</span> 가이던스와 <span class="term">HBM</span> 코멘트가 핵심.</div>
+    </div>
+    <div class="event-card-reaction">
+      <div class="event-card-reaction-label">韓 반영</div>
+      <div class="event-card-reaction-date">5/21 목</div>
+    </div>
+    <div class="event-card-tag med">주의</div>
+  </div>
+
+  <div class="event-card med">
+    <div class="event-card-date">
+      <div class="event-card-day">월 · MON</div>
+      <div class="event-card-num">5/25</div>
+    </div>
+    <div>
+      <div class="event-card-title">★ 대체공휴일 (한국 거래소 휴장)</div>
+      <div class="event-card-desc">부처님오신날(5/24 일) 대체. 5/22 금 마감 ~ 5/26 화 개장 사이 4일간 글로벌 변동성에 노출.</div>
+    </div>
+    <div class="event-card-reaction">
+      <div class="event-card-reaction-label">韓 반영</div>
+      <div class="event-card-reaction-date">5/26 화</div>
+    </div>
+    <div class="event-card-tag med">주의</div>
+  </div>
+
+  <div class="event-card med">
+    <div class="event-card-date">
+      <div class="event-card-day">금 · FRI</div>
+      <div class="event-card-num">5/29</div>
+    </div>
+    <div>
+      <div class="event-card-title">MSCI 리밸런싱 발효</div>
+      <div class="event-card-desc"><span class="term">패시브 펀드</span> 약 1,800억 원 실제 이동. 장 마감 30분 변동성 집중. <span class="term">동시호가</span> 베팅 위험.</div>
+    </div>
+    <div class="event-card-reaction">
+      <div class="event-card-reaction-label">韓 당일</div>
+      <div class="event-card-reaction-date">5/29 금</div>
+    </div>
+    <div class="event-card-tag med">주의</div>
+  </div>
+
+  <div class="page-footer">
+    <span>2026년 5월 한국 주식시장 리스크 분석 보고서 · 통합 최종판</span>
+    <span>Page <span class="num">06</span></span>
+  </div>
+</div>
+<!-- ============ Page 7 - 주차별 + 시나리오 ============ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-header-num">05</div>
+      <div class="page-header-title-area">
+        <div class="page-header-eyebrow">WEEKLY RADAR + SCENARIO</div>
+        <div class="page-header-title">주차별 리스크 + 시나리오</div>
+      </div>
+    </div>
+    <div class="page-header-meta">5주 + 분기 결정 트리</div>
+  </div>
+
+  <h2>주차별 리스크 레이더</h2>
+  <div class="timeline-strip">
+    <div class="timeline-week low">
+      <div class="timeline-week-bar low"></div>
+      <div class="timeline-week-num">WEEK 1</div>
+      <div class="timeline-week-date">5/1~5/3</div>
+      <div class="timeline-week-title">연휴 공백</div>
+      <div class="timeline-week-desc">5/1 노동절 휴장</div>
+    </div>
+    <div class="timeline-week med">
+      <div class="timeline-week-bar med"></div>
+      <div class="timeline-week-num">WEEK 2</div>
+      <div class="timeline-week-date">5/4~5/10</div>
+      <div class="timeline-week-title">고용지표</div>
+      <div class="timeline-week-desc">5/5 어린이날<br>5/8 美 NFP</div>
+    </div>
+    <div class="timeline-week high">
+      <div class="timeline-week-bar high"></div>
+      <div class="timeline-week-num">WEEK 3</div>
+      <div class="timeline-week-date">5/11~5/17</div>
+      <div class="timeline-week-title">3중 변동</div>
+      <div class="timeline-week-desc">CPI · 옵션만기<br>의장 교체</div>
+    </div>
+    <div class="timeline-week med">
+      <div class="timeline-week-bar med"></div>
+      <div class="timeline-week-num">WEEK 4</div>
+      <div class="timeline-week-date">5/18~5/24</div>
+      <div class="timeline-week-title">실적+파업</div>
+      <div class="timeline-week-desc">5/20 NVIDIA<br>5/21 삼성</div>
+    </div>
+    <div class="timeline-week med">
+      <div class="timeline-week-bar med"></div>
+      <div class="timeline-week-num">WEEK 5</div>
+      <div class="timeline-week-date">5/25~5/31</div>
+      <div class="timeline-week-title">대체+MSCI</div>
+      <div class="timeline-week-desc">5/25 휴장<br>5/29 MSCI</div>
+    </div>
+  </div>
+
+  <h2>코스피 시나리오 결정 트리</h2>
+  <div style="background: var(--gray-100); border: 1px solid var(--gray-300); padding: 14px; margin: 10px 0;">
+    <svg width="100%" viewBox="0 0 660 460" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans KR, sans-serif">
+      <defs>
+        <marker id="arrowG" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M2 1L8 5L2 9Z" fill="#4a5568"/>
+        </marker>
+        <marker id="arrowO" viewBox="0 0 10 10" refX="9" refY="5" markerWidth="7" markerHeight="7" orient="auto">
+          <path d="M2 1L8 5L2 9Z" fill="#e85d24"/>
+        </marker>
+      </defs>
+      
+      <rect x="240" y="10" width="180" height="56" rx="4" fill="#1a365d"/>
+      <text x="330" y="32" text-anchor="middle" fill="white" font-size="10" font-weight="500" letter-spacing="1">CURRENT KOSPI</text>
+      <text x="330" y="56" text-anchor="middle" fill="white" font-size="20" font-weight="700" font-family="JetBrains Mono">6,598</text>
+      
+      <line x1="330" y1="66" x2="170" y2="115" stroke="#4a5568" stroke-width="1.5" marker-end="url(#arrowG)"/>
+      <line x1="330" y1="66" x2="490" y2="115" stroke="#4a5568" stroke-width="1.5" marker-end="url(#arrowG)"/>
+      
+      <text x="220" y="92" fill="#2f855a" font-size="10" font-weight="500">▲ 상승 시</text>
+      <text x="430" y="92" fill="#c53030" font-size="10" font-weight="500">▼ 하락 시</text>
+      
+      <rect x="60" y="120" width="220" height="64" rx="4" fill="#f0fdf4" stroke="#2f855a" stroke-width="1.5"/>
+      <text x="170" y="140" text-anchor="middle" fill="#2f855a" font-size="9" font-weight="500">UPSIDE TRIGGER</text>
+      <text x="170" y="158" text-anchor="middle" fill="#1a202c" font-size="11" font-weight="700">6,800 돌파 +</text>
+      <text x="170" y="174" text-anchor="middle" fill="#1a202c" font-size="11" font-weight="700">외국인 3일 순매수</text>
+      
+      <line x1="170" y1="184" x2="170" y2="210" stroke="#4a5568" stroke-width="1.5" marker-end="url(#arrowG)"/>
+      
+      <rect x="60" y="215" width="220" height="84" rx="4" fill="white" stroke="#2f855a" stroke-width="0.5"/>
+      <text x="170" y="234" text-anchor="middle" fill="#2f855a" font-size="9" font-weight="500">대응 전략</text>
+      <text x="170" y="252" text-anchor="middle" fill="#1a202c" font-size="11" font-weight="700">반도체 대형주 매수</text>
+      <text x="170" y="270" text-anchor="middle" fill="#4a5568" font-size="9">RSI 70 이상 분할로</text>
+      <text x="170" y="285" text-anchor="middle" fill="#4a5568" font-size="9">환율 1,500 하회 조건</text>
+      
+      <rect x="380" y="120" width="220" height="64" rx="4" fill="#fef2f2" stroke="#c53030" stroke-width="1.5"/>
+      <text x="490" y="140" text-anchor="middle" fill="#c53030" font-size="9" font-weight="500">DOWNSIDE TRIGGER</text>
+      <text x="490" y="158" text-anchor="middle" fill="#1a202c" font-size="11" font-weight="700">6,500 하향 이탈</text>
+      <text x="490" y="176" text-anchor="middle" fill="#4a5568" font-size="10">반등 시나리오 무산</text>
+      
+      <line x1="490" y1="184" x2="490" y2="210" stroke="#4a5568" stroke-width="1.5" marker-end="url(#arrowG)"/>
+      
+      <rect x="380" y="215" width="220" height="84" rx="4" fill="white" stroke="#c53030" stroke-width="0.5"/>
+      <text x="490" y="234" text-anchor="middle" fill="#c53030" font-size="9" font-weight="500">대응 전략</text>
+      <text x="490" y="252" text-anchor="middle" fill="#1a202c" font-size="11" font-weight="700">현금 비중 30% 확대</text>
+      <text x="490" y="270" text-anchor="middle" fill="#4a5568" font-size="9">6,200대 추가 하락 대비</text>
+      <text x="490" y="285" text-anchor="middle" fill="#4a5568" font-size="9">코스닥 중소형 정리</text>
+      
+      <line x1="170" y1="299" x2="280" y2="335" stroke="#4a5568" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <line x1="490" y1="299" x2="380" y2="335" stroke="#4a5568" stroke-width="0.5" stroke-dasharray="3 3"/>
+      
+      <rect x="170" y="335" width="320" height="40" rx="4" fill="#fef3ed" stroke="#e85d24" stroke-width="1"/>
+      <text x="330" y="352" text-anchor="middle" fill="#c44a17" font-size="9" font-weight="500">PRE-SET BUY ZONES</text>
+      <text x="330" y="368" text-anchor="middle" fill="#1a202c" font-size="11" font-weight="700">매수 가격대 사전 설정 → 기계적 실행</text>
+      
+      <line x1="330" y1="375" x2="330" y2="400" stroke="#e85d24" stroke-width="1.5" marker-end="url(#arrowO)"/>
+      
+      <rect x="60" y="405" width="160" height="50" rx="4" fill="white" stroke="#e85d24"/>
+      <text x="140" y="421" text-anchor="middle" fill="#e85d24" font-size="9" font-weight="500">1차 (5/13 CPI 후)</text>
+      <text x="140" y="442" text-anchor="middle" fill="#1a365d" font-size="16" font-weight="700" font-family="JetBrains Mono">6,400</text>
+      
+      <rect x="250" y="405" width="160" height="50" rx="4" fill="white" stroke="#e85d24"/>
+      <text x="330" y="421" text-anchor="middle" fill="#e85d24" font-size="9" font-weight="500">2차 (5/15 의장 교체)</text>
+      <text x="330" y="442" text-anchor="middle" fill="#1a365d" font-size="16" font-weight="700" font-family="JetBrains Mono">6,200</text>
+      
+      <rect x="440" y="405" width="160" height="50" rx="4" fill="white" stroke="#e85d24"/>
+      <text x="520" y="421" text-anchor="middle" fill="#e85d24" font-size="9" font-weight="500">3차 · 최후 방어선</text>
+      <text x="520" y="442" text-anchor="middle" fill="#1a365d" font-size="16" font-weight="700" font-family="JetBrains Mono">6,000</text>
+    </svg>
+  </div>
+
+  <div class="warning-box">
+    <div class="warning-icon">!</div>
+    <div>
+      <div class="warning-title">디펜시브 모드 트리거</div>
+      <div class="warning-content">
+        환율 <strong>1,500원</strong> 돌파 + 유가 배럴당 <strong>$120</strong> 도달 + CPI <strong>3.5%</strong> 초과 — 세 조건 동시 충족 시 섹터 무관하게 비중 50% 축소.
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>2026년 5월 한국 주식시장 리스크 분석 보고서 · 통합 최종판</span>
+    <span>Page <span class="num">07</span></span>
+  </div>
+</div>
+
+
+<!-- ============ Page 8 - 섹터 매트릭스 ============ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-header-num">06</div>
+      <div class="page-header-title-area">
+        <div class="page-header-eyebrow">SECTOR POSITIONING</div>
+        <div class="page-header-title">섹터 포지셔닝 매트릭스</div>
+      </div>
+    </div>
+    <div class="page-header-meta">위험 vs 기대수익률</div>
+  </div>
+
+  <p style="font-size: 9.5pt;">5월 변동성 구간에서 섹터별로 다른 접근이 필요합니다. 가로축은 5월 단기 위험도, 세로축은 중장기 기대수익률입니다. 우상단(낮은 위험·높은 수익) 섹터를 우선 편입 대상으로 삼습니다.</p>
+
+  <div style="background: white; border: 1px solid var(--gray-300); padding: 16px; margin: 12px 0;">
+    <svg width="100%" viewBox="0 0 660 460" xmlns="http://www.w3.org/2000/svg" font-family="Noto Sans KR, sans-serif">
+      <rect x="80" y="40" width="540" height="360" fill="#f7fafc" stroke="#cbd5e0" stroke-width="0.5"/>
+      <line x1="350" y1="40" x2="350" y2="400" stroke="#cbd5e0" stroke-width="0.5" stroke-dasharray="3 3"/>
+      <line x1="80" y1="220" x2="620" y2="220" stroke="#cbd5e0" stroke-width="0.5" stroke-dasharray="3 3"/>
+      
+      <text x="215" y="58" text-anchor="middle" fill="#2f855a" font-size="10" font-weight="500">우선 편입</text>
+      <text x="485" y="58" text-anchor="middle" fill="#b7791f" font-size="10" font-weight="500">선택적 편입</text>
+      <text x="215" y="392" text-anchor="middle" fill="#718096" font-size="10" font-weight="500">방어용 보유</text>
+      <text x="485" y="392" text-anchor="middle" fill="#c53030" font-size="10" font-weight="500">회피</text>
+      
+      <text x="350" y="430" text-anchor="middle" fill="#2d3748" font-size="11" font-weight="700">→ 5월 단기 위험도</text>
+      <text x="30" y="220" text-anchor="middle" fill="#2d3748" font-size="11" font-weight="700" transform="rotate(-90 30 220)">→ 중장기 기대수익률</text>
+      
+      <text x="80" y="418" fill="#718096" font-size="8.5">낮음</text>
+      <text x="620" y="418" text-anchor="end" fill="#718096" font-size="8.5">높음</text>
+      <text x="62" y="44" text-anchor="end" fill="#718096" font-size="8.5">높음</text>
+      <text x="62" y="404" text-anchor="end" fill="#718096" font-size="8.5">낮음</text>
+      
+      <circle cx="180" cy="100" r="50" fill="#e85d24" opacity="0.2" stroke="#e85d24" stroke-width="2"/>
+      <text x="180" y="98" text-anchor="middle" fill="#1a365d" font-size="11" font-weight="700">반도체</text>
+      <text x="180" y="113" text-anchor="middle" fill="#4a5568" font-size="8.5">시총 40%</text>
+      
+      <circle cx="265" cy="170" r="36" fill="#1a365d" opacity="0.2" stroke="#1a365d" stroke-width="2"/>
+      <text x="265" y="168" text-anchor="middle" fill="#1a365d" font-size="10" font-weight="700">금융</text>
+      <text x="265" y="181" text-anchor="middle" fill="#4a5568" font-size="8">밸류업</text>
+      
+      <circle cx="380" cy="145" r="40" fill="#b7791f" opacity="0.2" stroke="#b7791f" stroke-width="2"/>
+      <text x="380" y="143" text-anchor="middle" fill="#1a365d" font-size="10" font-weight="700">방산</text>
+      <text x="380" y="157" text-anchor="middle" fill="#4a5568" font-size="8">5/15 해제</text>
+      
+      <circle cx="170" cy="310" r="35" fill="#2f855a" opacity="0.2" stroke="#2f855a" stroke-width="2"/>
+      <text x="170" y="308" text-anchor="middle" fill="#1a365d" font-size="10" font-weight="700">방어주</text>
+      <text x="170" y="321" text-anchor="middle" fill="#4a5568" font-size="8">통신·필수</text>
+      
+      <circle cx="490" cy="230" r="38" fill="#c53030" opacity="0.15" stroke="#c53030" stroke-width="2"/>
+      <text x="490" y="227" text-anchor="middle" fill="#1a365d" font-size="10" font-weight="700">2차전지</text>
+      <text x="490" y="240" text-anchor="middle" fill="#4a5568" font-size="8">변동성↑</text>
+      
+      <circle cx="540" cy="335" r="42" fill="#c53030" opacity="0.25" stroke="#c53030" stroke-width="2"/>
+      <text x="540" y="332" text-anchor="middle" fill="#1a365d" font-size="10" font-weight="700">코스닥</text>
+      <text x="540" y="346" text-anchor="middle" fill="#c53030" font-size="8" font-weight="700">5월 회피</text>
+    </svg>
+  </div>
+
+  <h2>섹터별 운영 전략</h2>
+
+  <div class="two-col">
+    <div class="panel">
+      <div class="panel-title" style="color: var(--orange);">▎ 우선 편입 · 반도체</div>
+      <div style="font-size: 9pt; color: var(--gray-700); line-height: 1.6;">
+        코스피 시총의 약 40%. <span class="term">PER</span> 5~6배는 글로벌 평균(15~20배) 대비 디스카운트. <strong>6,400 1차 매수에서 우선 편입.</strong> 환율 1,500원 안정적 하회 전제. <strong>5/21 NVIDIA 영향 반영일</strong>이 단기 매수 기회.
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title" style="color: var(--amber);">▎ 선택적 편입 · 방산</div>
+      <div style="font-size: 9pt; color: var(--gray-700); line-height: 1.6;">
+        5/15 보호예수 해제 물량 171만 주 단기 매도 압력. <strong>해제일 직후 일주일 눌림목</strong>이 진입 타이밍. 지정학 리스크 지속 시 중장기 모멘텀 유효.
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title" style="color: var(--navy);">▎ 분산 후보 · 금융</div>
+      <div style="font-size: 9pt; color: var(--gray-700); line-height: 1.6;">
+        <span class="term">밸류업</span> 정책 모멘텀 지속. 워시 비둘기파 정책 시 단기 부담 가능, 중장기 자본 효율 개선 유효. <strong>6,200 2차 매수 시 분산 편입.</strong>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title" style="color: var(--green);">▎ 방어용 · 통신·필수소비</div>
+      <div style="font-size: 9pt; color: var(--gray-700); line-height: 1.6;">
+        <span class="term">디펜시브 모드</span> 전환 시 대피처. 4월 상승률이 시장 평균 미만. <strong>환율 1,500원 돌파 시 즉시 보험성 매수.</strong>
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title" style="color: var(--red);">▎ 보수적 접근 · 2차전지</div>
+      <div style="font-size: 9pt; color: var(--gray-700); line-height: 1.6;">
+        4월 급등 종목군 다수. 보호예수 해제 일정 겹치는 종목 다수. 거래대금 회전율 3배 이상은 정리.
+      </div>
+    </div>
+
+    <div class="panel">
+      <div class="panel-title" style="color: var(--red);">▎ 회피 · 코스닥 중소형주</div>
+      <div style="font-size: 9pt; color: var(--gray-700); line-height: 1.6;">
+        보호예수 해제 물량의 77% 코스닥 집중. <strong>에코프로아이·JNB·에코프로머티는 5월 전체 회피.</strong>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>2026년 5월 한국 주식시장 리스크 분석 보고서 · 통합 최종판</span>
+    <span>Page <span class="num">08</span></span>
+  </div>
+</div>
+
+<!-- ============ Page 9 - 일일 모니터링 ============ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-header-num">07</div>
+      <div class="page-header-title-area">
+        <div class="page-header-eyebrow">DAILY MONITORING</div>
+        <div class="page-header-title">매일 보는 신호등</div>
+      </div>
+    </div>
+    <div class="page-header-meta">3대 핵심 지표 모니터링</div>
+  </div>
+
+  <p style="font-size: 9.5pt;">5월 한 달은 환율, 외국인 수급, <span class="term">VKOSPI</span> — 이 세 지표만 매일 체크하면 시장의 흐름을 놓치지 않습니다. 각 지표가 위험 라인을 넘으면 즉시 대응 액션을 실행합니다.</p>
+
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0;">
+    
+    <div style="background: white; border: 1px solid var(--gray-300); padding: 14px;">
+      <div style="font-size: 9pt; color: var(--gray-600); letter-spacing: 1px; text-align: center;">USD/KRW</div>
+      <svg width="100%" viewBox="0 0 200 130" style="margin: 8px 0;">
+        <rect x="20" y="55" width="160" height="20" fill="#edf2f7" rx="2"/>
+        <rect x="20" y="55" width="100" height="20" fill="#2f855a" opacity="0.3"/>
+        <rect x="120" y="55" width="40" height="20" fill="#b7791f" opacity="0.3"/>
+        <rect x="160" y="55" width="20" height="20" fill="#c53030" opacity="0.3"/>
+        <line x1="156" y1="45" x2="156" y2="85" stroke="#1a365d" stroke-width="2.5"/>
+        <polygon points="156,42 152,38 160,38" fill="#1a365d"/>
+        <text x="20" y="100" fill="#718096" font-size="8" font-family="JetBrains Mono">1,400</text>
+        <text x="120" y="100" fill="#b7791f" font-size="8" font-family="JetBrains Mono" text-anchor="middle">1,480</text>
+        <text x="160" y="100" fill="#c53030" font-size="8" font-family="JetBrains Mono" text-anchor="middle">1,500</text>
+        <text x="180" y="100" fill="#718096" font-size="8" font-family="JetBrains Mono" text-anchor="end">1,520</text>
+        <text x="100" y="25" text-anchor="middle" fill="#1a365d" font-size="22" font-weight="700" font-family="JetBrains Mono">1,489</text>
+        <text x="100" y="120" text-anchor="middle" fill="#b7791f" font-size="9" font-weight="500">위험 라인 근접</text>
+      </svg>
+      <div style="font-size: 8.5pt; color: var(--gray-700); border-top: 1px dashed var(--gray-300); padding-top: 6px; line-height: 1.5;">
+        <strong>1,500 돌파 시</strong><br>외국인 매도 가속 → 비중 축소
+      </div>
+    </div>
+
+    <div style="background: white; border: 1px solid var(--gray-300); padding: 14px;">
+      <div style="font-size: 9pt; color: var(--gray-600); letter-spacing: 1px; text-align: center;">FOREIGN FLOW</div>
+      <svg width="100%" viewBox="0 0 200 130" style="margin: 8px 0;">
+        <line x1="100" y1="40" x2="100" y2="90" stroke="#cbd5e0" stroke-width="0.5"/>
+        <rect x="20" y="55" width="14" height="-12" fill="#c53030" transform="translate(0, 12)"/>
+        <rect x="40" y="55" width="14" height="18" fill="#c53030"/>
+        <rect x="60" y="55" width="14" height="-8" fill="#2f855a" transform="translate(0, 8)"/>
+        <rect x="80" y="55" width="14" height="22" fill="#c53030"/>
+        <rect x="100" y="55" width="14" height="-15" fill="#2f855a" transform="translate(0, 15)"/>
+        <rect x="120" y="55" width="14" height="14" fill="#c53030"/>
+        <rect x="140" y="55" width="14" height="20" fill="#c53030"/>
+        <rect x="160" y="55" width="14" height="-5" fill="#2f855a" transform="translate(0, 5)"/>
+        <text x="100" y="25" text-anchor="middle" fill="#c53030" font-size="22" font-weight="700" font-family="JetBrains Mono">−4.2조</text>
+        <text x="100" y="120" text-anchor="middle" fill="#b7791f" font-size="9" font-weight="500">4월 누적 순매도</text>
+        <text x="20" y="105" fill="#718096" font-size="7">8일</text>
+        <text x="160" y="105" fill="#718096" font-size="7" text-anchor="end">5/2</text>
+      </svg>
+      <div style="font-size: 8.5pt; color: var(--gray-700); border-top: 1px dashed var(--gray-300); padding-top: 6px; line-height: 1.5;">
+        <strong>3일 연속 순매수 시</strong><br>상승 시나리오 가동 신호
+      </div>
+    </div>
+
+    <div style="background: white; border: 1px solid var(--gray-300); padding: 14px;">
+      <div style="font-size: 9pt; color: var(--gray-600); letter-spacing: 1px; text-align: center;">VKOSPI</div>
+      <svg width="100%" viewBox="0 0 200 130" style="margin: 8px 0;">
+        <path d="M 30 95 A 70 70 0 0 1 80 30" stroke="#2f855a" stroke-width="14" fill="none"/>
+        <path d="M 80 30 A 70 70 0 0 1 120 30" stroke="#b7791f" stroke-width="14" fill="none"/>
+        <path d="M 120 30 A 70 70 0 0 1 170 95" stroke="#c53030" stroke-width="14" fill="none"/>
+        <g transform="rotate(-30 100 95)">
+          <line x1="100" y1="95" x2="100" y2="40" stroke="#1a365d" stroke-width="2.5" stroke-linecap="round"/>
+          <circle cx="100" cy="40" r="3" fill="#e85d24"/>
+        </g>
+        <circle cx="100" cy="95" r="6" fill="#1a365d"/>
+        <text x="100" y="78" text-anchor="middle" fill="#1a365d" font-size="20" font-weight="700" font-family="JetBrains Mono">22</text>
+        <text x="40" y="115" fill="#2f855a" font-size="8" text-anchor="middle">15</text>
+        <text x="100" y="115" fill="#b7791f" font-size="8" text-anchor="middle">25</text>
+        <text x="160" y="115" fill="#c53030" font-size="8" text-anchor="middle">35</text>
+      </svg>
+      <div style="font-size: 8.5pt; color: var(--gray-700); border-top: 1px dashed var(--gray-300); padding-top: 6px; line-height: 1.5;">
+        <strong>25 이상 시</strong><br>단기 패닉 신호 → 관망
+      </div>
+    </div>
+  </div>
+
+  <h2>시간대별 체크리스트</h2>
+
+  <div style="display: grid; grid-template-columns: 1fr 1fr; gap: 10px; margin: 8px 0;">
+    
+    <div style="background: var(--gray-100); border-left: 4px solid var(--navy); padding: 12px 14px;">
+      <div style="font-size: 8pt; color: var(--orange); font-weight: 500; letter-spacing: 1px; margin-bottom: 4px;">MORNING · 08:30~09:00</div>
+      <div style="font-size: 10.5pt; font-weight: 700; color: var(--navy-dark); margin-bottom: 6px;">개장 전 5분 체크</div>
+      <ul style="list-style: none; padding: 0; font-size: 8.5pt; color: var(--gray-700); line-height: 1.7;">
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 미국 시장 종가 (S&P, 나스닥, 필라델피아 반도체)</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 야간 선물 등락률 (±1% 이상 갭 위험)</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 환율 — 1,500원 돌파 우선 확인</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 브렌트유 — $120 접근 여부</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 당일 한·미 경제지표 일정</li>
+      </ul>
+    </div>
+
+    <div style="background: var(--gray-100); border-left: 4px solid var(--orange); padding: 12px 14px;">
+      <div style="font-size: 8pt; color: var(--orange); font-weight: 500; letter-spacing: 1px; margin-bottom: 4px;">DURING · 09:00~15:30</div>
+      <div style="font-size: 10.5pt; font-weight: 700; color: var(--navy-dark); margin-bottom: 6px;">장 중 모니터링</div>
+      <ul style="list-style: none; padding: 0; font-size: 8.5pt; color: var(--gray-700); line-height: 1.7;">
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 외국인 누적 순매수/매도 (1조 이상이면 추세)</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 코스피 6,500 / 6,800 라인 — 시나리오 전환</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 삼성전자·SK하이닉스 등락 (선행 지표)</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 코스닥/코스피 상대강도 (코스닥 약세 = 위험)</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> VKOSPI 25 이상 — 단기 패닉</li>
+      </ul>
+    </div>
+
+    <div style="background: var(--gray-100); border-left: 4px solid var(--navy); padding: 12px 14px;">
+      <div style="font-size: 8pt; color: var(--orange); font-weight: 500; letter-spacing: 1px; margin-bottom: 4px;">EVENING · 15:30 이후</div>
+      <div style="font-size: 10.5pt; font-weight: 700; color: var(--navy-dark); margin-bottom: 6px;">마감 후 정리</div>
+      <ul style="list-style: none; padding: 0; font-size: 8.5pt; color: var(--gray-700); line-height: 1.7;">
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 외국인·기관·개인 수급 정리</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 보유 종목 등락률 vs 시장 평균</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 다음 거래일 미국 발표 지표</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 매수 가격대 도달 여부 → 매수 계획 확정</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 현금 비중 ±5%p 이내 유지</li>
+      </ul>
+    </div>
+
+    <div style="background: var(--gray-100); border-left: 4px solid var(--orange); padding: 12px 14px;">
+      <div style="font-size: 8pt; color: var(--orange); font-weight: 500; letter-spacing: 1px; margin-bottom: 4px;">WEEKLY · 매주 금요일</div>
+      <div style="font-size: 10.5pt; font-weight: 700; color: var(--navy-dark); margin-bottom: 6px;">주간 점검</div>
+      <ul style="list-style: none; padding: 0; font-size: 8.5pt; color: var(--gray-700); line-height: 1.7;">
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 주차별 리스크 색상 갱신</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 다음 주 핵심 이벤트 재확인</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 매수 가격대 미도달 시 조정 검토</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 섹터 보유 vs 목표 비중 점검</li>
+        <li style="padding-left: 14px; position: relative;"><span style="position: absolute; left: 0; color: var(--orange);">▸</span> 다음 주 시나리오 메모 작성</li>
+      </ul>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>2026년 5월 한국 주식시장 리스크 분석 보고서 · 통합 최종판</span>
+    <span>Page <span class="num">09</span></span>
+  </div>
+</div>
+
+<!-- ============ Page 10 - 용어 사전 (1) ============ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-header-num">08</div>
+      <div class="page-header-title-area">
+        <div class="page-header-eyebrow">GLOSSARY · TECHNICAL TERMS</div>
+        <div class="page-header-title">전문 용어 사전 (1/2)</div>
+      </div>
+    </div>
+    <div class="page-header-meta">미국 경제 지표 · 한국 시장 · 정책</div>
+  </div>
+
+  <p style="font-size: 9.5pt; margin-bottom: 8px;">본문에 등장한 전문 용어를 카테고리별로 정리했습니다. 카드 상단 색상이 카테고리를 나타냅니다 — <span style="color: var(--blue); font-weight: 700;">파랑</span>: 미국 경제 지표, <span style="color: var(--red); font-weight: 700;">빨강</span>: 정책·중앙은행, <span style="color: var(--orange); font-weight: 700;">주황</span>: 한국 시장, <span style="color: var(--green); font-weight: 700;">녹색</span>: 투자 전략, <span style="color: var(--amber); font-weight: 700;">갈색</span>: 기업·실적.</p>
+
+  <div class="glossary-section">
+    <div class="glossary-section-title">미국 경제 지표 (US Economic Indicators)</div>
+    <div class="glossary-grid">
+      <div class="glossary-card economic">
+        <div class="glossary-term"><div class="glossary-term-main">NFP</div><div class="glossary-term-en">Nonfarm Payrolls</div></div>
+        <div class="glossary-def"><strong>비농업 부문 고용지수.</strong> 미국에서 한 달간 농업 외 부문에 새로 고용된 사람 수. 매월 첫째 금요일 8:30 ET 발표.</div>
+        <div class="glossary-context"><strong>5월 등장 일정:</strong> 5/8 발표(4월 데이터). 한국시간 21:30 → 5/11 반영.</div>
+      </div>
+
+      <div class="glossary-card economic">
+        <div class="glossary-term"><div class="glossary-term-main">CPI</div><div class="glossary-term-en">Consumer Price Index</div></div>
+        <div class="glossary-def"><strong>소비자물가지수.</strong> 우리가 마트에서 사는 물건들의 평균 가격이 1년 전 대비 얼마나 변했는지를 측정. 인플레이션의 가장 직접적인 지표.</div>
+        <div class="glossary-context"><strong>5월 등장 일정:</strong> 5/12 발표(4월 데이터). 3.5% 초과 시 단기 천장 신호.</div>
+      </div>
+
+      <div class="glossary-card economic">
+        <div class="glossary-term"><div class="glossary-term-main">PPI</div><div class="glossary-term-en">Producer Price Index</div></div>
+        <div class="glossary-def"><strong>생산자물가지수.</strong> 기업이 생산 단계에서 받는 가격의 변화를 측정. CPI보다 한 발 앞서 인플레이션 신호를 보내는 선행 지표.</div>
+        <div class="glossary-context"><strong>5월 등장 일정:</strong> 5/13 발표. CPI와 함께 보면 다음 달 물가 추세 가늠.</div>
+      </div>
+
+      <div class="glossary-card economic">
+        <div class="glossary-term"><div class="glossary-term-main">ISM 제조업 지수</div><div class="glossary-term-en">ISM Manufacturing PMI</div></div>
+        <div class="glossary-def"><strong>미국 제조업 구매관리자 지수.</strong> 50 이상이면 확장, 50 이하면 위축. 매월 1일 발표되며 경기 선행 지표로 활용.</div>
+        <div class="glossary-context"><strong>5월 등장 일정:</strong> 5/1 발표. 한국 휴장 중이라 5/4 반영.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="glossary-section">
+    <div class="glossary-section-title">정책 · 중앙은행 (Policy &amp; Central Bank)</div>
+    <div class="glossary-grid">
+      <div class="glossary-card policy">
+        <div class="glossary-term"><div class="glossary-term-main">연준 (Fed)</div><div class="glossary-term-en">Federal Reserve</div></div>
+        <div class="glossary-def"><strong>미국 연방준비제도.</strong> 미국의 중앙은행. 기준금리를 결정하고 통화량을 조절. 의장 한 마디에 전 세계 시장이 출렁임.</div>
+        <div class="glossary-context"><strong>5월 등장:</strong> 5/15 파월 임기 종료, 워시 의장 시작.</div>
+      </div>
+
+      <div class="glossary-card policy">
+        <div class="glossary-term"><div class="glossary-term-main">FOMC</div><div class="glossary-term-en">Federal Open Market Committee</div></div>
+        <div class="glossary-def"><strong>연방공개시장위원회.</strong> 연준 내에서 실제로 금리를 결정하는 회의체. 연 8회 개최. 결정문과 의장 기자회견이 시장 변동성의 핵심.</div>
+        <div class="glossary-context"><strong>5월 등장:</strong> 5월에는 FOMC 없음. 4월 동결(3.50~3.75%), 다음은 6/16~17.</div>
+      </div>
+
+      <div class="glossary-card policy">
+        <div class="glossary-term"><div class="glossary-term-main">매파 / 비둘기파</div><div class="glossary-term-en">Hawkish / Dovish</div></div>
+        <div class="glossary-def"><strong>매파는 금리 인상을 선호</strong>(인플레이션 억제). <strong>비둘기파는 금리 인하를 선호</strong>(경제 활성화). 워시는 표면 매파, 실질 비둘기파.</div>
+        <div class="glossary-context"><strong>5월 등장:</strong> 워시 신임 의장의 정책 방향 분석에 사용.</div>
+      </div>
+
+      <div class="glossary-card policy">
+        <div class="glossary-term"><div class="glossary-term-main">워시</div><div class="glossary-term-en">Kevin Warsh</div></div>
+        <div class="glossary-def"><strong>케빈 워시.</strong> 트럼프가 지명한 차기 연준 의장 후보. 2006~2011년 연준 이사 출신. 후버 연구소 펠로우. 5/11 주 인준 표결 예정.</div>
+        <div class="glossary-context"><strong>5월 등장:</strong> 5/15 의장 취임 가정. 첫 FOMC는 6/16.</div>
+      </div>
+
+      <div class="glossary-card policy">
+        <div class="glossary-term"><div class="glossary-term-main">기준금리</div><div class="glossary-term-en">Federal Funds Rate</div></div>
+        <div class="glossary-def"><strong>중앙은행이 정하는 돈의 가격.</strong> 시중 은행 간 단기 대출 금리의 기준. 높으면 돈이 비싸져 경제가 위축, 낮으면 돈이 풀려 경제가 활발.</div>
+        <div class="glossary-context"><strong>현재 수준:</strong> 3.50~3.75% (2026.04 동결).</div>
+      </div>
+
+      <div class="glossary-card policy">
+        <div class="glossary-term"><div class="glossary-term-main">원/달러 환율</div><div class="glossary-term-en">USD/KRW</div></div>
+        <div class="glossary-def"><strong>1달러를 사기 위해 필요한 원화 금액.</strong> 수치가 올라가면 원화 약세(달러 강세). 외국인 투자자 입장에서 한국 주식이 비싸짐.</div>
+        <div class="glossary-context"><strong>현재:</strong> 1,489원. <strong>위험 라인:</strong> 1,500원.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="glossary-section">
+    <div class="glossary-section-title">한국 시장 용어 (Korean Market)</div>
+    <div class="glossary-grid">
+      <div class="glossary-card market">
+        <div class="glossary-term"><div class="glossary-term-main">옵션 만기일</div><div class="glossary-term-en">Options Expiry</div></div>
+        <div class="glossary-def"><strong>옵션 상품의 유효기간 마지막 날.</strong> 한국 KOSPI200 월물 옵션은 매월 둘째 목요일. 만기 직전 청산 거래로 변동성 폭증.</div>
+        <div class="glossary-context"><strong>5월 등장:</strong> 5/14 (둘째 목요일). 코스닥 보호예수 해제와 겹침.</div>
+      </div>
+
+      <div class="glossary-card market">
+        <div class="glossary-term"><div class="glossary-term-main">옵션</div><div class="glossary-term-en">Options</div></div>
+        <div class="glossary-def"><strong>특정 가격에 사거나 팔 수 있는 권리를 거래하는 금융상품.</strong> 마트 쿠폰처럼 유효기간이 있고, 만료일에 권리를 행사하거나 포기.</div>
+        <div class="glossary-context"><strong>핵심:</strong> 만기일 전후 2~3일 변동성 집중.</div>
+      </div>
+
+      <div class="glossary-card market">
+        <div class="glossary-term"><div class="glossary-term-main">보호예수</div><div class="glossary-term-en">Lock-up</div></div>
+        <div class="glossary-def"><strong>회사 상장이나 유상증자 시 최대주주 등의 주식을 일정 기간 매도 금지하는 제도.</strong> 투자자 보호 장치. 기간이 끝나면 시장에 매물 풀림.</div>
+        <div class="glossary-context"><strong>5월 등장:</strong> 56개사 2억 242만 주 해제 예정. 코스닥 77% 집중.</div>
+      </div>
+
+      <div class="glossary-card market">
+        <div class="glossary-term"><div class="glossary-term-main">외국인 순매수/매도</div><div class="glossary-term-en">Foreign Net Buy/Sell</div></div>
+        <div class="glossary-def"><strong>외국인 투자자의 매수액에서 매도액을 뺀 값.</strong> 양수면 순매수(자금 유입), 음수면 순매도(자금 유출). 코스피 방향성의 핵심 지표.</div>
+        <div class="glossary-context"><strong>신호:</strong> 일일 1조 원 이상이면 추세 신호.</div>
+      </div>
+
+      <div class="glossary-card market">
+        <div class="glossary-term"><div class="glossary-term-main">VKOSPI</div><div class="glossary-term-en">Volatility KOSPI</div></div>
+        <div class="glossary-def"><strong>코스피200 변동성 지수.</strong> 향후 30일간 시장 변동성 예측치. 일명 '공포 지수'. 높을수록 시장 불안.</div>
+        <div class="glossary-context"><strong>경계 수준:</strong> 25 이상이면 단기 패닉 신호.</div>
+      </div>
+
+      <div class="glossary-card market">
+        <div class="glossary-term"><div class="glossary-term-main">이격도</div><div class="glossary-term-en">Disparity Index</div></div>
+        <div class="glossary-def"><strong>현재 주가가 이동평균선에서 얼마나 떨어져 있는지 측정.</strong> 100 기준으로 위로 멀수록 과열, 아래로 멀수록 침체. 평균 회귀 압력의 척도.</div>
+        <div class="glossary-context"><strong>현재 상태:</strong> 60일·120일선 대비 과열 구간 진입.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>2026년 5월 한국 주식시장 리스크 분석 보고서 · 통합 최종판</span>
+    <span>Page <span class="num">10</span></span>
+  </div>
+</div>
+
+<!-- ============ Page 11 - 용어 사전 (2) ============ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-header-num">08</div>
+      <div class="page-header-title-area">
+        <div class="page-header-eyebrow">GLOSSARY · TECHNICAL TERMS (CONT.)</div>
+        <div class="page-header-title">전문 용어 사전 (2/2)</div>
+      </div>
+    </div>
+    <div class="page-header-meta">기업·실적 · 글로벌 · 투자 전략</div>
+  </div>
+
+  <div class="glossary-section">
+    <div class="glossary-section-title">기업 · 실적 (Corporate &amp; Earnings)</div>
+    <div class="glossary-grid">
+      <div class="glossary-card corporate">
+        <div class="glossary-term"><div class="glossary-term-main">HBM</div><div class="glossary-term-en">High Bandwidth Memory</div></div>
+        <div class="glossary-def"><strong>고대역폭 메모리.</strong> AI 칩(특히 엔비디아)에 필수적인 고성능 메모리. 삼성전자·SK하이닉스가 사실상 독점 공급.</div>
+        <div class="glossary-context"><strong>의미:</strong> 엔비디아 capex 확대 = HBM 수요 폭증 = 한국 반도체 호황.</div>
+      </div>
+
+      <div class="glossary-card corporate">
+        <div class="glossary-term"><div class="glossary-term-main">Capex</div><div class="glossary-term-en">Capital Expenditure</div></div>
+        <div class="glossary-def"><strong>자본 지출.</strong> 기업이 설비·시설·기술에 투자하는 비용. 데이터센터 capex는 AI 인프라 투자 규모를 가늠.</div>
+        <div class="glossary-context"><strong>5월 등장:</strong> 5/19 Google I/O, 5/20 NVIDIA 실적에서 capex 가이던스 핵심.</div>
+      </div>
+
+      <div class="glossary-card corporate">
+        <div class="glossary-term"><div class="glossary-term-main">PER</div><div class="glossary-term-en">Price-to-Earnings Ratio</div></div>
+        <div class="glossary-def"><strong>주가수익비율.</strong> 주가를 1주당 순이익으로 나눈 값. 주가가 이익의 몇 배에 거래되는지 보여줌. 낮을수록 저평가.</div>
+        <div class="glossary-context"><strong>현재 비교:</strong> 삼성·SK하이닉스 5~6배 vs 글로벌 평균 15~20배. 디스카운트 상태.</div>
+      </div>
+
+      <div class="glossary-card corporate">
+        <div class="glossary-term"><div class="glossary-term-main">데이터센터</div><div class="glossary-term-en">Data Center</div></div>
+        <div class="glossary-def"><strong>대규모 서버 집합 시설.</strong> AI 모델 훈련과 추론에 사용. 빅테크의 데이터센터 capex 규모가 AI 인프라 투자의 척도.</div>
+        <div class="glossary-context"><strong>의미:</strong> 데이터센터 capex 가이던스 상향 = 반도체 매수 모멘텀.</div>
+      </div>
+
+      <div class="glossary-card corporate">
+        <div class="glossary-term"><div class="glossary-term-main">Q1 FY27</div><div class="glossary-term-en">Fiscal Year 2027 Q1</div></div>
+        <div class="glossary-def"><strong>회계연도 2027 1분기.</strong> NVIDIA의 회계연도는 1월 말 시작. FY27 Q1은 2026년 2~4월. 5/20 발표는 이 분기 실적.</div>
+        <div class="glossary-context"><strong>가이던스:</strong> 매출 $78B(±2%), 데이터센터 중심.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="glossary-section">
+    <div class="glossary-section-title">글로벌 인덱스 · 자금 흐름 (Global Index &amp; Flow)</div>
+    <div class="glossary-grid">
+      <div class="glossary-card economic">
+        <div class="glossary-term"><div class="glossary-term-main">MSCI</div><div class="glossary-term-en">Morgan Stanley Capital International</div></div>
+        <div class="glossary-def"><strong>모건스탠리 캐피털 인터내셔널.</strong> 글로벌 주가 지수를 만드는 기관. 패시브 펀드 운용의 기준이 되는 핵심 인덱스 제공.</div>
+        <div class="glossary-context"><strong>5월 등장:</strong> 5/12 분기 리뷰 발표, 5/29 효력 발생.</div>
+      </div>
+
+      <div class="glossary-card economic">
+        <div class="glossary-term"><div class="glossary-term-main">패시브 펀드</div><div class="glossary-term-en">Passive Fund</div></div>
+        <div class="glossary-def"><strong>인덱스 추종 펀드.</strong> 종목을 직접 고르지 않고 MSCI 같은 지수의 비중대로 매매. 인덱스 변경 시 자동으로 매매 발생.</div>
+        <div class="glossary-context"><strong>의미:</strong> 한국 비중 1bp 축소 = 약 1,800억 원 자동 매도.</div>
+      </div>
+
+      <div class="glossary-card economic">
+        <div class="glossary-term"><div class="glossary-term-main">OPEC+</div><div class="glossary-term-en">OPEC Plus</div></div>
+        <div class="glossary-def"><strong>석유수출국기구 + 비OPEC 산유국 연합.</strong> 원유 생산량을 조절해 유가에 직접 영향. 증산은 유가 하락, 감산은 유가 상승.</div>
+        <div class="glossary-context"><strong>5월 등장:</strong> 5/1 일일 20.6만 배럴 증산 시작.</div>
+      </div>
+
+      <div class="glossary-card economic">
+        <div class="glossary-term"><div class="glossary-term-main">밸류업</div><div class="glossary-term-en">Value-Up Program</div></div>
+        <div class="glossary-def"><strong>한국 정부의 기업가치 제고 프로그램.</strong> 주주환원 확대·자본 효율 개선 유도. '코리아 디스카운트' 해소가 목표.</div>
+        <div class="glossary-context"><strong>수혜:</strong> 금융·지주사 중심 중장기 모멘텀.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="glossary-section">
+    <div class="glossary-section-title">투자 전략 (Investment Strategy)</div>
+    <div class="glossary-grid">
+      <div class="glossary-card technical">
+        <div class="glossary-term"><div class="glossary-term-main">분할 매수</div><div class="glossary-term-en">Scaled Buying</div></div>
+        <div class="glossary-def"><strong>한꺼번에 매수하지 않고 가격대를 나눠 단계별로 매수.</strong> 평균 매입가 낮추고 추가 하락 위험 분산. 변동성 구간의 정석 전략.</div>
+        <div class="glossary-context"><strong>5월 적용:</strong> 6,400 / 6,200 / 6,000 3단계 분할.</div>
+      </div>
+
+      <div class="glossary-card technical">
+        <div class="glossary-term"><div class="glossary-term-main">차익 실현</div><div class="glossary-term-en">Profit Taking</div></div>
+        <div class="glossary-def"><strong>보유 종목을 매도하여 평가이익을 현금화하는 행위.</strong> 단기 급등 후 매물 압력의 주요 원인. 4월 30% 폭등 후 5월 차익 실현 압력 ↑.</div>
+        <div class="glossary-context"><strong>5월 신호:</strong> 거래대금 회전율 평소의 3배 이상 = 정리 대상.</div>
+      </div>
+
+      <div class="glossary-card technical">
+        <div class="glossary-term"><div class="glossary-term-main">디펜시브 모드</div><div class="glossary-term-en">Defensive Mode</div></div>
+        <div class="glossary-def"><strong>방어적 포지션 전환.</strong> 위험 자산 비중 축소, 현금·방어주 비중 확대. 거시 리스크 동시 발생 시 즉시 전환.</div>
+        <div class="glossary-context"><strong>트리거:</strong> 환율 1,500 + 유가 $120 + CPI 3.5% 동시 충족.</div>
+      </div>
+
+      <div class="glossary-card technical">
+        <div class="glossary-term"><div class="glossary-term-main">RSI</div><div class="glossary-term-en">Relative Strength Index</div></div>
+        <div class="glossary-def"><strong>상대강도지수.</strong> 14일간 주가 상승폭/하락폭 비율. 70 이상 과매수, 30 이하 과매도. 단기 매매 시점 판단에 활용.</div>
+        <div class="glossary-context"><strong>5월 적용:</strong> RSI 70 이상은 분할 매수로만 진입.</div>
+      </div>
+
+      <div class="glossary-card technical">
+        <div class="glossary-term"><div class="glossary-term-main">갭 출발</div><div class="glossary-term-en">Gap Open</div></div>
+        <div class="glossary-def"><strong>전일 종가와 당일 시가가 크게 벌어진 상태로 시작.</strong> 야간에 글로벌 변동성이 누적된 결과. 갭 폭이 클수록 추세 강도 ↑.</div>
+        <div class="glossary-context"><strong>5월 빈출 일자:</strong> 5/4, 5/11, 5/13, 5/21, 5/26.</div>
+      </div>
+
+      <div class="glossary-card technical">
+        <div class="glossary-term"><div class="glossary-term-main">동시호가</div><div class="glossary-term-en">Single-Price Auction</div></div>
+        <div class="glossary-def"><strong>장 시작 전후 일정 시간 동안 매수·매도 주문을 모아 단일 가격으로 체결.</strong> 한국 시장은 8:30~9:00 (시가), 15:20~15:30 (종가).</div>
+        <div class="glossary-context"><strong>5월 위험:</strong> 5/29 MSCI 마감 동시호가 변동성 집중.</div>
+      </div>
+    </div>
+  </div>
+
+  <div class="page-footer">
+    <span>2026년 5월 한국 주식시장 리스크 분석 보고서 · 통합 최종판</span>
+    <span>Page <span class="num">11</span></span>
+  </div>
+</div>
+
+<!-- ============ Page 12 - 결론 ============ -->
+<div class="page">
+  <div class="page-header">
+    <div class="page-header-left">
+      <div class="page-header-num">09</div>
+      <div class="page-header-title-area">
+        <div class="page-header-eyebrow">CONCLUSION</div>
+        <div class="page-header-title">마지막 메시지</div>
+      </div>
+    </div>
+    <div class="page-header-meta">5월의 본질</div>
+  </div>
+
+  <div style="background: var(--navy-dark); color: white; padding: 28px 36px; margin: 12px 0; position: relative;">
+    <div style="font-size: 60pt; font-weight: 900; color: var(--orange); position: absolute; top: 12px; right: 30px; opacity: 0.3; font-family: 'JetBrains Mono'; line-height: 1;">"</div>
+    <div style="font-size: 9pt; color: var(--orange-bright); letter-spacing: 2px; margin-bottom: 12px;">FINAL TAKEAWAY</div>
+    <div style="font-size: 16pt; font-weight: 500; line-height: 1.5; color: white;">
+      가장 좋은 매수는 <span style="color: var(--orange-bright);">가장 무서울 때</span> 일어나며,<br>
+      가장 위험한 매수는 <span style="color: var(--orange-bright);">가장 좋아 보일 때</span> 일어납니다.
+    </div>
+  </div>
+
+  <h2>5월의 본질</h2>
+  <p>2026년 5월은 4월의 폭등을 소화하는 구간입니다. 펀더멘털이 강해 강세장 종료를 단언하기 어렵고("전례 없는 메모리 슈퍼 사이클"), 단기 부담이 무거워 추가 상승을 기대하기도 어렵습니다.</p>
+
+  <p>가장 위험한 태도는 <strong>"무조건 오른다"는 낙관과 "곧 폭락한다"는 비관</strong>. 5월은 방향성을 두고 시장이 흔들리는 구간이지, 방향이 결정되는 구간이 아닙니다.</p>
+
+  <h2>핵심 메시지 3가지</h2>
+  <div style="display: grid; grid-template-columns: repeat(3, 1fr); gap: 10px; margin: 12px 0;">
+    <div style="background: white; border: 1px solid var(--gray-300); padding: 14px;">
+      <div style="font-size: 28pt; font-weight: 900; color: var(--orange); font-family: 'JetBrains Mono'; line-height: 1; margin-bottom: 6px;">01</div>
+      <div style="font-size: 11pt; font-weight: 700; color: var(--navy-dark); margin-bottom: 4px;">조정은 시작이 아니라 기회</div>
+      <div style="font-size: 9pt; color: var(--gray-700); line-height: 1.5;">삼성·SK하이닉스 PER가 글로벌 평균의 1/3 수준에 머무는 한, 조정은 저가 매수의 기회.</div>
+    </div>
+    <div style="background: white; border: 1px solid var(--gray-300); padding: 14px;">
+      <div style="font-size: 28pt; font-weight: 900; color: var(--orange); font-family: 'JetBrains Mono'; line-height: 1; margin-bottom: 6px;">02</div>
+      <div style="font-size: 11pt; font-weight: 700; color: var(--navy-dark); margin-bottom: 4px;">왜 떨어지는지를 안다</div>
+      <div style="font-size: 9pt; color: var(--gray-700); line-height: 1.5;">이유를 아는 사람은 바닥에서 분할 매수, 모르는 사람은 공포에 던진다.</div>
+    </div>
+    <div style="background: white; border: 1px solid var(--gray-300); padding: 14px;">
+      <div style="font-size: 28pt; font-weight: 900; color: var(--orange); font-family: 'JetBrains Mono'; line-height: 1; margin-bottom: 6px;">03</div>
+      <div style="font-size: 11pt; font-weight: 700; color: var(--navy-dark); margin-bottom: 4px;">매도가 더 어렵다</div>
+      <div style="font-size: 9pt; color: var(--gray-700); line-height: 1.5;">미리 정한 규칙을 기계적으로 실행해야. 감정 개입 차단이 핵심.</div>
+    </div>
+  </div>
+
+  <h2>최종 운영 원칙</h2>
+  <div style="background: var(--orange-light); border: 1px solid var(--orange); padding: 14px 18px; margin: 10px 0;">
+    <div style="font-size: 11pt; color: var(--navy-dark); line-height: 1.8;">
+      5월은 <strong>신규 진입 자제</strong>, <strong>변동성 활용한 분할 매수</strong>, <strong>핵심 이벤트 전후 무리한 베팅 자제</strong> — 이 세 가지로 운영하면 충분합니다. 매수·매도 가격대를 미리 정해두고 가격에 도달하면 감정을 빼고 기계적으로 실행하는 것이 5월 변동성 구간에서 살아남는 가장 확실한 방법입니다.
+    </div>
+  </div>
+
+  <div style="margin-top: 24px; padding-top: 14px; border-top: 1px solid var(--gray-300); font-size: 8.5pt; color: var(--gray-600); line-height: 1.6;">
+    <strong style="color: var(--gray-700);">검증 출처</strong><br>
+    NFP/CPI 일정 — 美 노동통계국(BLS) 공식 일정. NVIDIA 실적 — Wall Street Horizon, MarketBeat 확인. MSCI — MSCI 공식 발표. 파월 임기 — 다수 언론 보도. 한국 휴일 — 인사혁신처 「관공서의 공휴일에 관한 규정」. Google I/O — Google 공식 발표.<br><br>
+    <strong style="color: var(--gray-700);">참고</strong><br>
+    본 보고서는 공개된 시장 데이터 기반 분석 자료이며, 특정 종목 매수·매도를 권유하지 않습니다. 투자 책임은 투자자 본인에게 있으며, 모든 투자에는 원금 손실 위험이 따릅니다.
+  </div>
+
+  <div class="page-footer">
+    <span>2026년 5월 한국 주식시장 리스크 분석 보고서 · 통합 최종판 · END</span>
+    <span>Page <span class="num">12</span></span>
+  </div>
+</div>
+
+</body>
+</html>
