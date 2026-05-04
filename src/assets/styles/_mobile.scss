@@ -1,50 +1,58 @@
 // =========================================================
-// Mobile-only design system — Sky/Aqua + Sunshine 팔레트
-// 싱그러운 봄·바닷가 느낌, 데스크톱과 완전 분리
+// Mobile-only design system — Warm Pastel 팔레트
+// 크림·피치 BG + 코랄·라벤더·머스타드 액센트
+// 데스크톱(쿨 sky+yellow)의 정반대 색온도, 다이어리·감성 노트 무드
 // SELF-CONTAINED. 데스크톱 변수 임포트 금지.
+//
+// NOTE: 토큰 이름($mc-aqua, $mc-sun, $mc-lime, $mc-coral)은
+// 이전 sky 팔레트의 유산이지만 의미는 유지됨 — 값만 웜 파스텔로 재매핑.
+//   $mc-aqua  = primary accent (코랄 핑크, 옛 sky-500 자리)
+//   $mc-sun   = pop accent     (머스타드, 옛 yellow-400 자리)
+//   $mc-lime  = secondary      (라벤더, 옛 emerald-500 자리)
+//   $mc-coral = warm pop       (피치, 옛 rose-400 자리)
 // =========================================================
 
-// === Surfaces (sky cream family — 맑고 가벼운) ===
-$mc-bg:          #EAF6FB;   // 메인 배경 — 맑은 하늘
-$mc-bg-soft:     #F4FAFD;   // 옅은 변형
-$mc-bg-tint:     #E0F2FE;   // 하늘 틴트
-$mc-bg-cream:    #FFFAEB;   // 햇살 크림 (포인트 섹션)
+// === Surfaces (cream / peach family) ===
+$mc-bg:          #FFF8F2;   // 메인 배경 — 따뜻한 크림
+$mc-bg-soft:     #FFFCF8;   // 옅은 크림 변형
+$mc-bg-tint:     #FFEFE3;   // 피치 틴트
+$mc-bg-cream:    #FFF1F5;   // 로즈 미스트 (포인트 섹션)
 $mc-surface:     #FFFFFF;
-$mc-surface-2:   #F8FCFE;
+$mc-surface-2:   #FFFAF5;
 
-// === Ink (deep ocean navy — 따뜻한 차콜이 아닌 푸른 깊이) ===
-$mc-ink:         #0F2B3D;
-$mc-ink-2:       #2E4A60;
-$mc-ink-3:       #5C7180;
-$mc-ink-4:       #8FA1AE;
-$mc-ink-5:       #C9D6DD;
+// === Ink (warm charcoal — 브라운 틴트, 차가운 네이비 X) ===
+$mc-ink:         #2B1F1A;
+$mc-ink-2:       #4A3A33;
+$mc-ink-3:       #786558;
+$mc-ink-4:       #A89687;
+$mc-ink-5:       #DCCFC2;
 
 // === Borders ===
-$mc-border:      #CFEAF5;
-$mc-border-soft: #E5F2F8;
+$mc-border:      #F2DBC7;
+$mc-border-soft: #F8E9DA;
 
-// === Primary — Sky / Aqua ===
-$mc-aqua:        #0EA5E9;   // sky-500, 메인 액센트
-$mc-aqua-deep:   #0284C7;   // sky-600
-$mc-aqua-light:  #7DD3FC;   // sky-300
-$mc-aqua-bg:     #DCEFFA;   // very pale sky
+// === Primary — Coral Pink (메인 액센트) ===
+$mc-aqua:        #FF7A8A;   // coral, 메인 액센트
+$mc-aqua-deep:   #E8546A;   // deeper coral
+$mc-aqua-light:  #FFB4BD;   // soft coral
+$mc-aqua-bg:     #FFE3E7;   // very pale coral
 
-// === Pop accent — Sunshine Yellow ===
-$mc-sun:         #FACC15;   // yellow-400, 강조 포인트
-$mc-sun-deep:    #EAB308;   // yellow-500
-$mc-sun-light:   #FDE68A;   // yellow-200
-$mc-sun-bg:      #FEF3C7;   // yellow-100
+// === Pop accent — Mustard (강조 포인트) ===
+$mc-sun:         #F5C24B;   // mustard
+$mc-sun-deep:    #D9A52E;
+$mc-sun-light:   #FCE0A0;
+$mc-sun-bg:      #FFF4D6;
 
-// === Fresh secondary — Lime / Mint pop ===
-$mc-lime:        #10B981;   // emerald-500
-$mc-lime-deep:   #059669;
-$mc-lime-light:  #6EE7B7;
-$mc-lime-bg:     #D1FAE5;
+// === Secondary — Lavender (쿨 밸런스용) ===
+$mc-lime:        #B8A4FF;   // lavender
+$mc-lime-deep:   #8C76E6;
+$mc-lime-light:  #DCD0FF;
+$mc-lime-bg:     #EFEAFF;
 
-// === Coral pop (warm contrast) ===
-$mc-coral:       #FB7185;   // rose-400, 다른 코랄
-$mc-coral-deep:  #E11D48;
-$mc-coral-bg:    #FEE2E5;
+// === Warm pop — Peach ===
+$mc-coral:       #FFAA7A;   // peach
+$mc-coral-deep:  #F08555;
+$mc-coral-bg:    #FFE5D2;
 
 // === Typography ===
 $mc-font-sans:    'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -59,6 +67,9 @@ $mc-gap-sm:       10px;
 $mc-gap-md:       14px;
 $mc-gap-lg:       24px;
 
+// === Bottom tab nav 높이 (콘텐츠 하단 패딩 계산용) ===
+$mc-tabbar-h:     68px;
+
 // === Radii (큼직한 squircle 느낌) ===
 $mc-radius-sm:    14px;
 $mc-radius-md:    20px;
@@ -66,13 +77,13 @@ $mc-radius-lg:    28px;
 $mc-radius-xl:    36px;
 $mc-radius-pill:  999px;
 
-// === Shadows (sky-tinted, soft) ===
-$mc-shadow-xs:    0 1px 3px rgba(15, 43, 61, 0.05);
-$mc-shadow-sm:    0 4px 14px rgba(15, 43, 61, 0.06);
-$mc-shadow-md:    0 10px 28px rgba(15, 43, 61, 0.08);
-$mc-shadow-lg:    0 18px 44px rgba(15, 43, 61, 0.12);
-$mc-shadow-aqua:  0 10px 28px rgba(14, 165, 233, 0.22);
-$mc-shadow-sun:   0 10px 28px rgba(250, 204, 21, 0.28);
+// === Shadows (warm-tinted, soft) ===
+$mc-shadow-xs:    0 1px 3px rgba(43, 31, 26, 0.05);
+$mc-shadow-sm:    0 4px 14px rgba(43, 31, 26, 0.06);
+$mc-shadow-md:    0 10px 28px rgba(43, 31, 26, 0.08);
+$mc-shadow-lg:    0 18px 44px rgba(43, 31, 26, 0.12);
+$mc-shadow-aqua:  0 10px 28px rgba(255, 122, 138, 0.22);   // coral glow
+$mc-shadow-sun:   0 10px 28px rgba(245, 194, 75, 0.28);    // mustard glow
 
 // === Motion ===
 $mc-ease:         cubic-bezier(0.22, 1, 0.36, 1);
@@ -155,11 +166,11 @@ $mc-touch:        46px;
 }
 
 @keyframes mc-pulse-aqua {
-    0%, 100% { box-shadow: 0 0 0 3px rgba(14, 165, 233, 0.30); }
-    50%      { box-shadow: 0 0 0 7px rgba(14, 165, 233, 0); }
+    0%, 100% { box-shadow: 0 0 0 3px rgba(255, 122, 138, 0.30); }
+    50%      { box-shadow: 0 0 0 7px rgba(255, 122, 138, 0); }
 }
 
 @keyframes mc-pulse-sun {
-    0%, 100% { box-shadow: 0 0 0 3px rgba(250, 204, 21, 0.40); }
-    50%      { box-shadow: 0 0 0 7px rgba(250, 204, 21, 0); }
+    0%, 100% { box-shadow: 0 0 0 3px rgba(245, 194, 75, 0.40); }
+    50%      { box-shadow: 0 0 0 7px rgba(245, 194, 75, 0); }
 }
