@@ -1,0 +1,925 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<title>우리기술(032820) — 도시유전 시점 종목분석 보고서 v4</title>
+<style>
+  @page { size: A4 portrait; margin: 14mm 13mm 14mm 13mm; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  /* 화면 표시 전용 — 브라우저에서 열었을 때 A4 종이처럼 가운데 정렬 + 여백 */
+  /* PDF 출력에는 영향 없음 (@page margin이 우선 적용됨) */
+  @media screen {
+    html {
+      background: #e8eaed;
+      min-height: 100vh;
+    }
+    body {
+      max-width: 210mm;
+      margin: 24px auto;
+      padding: 16mm 14mm;
+      box-shadow: 0 4px 24px rgba(0, 0, 0, 0.12);
+      background: #fff;
+      border-radius: 2px;
+    }
+  }
+
+  :root {
+    --navy: #0F2A47; --navy-light: #1B3A57; --navy-bg: #ebf0f5;
+    --orange: #E67E22; --orange-light: #F5B041; --orange-bg: #fdf2e7; --orange-dark: #A85B16;
+    --ink: #1a1a1a; --gray-1: #333; --gray-2: #555; --gray-3: #888; --gray-4: #bbb; --gray-5: #e5e5e5; --gray-6: #f5f5f5;
+  }
+
+  body {
+    font-family: "Noto Sans CJK KR", "Noto Sans KR", sans-serif;
+    color: var(--ink); font-size: 9.3pt; line-height: 1.55;
+    background: #fff; word-break: keep-all;
+  }
+  .mono { font-family: "JetBrains Mono", "Noto Sans Mono CJK KR", "Consolas", monospace; }
+
+  /* ============ COVER ============ */
+  .cover {
+    border-top: 4px solid var(--navy); border-bottom: 1px solid var(--gray-4);
+    padding: 12px 0 8px 0; margin-bottom: 10px;
+  }
+  .cover-top { display: flex; justify-content: space-between; align-items: baseline; margin-bottom: 5px; }
+  .cover-tag { font-size: 7.5pt; color: var(--orange); font-weight: 700; letter-spacing: 2px; }
+  .cover-date { font-size: 7.5pt; color: var(--gray-3); font-family: "JetBrains Mono", monospace; }
+  .cover-title { font-size: 20pt; font-weight: 800; color: var(--navy); line-height: 1.2; margin-bottom: 2px; }
+  .cover-subtitle { font-size: 10pt; color: var(--gray-2); margin-bottom: 4px; line-height: 1.4; }
+  .cover-eyebrow { font-size: 8pt; color: var(--orange); font-weight: 700; margin-top: 5px; letter-spacing: 0.5px; }
+
+  /* ============ KEY FACTS ============ */
+  .key-facts {
+    display: grid; grid-template-columns: repeat(6, 1fr);
+    border: 1px solid var(--gray-4); background: var(--gray-6);
+    margin-bottom: 10px;
+  }
+  .key-facts .cell { padding: 7px 9px; border-right: 1px solid var(--gray-5); }
+  .key-facts .cell:last-child { border-right: none; }
+  .key-facts .label { font-size: 7pt; color: var(--gray-3); letter-spacing: 0.5px; margin-bottom: 2px; }
+  .key-facts .value { font-size: 10.5pt; font-weight: 700; color: var(--navy); font-family: "JetBrains Mono", monospace; }
+  .key-facts .value.warn { color: var(--orange); }
+
+  /* ============ STANCE ============ */
+  .stance {
+    display: flex; align-items: stretch;
+    background: #fff; padding: 7px 11px; margin-bottom: 10px;
+    border: 1px solid var(--gray-5); border-left: 4px solid var(--orange);
+  }
+  .stance .lhs { flex: 0 0 105px; border-right: 1px solid var(--gray-5); padding-right: 9px; }
+  .stance .rhs { padding-left: 11px; flex: 1; }
+  .stance .stance-label { font-size: 7pt; color: var(--gray-3); margin-bottom: 1px; }
+  .stance .stance-value { font-size: 11.5pt; font-weight: 800; color: var(--orange); }
+  .stance .summary { font-size: 8.7pt; color: var(--gray-1); line-height: 1.5; }
+
+  /* ============ SECTIONS ============ */
+  h2 {
+    font-size: 11pt; color: var(--navy);
+    border-bottom: 2px solid var(--navy);
+    padding-bottom: 3px; margin: 12px 0 7px 0; font-weight: 700;
+    page-break-after: avoid; break-after: avoid;
+  }
+  h2 .num { color: var(--orange); font-family: "JetBrains Mono", monospace; margin-right: 6px; font-size: 9.5pt; }
+  h3 {
+    font-size: 9.5pt; color: var(--navy); margin: 9px 0 5px 0; font-weight: 700;
+    page-break-after: avoid; break-after: avoid;
+  }
+  p { margin-bottom: 5px; line-height: 1.6; }
+  .lead {
+    font-size: 9.2pt; color: var(--gray-1);
+    background: var(--gray-6); border-left: 3px solid var(--navy);
+    padding: 7px 11px; margin-bottom: 7px; line-height: 1.6;
+    page-break-inside: avoid; break-inside: avoid;
+  }
+  .accent { color: var(--orange); font-weight: 700; }
+  .navy-bold { color: var(--navy); font-weight: 700; }
+
+  /* ============ TABLES ============ */
+  table { width: 100%; border-collapse: collapse; font-size: 8.5pt; margin-bottom: 7px; page-break-inside: avoid; break-inside: avoid; }
+  th { background: var(--navy); color: #fff; text-align: left; padding: 4px 7px; font-weight: 600; font-size: 7.8pt; letter-spacing: 0.3px; }
+  td { padding: 4px 7px; border-bottom: 1px solid var(--gray-5); line-height: 1.45; }
+  tr:nth-child(even) td { background: var(--gray-6); }
+  td.num { text-align: right; font-family: "JetBrains Mono", monospace; font-size: 8.3pt; }
+  td.label { font-weight: 600; color: var(--navy); }
+
+  /* ============ CARDS ============ */
+  .grid-2 { display: grid; grid-template-columns: 1fr 1fr; gap: 6px; margin-bottom: 6px; }
+  .grid-3 { display: grid; grid-template-columns: 1fr 1fr 1fr; gap: 6px; margin-bottom: 6px; }
+  .card { border: 1px solid var(--gray-5); border-top: 3px solid var(--navy); padding: 7px 9px; background: #fff; page-break-inside: avoid; }
+  .card .tag { display: inline-block; background: var(--orange); color: #fff; font-size: 7pt; padding: 1px 5px; margin-right: 4px; font-weight: 700; vertical-align: middle; }
+  .card .ttl { font-size: 9.3pt; font-weight: 700; color: var(--navy); display: inline; }
+  .card .body { font-size: 8.3pt; color: var(--gray-1); margin-top: 3px; line-height: 1.45; }
+
+  .scenario { border: 1px solid var(--gray-5); padding: 8px 10px; font-size: 8.5pt; page-break-inside: avoid; }
+  .scenario.bull { border-top: 3px solid var(--navy); }
+  .scenario.bear { border-top: 3px solid var(--orange); }
+  .scenario .head { font-size: 9.3pt; font-weight: 700; margin-bottom: 4px; }
+  .scenario.bull .head { color: var(--navy); }
+  .scenario.bear .head { color: var(--orange); }
+  .scenario ul { padding-left: 14px; }
+  .scenario li { margin-bottom: 3px; line-height: 1.4; }
+
+  /* ============ CHART BOX ============ */
+  .chart-box {
+    border: 1px solid var(--gray-5); padding: 7px 10px 4px 10px;
+    margin-bottom: 7px; background: #fff;
+    page-break-inside: avoid; break-inside: avoid;
+  }
+  .chart-title { font-size: 9pt; font-weight: 700; color: var(--navy); margin-bottom: 3px; }
+  .chart-sub { font-size: 7.5pt; color: var(--gray-3); margin-bottom: 4px; line-height: 1.4; }
+
+  /* ============ CHECKLIST ============ */
+  .checklist { border: 1px solid var(--gray-5); padding: 7px 11px; background: var(--gray-6); font-size: 8.7pt; page-break-inside: avoid; }
+  .checklist .item { padding: 4px 0; border-bottom: 1px dashed var(--gray-4); display: flex; align-items: flex-start; }
+  .checklist .item:last-child { border-bottom: none; }
+  .checklist .num { font-family: "JetBrains Mono", monospace; color: var(--orange); font-weight: 700; margin-right: 8px; flex: 0 0 22px; }
+  .checklist .desc { flex: 1; line-height: 1.45; }
+  .checklist .desc strong { color: var(--navy); }
+
+  /* ============ FACILITY DIAGRAM ============ */
+  .facility-grid {
+    display: grid; grid-template-columns: 200px 1fr; gap: 10px;
+    background: var(--gray-6); border: 1px solid var(--gray-5); padding: 10px;
+    margin-bottom: 7px;
+    page-break-inside: avoid;
+  }
+  .facility-info { font-size: 8.5pt; line-height: 1.6; }
+  .facility-info .row { padding: 3px 0; border-bottom: 1px dotted var(--gray-4); }
+  .facility-info .row:last-child { border-bottom: none; }
+  .facility-info .k { color: var(--gray-3); font-size: 7.5pt; }
+  .facility-info .v { color: var(--navy); font-weight: 700; }
+
+  /* ============ PAGE BREAK ============ */
+  .pb { page-break-before: always; break-before: page; }
+  .pba { page-break-after: always; break-after: page; }
+
+  /* ============ DISCLAIMER ============ */
+  .disclaimer { margin-top: 12px; border-top: 1px solid var(--gray-4); padding-top: 7px; font-size: 7.3pt; color: var(--gray-3); line-height: 1.5; }
+  .footer { margin-top: 5px; padding-top: 4px; border-top: 1px solid var(--gray-5); display: flex; justify-content: space-between; font-size: 7pt; color: var(--gray-3); }
+</style>
+</head>
+<body>
+
+<!-- ============================================================ -->
+<!-- COVER + EXEC SUMMARY (PAGE 1)                                 -->
+<!-- ============================================================ -->
+<div class="cover">
+  <div class="cover-top">
+    <span class="cover-tag">EQUITY RESEARCH · KOSDAQ · CIRCULAR ECONOMY</span>
+    <span class="cover-date">Report Date: 2026-05-04 · v4.0</span>
+  </div>
+  <div class="cover-title">우리기술 (032820)</div>
+  <div class="cover-subtitle">한국형 도시유전 1호급 — 정읍공장 가동 + 나프타 자급의 시작</div>
+  <div class="cover-eyebrow">▶ 폐플라스틱 → 나프타 · ISCC PLUS · 정읍 6,500 t/y · 강진 200,000 t/y · 글로벌 8개 파트너</div>
+</div>
+
+<div class="key-facts">
+  <div class="cell"><div class="label">현재가</div><div class="value">21,250</div></div>
+  <div class="cell"><div class="label">시가총액</div><div class="value">약 4.0조</div></div>
+  <div class="cell"><div class="label">52주 최고/최저</div><div class="value">30,200 / 1,708</div></div>
+  <div class="cell"><div class="label">PER (TTM)</div><div class="value warn">≈ 296배</div></div>
+  <div class="cell"><div class="label">정읍 가동일</div><div class="value">2025-11-18</div></div>
+  <div class="cell"><div class="label">처리 캐파</div><div class="value">6,500 t/y</div></div>
+</div>
+
+<div class="stance">
+  <div class="lhs">
+    <div class="stance-label">INVESTMENT STANCE</div>
+    <div class="stance-value">Buy on Dips</div>
+  </div>
+  <div class="rhs">
+    <div class="summary">
+      <strong>도시유전 시점</strong>으로 보면 우리기술은 <strong>"국내 비상장 도시유전을 잡는 사실상 유일한 상장 채널"</strong>이다.
+      정읍공장 가동 + ISCC PLUS 인증 + 글로벌 8개 파트너 + 강진 30배 확장 MOA + 정부 법 개정이 동시 점화 중.
+      단기 5배 급등 부담을 감안해 <strong>30~40% 조정 구간 분할 매수</strong>가 합리적이며, <strong>합작 지분율·연결회계</strong>가 가장 큰 미확인 변수다.
+    </div>
+  </div>
+</div>
+
+<h2><span class="num">01</span>Executive Summary</h2>
+
+<p class="lead">
+  본 보고서는 우리기술을 원전 MMIS 사업자가 아닌 <span class="accent">'도시유전 합작 파트너'</span>로 재정의한다. 2025년 11월 18일 가동된 <span class="navy-bold">웨이브 정읍 플랜트</span>는 도시유전이 30년간 독자 개발한 RGO(Recycled Gas Oil) 기술의 첫 상업 가동 시설로, 270℃ 저온 세라믹 촉매 분해 방식으로 폐플라스틱 6,500톤을 연간 4,550톤 재생 나프타로 환원한다. ISCC PLUS·PSM·KTL 3대 검·인증을 모두 통과해 EU 시장 접근 자격을 확보했다.
+</p>
+
+<p style="font-size:9pt;">
+  정읍 단일 매출(연 약 128억원)은 시총 4조원 대비 작아 단기 P&amp;L 임팩트는 제한적이지만, 시장이 가격에 반영하는 것은 <span class="accent">정읍이 증명한 것에 줄 서 있는 글로벌 수요</span>다. 강진산단 20만톤 MOA(정읍의 30배), 베트남 남안 본계약(연 150억), 사비엔 PSA(미주·EU 독점), BASF·Trafigura·PEDCO 직접 방문이 그 대기 행렬이며, 정부 법 개정과 EU CBAM 본격화가 시계를 앞당기고 있다.
+</p>
+
+<p style="font-size:9pt; margin-top:6px;">
+  <strong>한 줄 결론:</strong> <span class="navy-bold">"원전 캐시플로우 위에 얹힌 한국형 도시유전 콜옵션"</span>이며, 옵션 가치는 명확하나 프리미엄이 비싸진 상태. <span class="accent">진입 가격이 핵심</span>이며 18,000원대·14,000원대 분할 매수가 위험 대비 수익이 가장 좋은 진입 방식이다.
+</p>
+
+<h2><span class="num">02</span>사업 포트폴리오 — 트리플 플레이</h2>
+
+<table>
+  <thead>
+    <tr><th style="width:18%;">사업부문</th><th style="width:14%;">위상</th><th style="width:34%;">핵심 내용</th><th>본 보고서 평가</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="label">[B] 도시유전</td><td><span class="accent" style="font-weight:700;">신규 메인</span></td><td>웨이브 정읍 6,500t/y 가동 ✓ + 강진 20만t MOA + ISCC PLUS + 글로벌 8개 파트너</td><td>본 thesis 핵심. 정책·거시·확장 catalyst 동시 점화</td></tr>
+    <tr><td class="label">[A] 원전 MMIS</td><td>안정 base</td><td>국내 유일 원전 MMIS 독점 — 신한울 1·2·3·4 / SMR DCS 69억원</td><td>안정적 캐시 카우 + SMR·체코 옵션</td></tr>
+    <tr><td class="label">[C] 우리DS 방산</td><td>두 번째 엔진</td><td>창원 신공장 2,000평 증설 — 현대로템 등 K-방산 수출 대응</td><td>매출 본격화 시기 모니터링 필요</td></tr>
+    <tr><td class="label">[D] 철도 PSD</td><td>레거시</td><td>SIL4 안전 인증 보유 — 승강장안전문, 신호제어</td><td>안정성, 성장 모멘텀 제한적</td></tr>
+  </tbody>
+</table>
+
+<p style="font-size:8.3pt; color:var(--gray-2);">
+  <strong>peer 대비 차별점:</strong> 다른 원전주(두산에너빌리티·비에이치아이·한전기술)에는 [B]가 없다. 우리기술의 진짜 차별화는 <span class="navy-bold">[B] 도시유전</span>에서 나온다.
+</p>
+
+<!-- ============================================================ -->
+<!-- PAGE 2 : 나프타가 무엇인가                                      -->
+<!-- ============================================================ -->
+<div class="pb"></div>
+
+<h2><span class="num">03</span>나프타란 무엇인가 — 산업의 쌀</h2>
+
+<p class="lead">
+  나프타(Naphtha)는 원유를 끓는점에 따라 분리할 때 휘발유와 등유 사이에서 나오는 <span class="navy-bold">석유화학의 핵심 원료</span>다. 흔히 "산업의 쌀"이라 불리며, 우리가 일상에서 쓰는 비닐·플라스틱·합성고무·합성섬유·페트병·세제·의약품 원료 대부분이 나프타에서 출발한다. 한국은 세계 4위 나프타 수입국으로, <span class="accent">전량의 99% 이상을 원유에서 추출해 의존</span>하고 있다 — 이게 정읍 도시유전이 안보 이슈가 된 배경이다.
+</p>
+
+<!-- 원유 분류 다이어그램 -->
+<div class="chart-box">
+  <div class="chart-title">원유에서 나프타가 나오는 위치 — 증류탑 분획</div>
+  <div class="chart-sub">원유를 가열하면 끓는점이 낮은 것부터 위로 올라간다. 나프타는 30~200℃ 분획 — 원유 1배럴당 약 25~30%를 차지한다.</div>
+
+  <svg viewBox="0 0 680 320" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-height:280px;">
+    <!-- 증류탑 외곽 -->
+    <rect x="180" y="20" width="180" height="280" rx="8" fill="none" stroke="#0F2A47" stroke-width="1.5"/>
+
+    <!-- 분획 6개 (위에서 아래로 끓는점 낮음 → 높음) -->
+    <!-- LPG -->
+    <rect x="180" y="20" width="180" height="42" fill="#fdf2e7" opacity="0.9"/>
+    <text x="270" y="36" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="10" font-weight="700">LPG · 가스</text>
+    <text x="270" y="52" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="JetBrains Mono, monospace" font-size="8">≤ 30℃</text>
+    <line x1="180" y1="62" x2="360" y2="62" stroke="#0F2A47" stroke-width="0.5"/>
+
+    <!-- 휘발유 -->
+    <rect x="180" y="62" width="180" height="42" fill="#fdf2e7" opacity="0.7"/>
+    <text x="270" y="78" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="10" font-weight="700">휘발유</text>
+    <text x="270" y="94" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="JetBrains Mono, monospace" font-size="8">30~120℃</text>
+    <line x1="180" y1="104" x2="360" y2="104" stroke="#0F2A47" stroke-width="0.5"/>
+
+    <!-- 나프타 (강조) -->
+    <rect x="180" y="104" width="180" height="56" fill="#E67E22"/>
+    <text x="270" y="124" fill="#fff" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="13" font-weight="800">★ 나프타</text>
+    <text x="270" y="142" fill="#fff" text-anchor="middle" dominant-baseline="central" font-family="JetBrains Mono, monospace" font-size="9">30~200℃</text>
+    <text x="270" y="156" fill="#F5B041" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8" font-weight="700">석유화학 원료</text>
+    <line x1="180" y1="160" x2="360" y2="160" stroke="#0F2A47" stroke-width="0.5"/>
+
+    <!-- 등유 -->
+    <rect x="180" y="160" width="180" height="42" fill="#f5f5f5"/>
+    <text x="270" y="176" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="10" font-weight="700">등유 · 항공유</text>
+    <text x="270" y="192" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="JetBrains Mono, monospace" font-size="8">200~275℃</text>
+    <line x1="180" y1="202" x2="360" y2="202" stroke="#0F2A47" stroke-width="0.5"/>
+
+    <!-- 경유 -->
+    <rect x="180" y="202" width="180" height="42" fill="#f5f5f5"/>
+    <text x="270" y="218" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="10" font-weight="700">경유 · 디젤</text>
+    <text x="270" y="234" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="JetBrains Mono, monospace" font-size="8">275~400℃</text>
+    <line x1="180" y1="244" x2="360" y2="244" stroke="#0F2A47" stroke-width="0.5"/>
+
+    <!-- 중유/잔사유 -->
+    <rect x="180" y="244" width="180" height="56" fill="#e5e5e5"/>
+    <text x="270" y="264" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="10" font-weight="700">중유 · 잔사유</text>
+    <text x="270" y="280" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="JetBrains Mono, monospace" font-size="8">≥ 400℃</text>
+
+    <!-- 좌측: 입력 (원유) -->
+    <text x="100" y="252" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="11" font-weight="700">원유</text>
+    <text x="100" y="270" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="9">Crude Oil</text>
+    <line x1="135" y1="260" x2="178" y2="260" stroke="#0F2A47" stroke-width="1.2" marker-end="url(#arr-naphtha)"/>
+
+    <!-- 우측: 나프타 출력 강조 -->
+    <line x1="362" y1="132" x2="425" y2="132" stroke="#E67E22" stroke-width="1.5" marker-end="url(#arr-naphtha)"/>
+    <text x="500" y="118" fill="#E67E22" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="11" font-weight="700">석유화학 원료</text>
+    <text x="500" y="134" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8.5">→ NCC 크래커</text>
+    <text x="500" y="148" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8.5">→ 일상의 모든 플라스틱</text>
+
+    <!-- 끓는점 화살표 (좌측) -->
+    <line x1="160" y1="30" x2="160" y2="290" stroke="#888" stroke-width="0.8" stroke-dasharray="2 2"/>
+    <text x="155" y="28" fill="#888" text-anchor="end" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8">낮음</text>
+    <text x="155" y="296" fill="#888" text-anchor="end" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8">높음</text>
+    <text x="148" y="160" fill="#888" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8" transform="rotate(-90, 148, 160)">끓는점</text>
+
+    <defs>
+      <marker id="arr-naphtha" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5"/>
+      </marker>
+    </defs>
+  </svg>
+</div>
+
+<h3>나프타가 만드는 것 — 일상에 깔린 모든 것</h3>
+
+<!-- 나프타 Use Case -->
+<div class="chart-box">
+  <div class="chart-title">나프타 → NCC 크래커 → 일상 제품</div>
+  <div class="chart-sub">나프타를 800℃에서 분해하면 에틸렌·프로필렌·BTX(벤젠/톨루엔/자일렌)가 나오고, 이것들이 우리 일상의 99% 플라스틱이 된다.</div>
+
+  <svg viewBox="0 0 680 240" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-height:220px;">
+    <defs>
+      <marker id="arr-use" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5"/>
+      </marker>
+    </defs>
+
+    <!-- 나프타 (좌측 시작) -->
+    <rect x="20" y="100" width="100" height="60" rx="6" fill="#E67E22" stroke="#A85B16" stroke-width="1"/>
+    <text x="70" y="125" fill="#fff" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="13" font-weight="800">나프타</text>
+    <text x="70" y="143" fill="#fff" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="9">Naphtha</text>
+
+    <line x1="123" y1="130" x2="158" y2="130" stroke="#A85B16" stroke-width="1.2" marker-end="url(#arr-use)"/>
+
+    <!-- NCC 크래커 (중간) -->
+    <rect x="160" y="100" width="100" height="60" rx="6" fill="#fdf2e7" stroke="#E67E22" stroke-width="1"/>
+    <text x="210" y="120" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="11" font-weight="700">NCC 크래커</text>
+    <text x="210" y="135" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8.5">800℃ 열분해</text>
+    <text x="210" y="149" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8">LG화학·롯데케미칼</text>
+
+    <!-- 3개 분기 -->
+    <line x1="263" y1="115" x2="290" y2="50"  stroke="#888" stroke-width="1" marker-end="url(#arr-use)"/>
+    <line x1="263" y1="130" x2="290" y2="130" stroke="#888" stroke-width="1" marker-end="url(#arr-use)"/>
+    <line x1="263" y1="145" x2="290" y2="210" stroke="#888" stroke-width="1" marker-end="url(#arr-use)"/>
+
+    <!-- 에틸렌 → PE -->
+    <rect x="290" y="22" width="90" height="48" rx="4" fill="#ebf0f5" stroke="#0F2A47" stroke-width="0.7"/>
+    <text x="335" y="40" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="10" font-weight="700">에틸렌</text>
+    <text x="335" y="56" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8">→ PE</text>
+    <line x1="383" y1="46" x2="418" y2="46" stroke="#888" stroke-width="1" marker-end="url(#arr-use)"/>
+    <rect x="420" y="22" width="240" height="48" rx="4" fill="#fff" stroke="#bbb" stroke-width="0.5"/>
+    <text x="540" y="38" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="9" font-weight="700">비닐봉지 · 농업용 비닐 · 우유팩</text>
+    <text x="540" y="55" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8">샴푸통 · 식품 포장재 · 파이프</text>
+
+    <!-- 프로필렌 → PP -->
+    <rect x="290" y="106" width="90" height="48" rx="4" fill="#ebf0f5" stroke="#0F2A47" stroke-width="0.7"/>
+    <text x="335" y="124" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="10" font-weight="700">프로필렌</text>
+    <text x="335" y="140" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8">→ PP</text>
+    <line x1="383" y1="130" x2="418" y2="130" stroke="#888" stroke-width="1" marker-end="url(#arr-use)"/>
+    <rect x="420" y="106" width="240" height="48" rx="4" fill="#fff" stroke="#bbb" stroke-width="0.5"/>
+    <text x="540" y="122" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="9" font-weight="700">자동차 부품 · 가전 외장재</text>
+    <text x="540" y="139" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8">식품 용기 · 마스크 부직포 · 가구</text>
+
+    <!-- BTX → PET 등 -->
+    <rect x="290" y="190" width="90" height="48" rx="4" fill="#ebf0f5" stroke="#0F2A47" stroke-width="0.7"/>
+    <text x="335" y="208" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="10" font-weight="700">BTX</text>
+    <text x="335" y="224" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="7.5">벤젠·톨루엔·자일렌</text>
+    <line x1="383" y1="214" x2="418" y2="214" stroke="#888" stroke-width="1" marker-end="url(#arr-use)"/>
+    <rect x="420" y="190" width="240" height="48" rx="4" fill="#fff" stroke="#bbb" stroke-width="0.5"/>
+    <text x="540" y="206" fill="#333" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="9" font-weight="700">페트병 · 폴리에스터 섬유 · 타이어</text>
+    <text x="540" y="223" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8">스티로폼 · 합성고무 · 의약품 원료</text>
+  </svg>
+</div>
+
+<h3>한국의 나프타 안보 — 왜 정읍이 정책 우선순위인가</h3>
+
+<div class="grid-3">
+  <div class="card" style="border-top-color:var(--orange);">
+    <span class="ttl" style="color:var(--orange);">세계 4위 수입국</span>
+    <div class="body">한국 연간 나프타 소비 약 <span class="navy-bold">5,000만 톤</span>. 일본·중국·미국 다음 세계 4위 규모. 자체 원유 매장량이 없어 거의 전량을 수입에 의존.</div>
+  </div>
+  <div class="card" style="border-top-color:var(--orange);">
+    <span class="ttl" style="color:var(--orange);">중동 의존도</span>
+    <div class="body">국내 나프타의 원료가 되는 원유의 <span class="navy-bold">약 70%가 중동산</span>. 호르무즈 해협 봉쇄·예멘 후티 사태 등 지정학 리스크에 직접 노출.</div>
+  </div>
+  <div class="card" style="border-top-color:var(--navy);">
+    <span class="ttl" style="color:var(--navy);">정읍의 잠재력</span>
+    <div class="body">국내 폐플라스틱 발생량 약 <span class="navy-bold">850만 톤/년</span>. 모두 RGO로 처리하면 <span class="accent">일평균 75,000배럴 대체원유</span> 확보 가능.</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 3 : 정읍공장 상세                                         -->
+<!-- ============================================================ -->
+<div class="pb"></div>
+
+<h2><span class="num">04</span>정읍공장(웨이브 정읍) — 시설 상세</h2>
+
+<p class="lead">
+  정읍공장은 도시유전과 우리기술이 공동 출자한 합작법인 <span class="navy-bold">웨이브 정읍(WAVE Jeongeup)</span>이 운영하는 국내 최대 규모의 비연소 저온 촉매 분해 시설이다. 전북 정읍시에 위치하며 2025년 11월 18일 상업 가동을 시작했다. 도시유전 정영훈 대표와 우리기술 노갑선 대표가 직접 참석한 가운데 BASF·Trafigura·사우디 PEDCO·영국 사비엔 등 글로벌 파트너 200여명이 참관한 준공식이 동시 개최됐다.
+</p>
+
+<!-- 정읍공장 정보카드 + 시설 평면도 -->
+<div class="facility-grid">
+  <div class="facility-info">
+    <div class="row">
+      <div class="k">소재지</div>
+      <div class="v">전북 정읍시</div>
+    </div>
+    <div class="row">
+      <div class="k">운영법인</div>
+      <div class="v">웨이브 정읍 (WAVE Jeongeup)</div>
+    </div>
+    <div class="row">
+      <div class="k">합작 구성</div>
+      <div class="v">도시유전 + 우리기술</div>
+    </div>
+    <div class="row">
+      <div class="k">상업 가동</div>
+      <div class="v">2025-11-18</div>
+    </div>
+    <div class="row">
+      <div class="k">분해 탱크</div>
+      <div class="v">6톤 × 4기</div>
+    </div>
+    <div class="row">
+      <div class="k">처리 캐파</div>
+      <div class="v">6,500 t/년</div>
+    </div>
+    <div class="row">
+      <div class="k">생산 캐파</div>
+      <div class="v">재생유 4,550 t/년 (540만 L)</div>
+    </div>
+    <div class="row">
+      <div class="k">수율</div>
+      <div class="v">약 70%</div>
+    </div>
+    <div class="row">
+      <div class="k">공정 온도</div>
+      <div class="v">270℃ (저온)</div>
+    </div>
+    <div class="row">
+      <div class="k">국제 인증</div>
+      <div class="v">ISCC PLUS · PSM · KTL</div>
+    </div>
+  </div>
+
+  <!-- 시설 평면도 -->
+  <div>
+    <svg viewBox="0 0 400 280" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto;">
+      <!-- 부지 외곽 -->
+      <rect x="10" y="10" width="380" height="260" rx="6" fill="#fff" stroke="#0F2A47" stroke-width="1.5"/>
+
+      <!-- 입구 -->
+      <text x="20" y="30" fill="#888" font-family="Noto Sans CJK KR, sans-serif" font-size="8">↓ 입구</text>
+
+      <!-- 폐플라스틱 야적장 -->
+      <rect x="25" y="55" width="100" height="80" fill="#ebf0f5" stroke="#0F2A47" stroke-width="0.7" stroke-dasharray="3 2"/>
+      <text x="75" y="85" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="9" font-weight="700">폐플라스틱</text>
+      <text x="75" y="100" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="9" font-weight="700">투입 야적장</text>
+      <text x="75" y="118" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="7.5">선별 불필요</text>
+
+      <!-- 컨베이어 -->
+      <line x1="125" y1="95" x2="160" y2="95" stroke="#888" stroke-width="2"/>
+      <text x="143" y="86" fill="#888" text-anchor="middle" font-family="Noto Sans CJK KR, sans-serif" font-size="7">컨베이어</text>
+
+      <!-- 탱크 4기 (중앙) -->
+      <g>
+        <!-- 탱크 1 -->
+        <circle cx="190" cy="80" r="22" fill="#fdf2e7" stroke="#E67E22" stroke-width="1.2"/>
+        <text x="190" y="76" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8" font-weight="700">탱크 1</text>
+        <text x="190" y="89" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="JetBrains Mono, monospace" font-size="7">6t</text>
+        <!-- 탱크 2 -->
+        <circle cx="240" cy="80" r="22" fill="#fdf2e7" stroke="#E67E22" stroke-width="1.2"/>
+        <text x="240" y="76" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8" font-weight="700">탱크 2</text>
+        <text x="240" y="89" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="JetBrains Mono, monospace" font-size="7">6t</text>
+        <!-- 탱크 3 -->
+        <circle cx="190" cy="135" r="22" fill="#fdf2e7" stroke="#E67E22" stroke-width="1.2"/>
+        <text x="190" y="131" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8" font-weight="700">탱크 3</text>
+        <text x="190" y="144" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="JetBrains Mono, monospace" font-size="7">6t</text>
+        <!-- 탱크 4 -->
+        <circle cx="240" cy="135" r="22" fill="#fdf2e7" stroke="#E67E22" stroke-width="1.2"/>
+        <text x="240" y="131" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8" font-weight="700">탱크 4</text>
+        <text x="240" y="144" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-family="JetBrains Mono, monospace" font-size="7">6t</text>
+      </g>
+      <text x="215" y="170" fill="#A85B16" text-anchor="middle" font-family="Noto Sans CJK KR, sans-serif" font-size="9" font-weight="700">RGO 분해 동 · 270℃</text>
+
+      <!-- 응축기 + 저장 탱크 -->
+      <line x1="262" y1="107" x2="290" y2="107" stroke="#888" stroke-width="1.5" stroke-dasharray="3 2"/>
+      <rect x="290" y="55" width="90" height="50" rx="4" fill="#ebf0f5" stroke="#0F2A47" stroke-width="0.7"/>
+      <text x="335" y="73" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8.5" font-weight="700">응축·정제</text>
+      <text x="335" y="90" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="7.5">증기 → 액상</text>
+
+      <line x1="335" y1="108" x2="335" y2="125" stroke="#888" stroke-width="1.5" stroke-dasharray="3 2"/>
+
+      <rect x="290" y="125" width="90" height="60" rx="4" fill="#ebf0f5" stroke="#0F2A47" stroke-width="0.7"/>
+      <text x="335" y="143" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8.5" font-weight="700">재생 나프타</text>
+      <text x="335" y="158" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8.5" font-weight="700">저장 탱크</text>
+      <text x="335" y="174" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="JetBrains Mono, monospace" font-size="7">540만 L/년</text>
+
+      <!-- 출고 -->
+      <line x1="335" y1="185" x2="335" y2="210" stroke="#0F2A47" stroke-width="1.2" marker-end="url(#arr-fac)"/>
+      <text x="335" y="225" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8.5" font-weight="700">출고</text>
+      <text x="335" y="240" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="7.5">탱크로리 → 베트남</text>
+      <text x="335" y="252" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="7.5">국내 NCC · EU</text>
+
+      <!-- 잔재물 -->
+      <line x1="215" y1="158" x2="215" y2="195" stroke="#888" stroke-width="1" stroke-dasharray="2 2" marker-end="url(#arr-fac)"/>
+      <rect x="170" y="195" width="90" height="40" rx="4" fill="#f5f5f5" stroke="#888" stroke-width="0.7"/>
+      <text x="215" y="212" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8.5" font-weight="700">탄소 잔재물</text>
+      <text x="215" y="226" fill="#888" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="7.5">소재 활용</text>
+
+      <!-- 관리동 -->
+      <rect x="25" y="195" width="100" height="40" rx="4" fill="#f5f5f5" stroke="#888" stroke-width="0.7"/>
+      <text x="75" y="212" fill="#555" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="8.5" font-weight="700">관리동</text>
+      <text x="75" y="226" fill="#888" text-anchor="middle" dominant-baseline="central" font-family="Noto Sans CJK KR, sans-serif" font-size="7.5">제어실 · 사무실</text>
+
+      <!-- 라벨 -->
+      <text x="200" y="262" fill="#888" text-anchor="middle" font-family="Noto Sans CJK KR, sans-serif" font-size="7.5">정읍공장 시설 배치도 (개요)</text>
+
+      <defs>
+        <marker id="arr-fac" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+          <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5"/>
+        </marker>
+      </defs>
+    </svg>
+  </div>
+</div>
+
+<h3>정읍공장 5가지 핵심 차별점</h3>
+
+<div class="grid-2">
+  <div class="card">
+    <span class="tag">#1</span><span class="ttl">저온 270℃ · 비연소</span>
+    <div class="body">일반 열분해는 500~800℃ 고온 연소. 정읍은 270℃ 저온 분해로 <strong>다이옥신·퓨란 등 유해물질 미발생</strong>. 인근 환경·민원 리스크 현저히 낮음.</div>
+  </div>
+  <div class="card">
+    <span class="tag">#2</span><span class="ttl">미선별 폐기물 직접 투입</span>
+    <div class="body">일반 시설은 사전 선별 필수. 정읍은 <strong>종량제 봉투, 음식물 묻은 폐비닐도 그대로 투입 가능</strong>. 원료 수급 비용·시간 절감.</div>
+  </div>
+  <div class="card">
+    <span class="tag">#3</span><span class="ttl">수율 70%</span>
+    <div class="body">일반 고온 열분해 수율 35~65% 대비 우수. 6톤 투입 → <strong>약 4.2톤 나프타 회수</strong>. 동일 폐기물 대비 매출 잠재력이 약 1.5배.</div>
+  </div>
+  <div class="card">
+    <span class="tag">#4</span><span class="ttl">ISCC PLUS 인증</span>
+    <div class="body"><strong>EU 환경규제 통과한 한국 단일 공장 첫 사례</strong>. EU CBAM 면제 + 재생함량 의무 충족. BASF·Trafigura가 직접 보러 온 진짜 이유.</div>
+  </div>
+  <div class="card" style="grid-column: span 2; border-top-color:var(--orange);">
+    <span class="tag" style="background:var(--navy);">#5</span><span class="ttl" style="color:var(--orange);">탄소배출권 17,550 t/년 — 매출 외 부가 수익</span>
+    <div class="body">폐플라스틱을 분해해 다시 나프타로 환원하는 만큼 신규 탄소 배출이 없다. 연간 17,550톤 규모의 배출권을 추가로 확보해 국내 배출권 시장이나 EU CBAM 크레딧으로 매각할 수 있는 <strong>제3의 매출원</strong>이다. 배출권 가격 톤당 1만원 기준 약 1.7억원, 톤당 5만원 기준 약 8.8억원의 부가 수익에 해당.</div>
+  </div>
+</div>
+
+<!-- ============================================================ -->
+<!-- PAGE 4 : 정읍 나프타 vs 일반 나프타                              -->
+<!-- ============================================================ -->
+<div class="pb"></div>
+
+<h2><span class="num">05</span>정읍 나프타 vs 일반 나프타 — Closed Loop</h2>
+
+<p class="lead">
+  정읍에서 나오는 재생 나프타는 단순한 친환경 부산물이 아니다. <span class="navy-bold">LG화학·롯데케미칼 같은 NCC가 그대로 받아 쓸 수 있는 드롭인(drop-in) 원료</span>이며, 두 경로가 동일한 NCC로 들어가 동일한 플라스틱이 나오지만 정읍 경로는 <span class="accent">원유를 한 방울도 쓰지 않는 닫힌 순환</span>을 만든다.
+</p>
+
+<div class="chart-box">
+  <div class="chart-title">전통 석유화학 vs 정읍 도시유전 — 닫힌 순환경제</div>
+  <div class="chart-sub">두 경로가 같은 NCC 크래커로 들어가 같은 플라스틱이 나온다. 차이는 원유 의존 여부와 폐기물 처리 여부.</div>
+
+  <svg viewBox="0 0 680 360" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-height:300px;">
+    <defs>
+      <marker id="arr-cl" viewBox="0 0 10 10" refX="8" refY="5" markerWidth="6" markerHeight="6" orient="auto-start-reverse">
+        <path d="M2 1L8 5L2 9" fill="none" stroke="context-stroke" stroke-width="1.5"/>
+      </marker>
+    </defs>
+
+    <text x="40" y="58" fill="#888" font-family="Noto Sans CJK KR, sans-serif" font-size="11">전통 석유화학</text>
+    <text x="40" y="186" fill="#0F2A47" font-family="Noto Sans CJK KR, sans-serif" font-size="11" font-weight="700">정읍 도시유전</text>
+
+    <g font-family="Noto Sans CJK KR, sans-serif">
+      <rect x="60" y="70" width="80" height="44" rx="6" fill="#f5f5f5" stroke="#888" stroke-width="0.7"/>
+      <text x="100" y="92" fill="#555" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600">원유</text>
+      <rect x="180" y="70" width="80" height="44" rx="6" fill="#f5f5f5" stroke="#888" stroke-width="0.7"/>
+      <text x="220" y="92" fill="#555" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600">정유</text>
+      <rect x="300" y="70" width="100" height="44" rx="6" fill="#f5f5f5" stroke="#888" stroke-width="0.7"/>
+      <text x="350" y="92" fill="#555" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="600">나프타</text>
+    </g>
+    <line x1="143" y1="92" x2="177" y2="92" stroke="#888" stroke-width="1" marker-end="url(#arr-cl)"/>
+    <line x1="263" y1="92" x2="297" y2="92" stroke="#888" stroke-width="1" marker-end="url(#arr-cl)"/>
+
+    <g font-family="Noto Sans CJK KR, sans-serif">
+      <rect x="40" y="200" width="100" height="44" rx="6" fill="#ebf0f5" stroke="#0F2A47" stroke-width="0.8"/>
+      <text x="90" y="222" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="700">폐플라스틱</text>
+      <rect x="180" y="194" width="80" height="56" rx="6" fill="#ebf0f5" stroke="#0F2A47" stroke-width="0.8"/>
+      <text x="220" y="214" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700">RGO 분해</text>
+      <text x="220" y="232" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-size="9.5">270℃ · 24h</text>
+      <rect x="300" y="200" width="100" height="44" rx="6" fill="#ebf0f5" stroke="#0F2A47" stroke-width="0.8"/>
+      <text x="350" y="222" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="700">재생 나프타</text>
+    </g>
+    <line x1="143" y1="222" x2="177" y2="222" stroke="#0F2A47" stroke-width="1" marker-end="url(#arr-cl)"/>
+    <line x1="263" y1="222" x2="297" y2="222" stroke="#0F2A47" stroke-width="1" marker-end="url(#arr-cl)"/>
+
+    <g font-family="Noto Sans CJK KR, sans-serif">
+      <rect x="430" y="130" width="100" height="54" rx="6" fill="#fdf2e7" stroke="#E67E22" stroke-width="0.8"/>
+      <text x="480" y="151" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="700">NCC</text>
+      <text x="480" y="170" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-size="9.5">나프타 크래커</text>
+    </g>
+    <path d="M 400 92 L 415 92 L 415 144 L 428 144" stroke="#888" stroke-width="1" fill="none" marker-end="url(#arr-cl)"/>
+    <path d="M 400 222 L 415 222 L 415 170 L 428 170" stroke="#0F2A47" stroke-width="1" fill="none" marker-end="url(#arr-cl)"/>
+
+    <g font-family="Noto Sans CJK KR, sans-serif">
+      <rect x="570" y="130" width="80" height="54" rx="6" fill="#fdf2e7" stroke="#E67E22" stroke-width="0.8"/>
+      <text x="610" y="151" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-size="12" font-weight="700">플라스틱</text>
+      <text x="610" y="170" fill="#A85B16" text-anchor="middle" dominant-baseline="central" font-size="9.5">PE·PP·PET</text>
+    </g>
+    <line x1="533" y1="157" x2="568" y2="157" stroke="#E67E22" stroke-width="1" marker-end="url(#arr-cl)"/>
+
+    <path d="M 610 184 L 610 305 L 90 305 L 90 244" fill="none" stroke="#E67E22" stroke-width="1.5" stroke-dasharray="6 5" marker-end="url(#arr-cl)"/>
+    <text x="350" y="328" fill="#E67E22" text-anchor="middle" font-family="Noto Sans CJK KR, sans-serif" font-size="11" font-weight="700">↻ 도시유전이 만든 닫힌 순환 (Closed Loop)</text>
+  </svg>
+</div>
+
+<h3>일반 나프타 vs 정읍 재생 나프타 — 다차원 비교</h3>
+
+<table>
+  <thead>
+    <tr><th style="width:20%;">항목</th><th style="width:36%;">일반 나프타</th><th>정읍 재생 나프타</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="label">원료</td><td>원유 (수입 의존)</td><td>폐플라스틱 (국내 발생)</td></tr>
+    <tr><td class="label">가격 (톤당)</td><td>약 60~80만원</td><td><strong style="color:var(--orange);">약 269만원 (USD 2/L)</strong></td></tr>
+    <tr><td class="label">국제 인증</td><td>—</td><td>ISCC PLUS · PSM · KTL</td></tr>
+    <tr><td class="label">EU 수출</td><td>CBAM 부담</td><td>CBAM 면제 + 재생함량 인정</td></tr>
+    <tr><td class="label">부가 수익</td><td>없음</td><td>탄소배출권 17,550 t/년</td></tr>
+    <tr><td class="label">공정 온도</td><td>500~800℃ (NCC)</td><td>270℃ (저온 분해)</td></tr>
+    <tr><td class="label">다이옥신·퓨란</td><td>발생 가능</td><td>미발생</td></tr>
+    <tr><td class="label">미선별 폐기물</td><td>처리 불가</td><td>처리 가능</td></tr>
+  </tbody>
+</table>
+
+<p>
+  가격이 일반 나프타의 <span class="accent">3~4배</span>인데도 글로벌 기업들이 가져가려는 이유는 명확하다. EU 진출 자격이 없는 일반 나프타로는 EU 시장에서 플라스틱을 팔 수 없게 되며, 정읍 ISCC PLUS 공급망은 그 자체로 <span class="navy-bold">EU 시장 접근권</span>이라는 무형 자산을 동반한다. 정읍 재생 나프타의 진짜 가치는 톤당 269만원이라는 가격표가 아니라, 그것을 <span class="navy-bold">살 수 있는 권리</span>에 있다.
+</p>
+
+<!-- ============================================================ -->
+<!-- PAGE 5 : 4중 CATALYST                                         -->
+<!-- ============================================================ -->
+<div class="pb"></div>
+
+<h2><span class="num">06</span>4중 Catalyst — 왜 지금이 변곡점인가</h2>
+
+<p>
+  정읍공장 자체는 가동 6개월차의 단일 시설이다. 진짜 이 종목을 움직이는 것은 <span class="accent">2026년 들어 동시 점화된 네 개의 거시·정책 동력</span>이다. 이들이 결합해 도시유전 진영 전체의 기대 매출 곡선을 한 단계 위로 끌어올리고 있다.
+</p>
+
+<div class="grid-2">
+  <div class="card">
+    <span class="tag">#1 정책</span><span class="ttl">정부 법 개정 착수 (26.04)</span>
+    <div class="body">당정이 폐플라스틱 → 나프타 재생유 사업 확대를 위한 법 개정에 착수. <strong>순환자원 인정 기준 완화 + 순환경제규제특구 도입</strong>이 핵심.</div>
+  </div>
+  <div class="card">
+    <span class="tag">#2 조달</span><span class="ttl">조달청장 직접 방문</span>
+    <div class="body">백승보 조달청장이 도시유전 직접 방문해 <strong>공공조달 판로 확대</strong> 점검. 분기 실적의 가장 빠른 가시성 변수.</div>
+  </div>
+  <div class="card">
+    <span class="tag">#3 거시</span><span class="ttl">중동 위기 → 나프타 안보</span>
+    <div class="body">중동 정세 악화로 나프타 수급 불안 부상. 국내 폐플라스틱 열분해 시 <strong>일평균 75,000배럴 대체원유</strong> 가능.</div>
+  </div>
+  <div class="card">
+    <span class="tag">#4 확장</span><span class="ttl">강진산단 20만t MOA</span>
+    <div class="body">로우카본과 <strong>450억원 투자</strong>해 강진 산단에 연간 <strong>20만t 블루납사유</strong> 생산기지 구축. 정읍 6,500t 대비 <span style="color:#E67E22; font-weight:700;">약 30배</span>.</div>
+  </div>
+</div>
+
+<div class="chart-box" style="margin-top:4px;">
+  <div class="chart-title">2026년 Catalyst 타임라인</div>
+  <svg viewBox="0 0 720 130" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-height:120px;">
+    <line x1="40" y1="65" x2="700" y2="65" stroke="#888" stroke-width="1.5"/>
+    <g stroke="#888" stroke-width="1">
+      <line x1="80" y1="60" x2="80" y2="70"/><line x1="200" y1="60" x2="200" y2="70"/>
+      <line x1="320" y1="60" x2="320" y2="70"/><line x1="440" y1="60" x2="440" y2="70"/>
+      <line x1="560" y1="60" x2="560" y2="70"/><line x1="660" y1="60" x2="660" y2="70"/>
+    </g>
+    <g font-family="JetBrains Mono, monospace" font-size="7.5" fill="#888" text-anchor="middle">
+      <text x="80" y="85">'25.11</text><text x="200" y="85">'26.01</text>
+      <text x="320" y="85">'26.03</text><text x="440" y="85">'26.04</text>
+      <text x="560" y="85">'26.Q3~4</text><text x="660" y="85">'27~28</text>
+    </g>
+    <g font-family="Noto Sans CJK KR, sans-serif" font-size="7.5">
+      <circle cx="80" cy="65" r="5" fill="#0F2A47"/>
+      <text x="80" y="40" fill="#0F2A47" text-anchor="middle" font-size="8" font-weight="700">정읍 가동</text>
+      <text x="80" y="51" fill="#888" text-anchor="middle">11.18 ✓</text>
+      <circle cx="200" cy="65" r="4" fill="#888"/>
+      <text x="200" y="40" fill="#555" text-anchor="middle" font-size="8">SMR 특별법</text>
+      <text x="200" y="51" fill="#888" text-anchor="middle">통과 ✓</text>
+      <circle cx="320" cy="65" r="4" fill="#888"/>
+      <text x="320" y="40" fill="#555" text-anchor="middle" font-size="8">5배 급등</text>
+      <text x="320" y="51" fill="#888" text-anchor="middle">26,000원</text>
+      <circle cx="440" cy="65" r="6" fill="#E67E22"/>
+      <text x="440" y="40" fill="#E67E22" text-anchor="middle" font-size="8" font-weight="700">법 개정 착수</text>
+      <text x="440" y="51" fill="#E67E22" text-anchor="middle">★ 진행중</text>
+      <circle cx="560" cy="65" r="6" fill="#E67E22"/>
+      <text x="560" y="40" fill="#E67E22" text-anchor="middle" font-size="8" font-weight="700">강진 본계약</text>
+      <text x="560" y="51" fill="#E67E22" text-anchor="middle">★ 예상</text>
+      <circle cx="660" cy="65" r="5" fill="#0F2A47"/>
+      <text x="660" y="40" fill="#0F2A47" text-anchor="middle" font-size="8" font-weight="700">강진 가동</text>
+      <text x="660" y="51" fill="#888" text-anchor="middle">20만 t/y</text>
+    </g>
+    <rect x="380" y="95" width="240" height="22" fill="#E67E22" opacity="0.1" rx="2"/>
+    <text x="500" y="110" fill="#E67E22" text-anchor="middle" font-family="Noto Sans CJK KR, sans-serif" font-size="8" font-weight="700">▲ 핵심 모니터링 윈도우 (2026.04 ~ Q4)</text>
+  </svg>
+</div>
+
+<h2><span class="num">07</span>캐파 로드맵 — 정읍에서 강진까지 30배</h2>
+
+<div class="chart-box">
+  <div class="chart-title">정읍(6.5K t) vs 강진(200K t) — 약 30배 캐파 확장</div>
+  <svg viewBox="0 0 720 200" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-height:180px;">
+    <line x1="80" y1="170" x2="700" y2="170" stroke="#888" stroke-width="1"/>
+    <rect x="150" y="160" width="90" height="10" fill="#0F2A47"/>
+    <text x="195" y="155" fill="#0F2A47" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="8.5" font-weight="700">6,500 t/y</text>
+    <text x="195" y="186" fill="#444" text-anchor="middle" font-family="Noto Sans CJK KR, sans-serif" font-size="9" font-weight="700">정읍 (가동 ✓)</text>
+    <text x="195" y="198" fill="#888" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.5">매출 ≈ 128억/년</text>
+    <rect x="350" y="40" width="280" height="130" fill="#E67E22"/>
+    <text x="490" y="32" fill="#E67E22" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="11" font-weight="700">200,000 t/y</text>
+    <text x="490" y="186" fill="#E67E22" text-anchor="middle" font-family="Noto Sans CJK KR, sans-serif" font-size="9" font-weight="700">강진 (MOA · 27~28 가동 예상)</text>
+    <text x="490" y="198" fill="#888" text-anchor="middle" font-family="JetBrains Mono, monospace" font-size="7.5">매출 잠재력 ≈ 약 4,000억/년</text>
+    <g>
+      <path d="M 245 100 Q 295 100 345 100" stroke="#E67E22" stroke-width="1.5" fill="none" stroke-dasharray="3,3"/>
+      <polygon points="345,100 339,96 339,104" fill="#E67E22"/>
+      <rect x="265" y="85" width="60" height="22" fill="#fff" stroke="#E67E22" stroke-width="1" rx="3"/>
+      <text x="295" y="100" fill="#E67E22" text-anchor="middle" font-family="Noto Sans CJK KR, sans-serif" font-size="11" font-weight="800">× 30배</text>
+    </g>
+  </svg>
+</div>
+
+<table>
+  <thead>
+    <tr><th style="width:18%;">구분</th><th style="width:14%;">처리 캐파</th><th style="width:18%;">매출 잠재력</th><th>비고</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="label">정읍공장</td><td class="num">6,500 t/y</td><td class="num">≈ 128억/년</td><td>2025-11-18 가동, ISCC PLUS, 단일 공장 국내 최대</td></tr>
+    <tr><td class="label">강진산단</td><td class="num">200,000 t/y</td><td class="num">≈ 4,000억/년</td><td>로우카본 MOA, 450억 투자, 27~28년 가동 추정</td></tr>
+    <tr><td class="label">베트남 수출</td><td class="num">계약 기반</td><td class="num">≈ 150억/년</td><td>2024년 남안그룹 본계약 — 정읍 가동 시 즉시 인식</td></tr>
+    <tr><td class="label">합계 (잠재)</td><td class="num">≈ 206K t/y</td><td class="num">≈ 4,300억+</td><td>27~28년 풀가동 — 합작 지분 비율 별도 적용 필요</td></tr>
+  </tbody>
+</table>
+
+<p style="font-size:8pt; color:var(--gray-2);">
+  <strong>※ 중요:</strong> 위 매출은 합작법인 100% 기준 추정치. 우리기술 별도 P&amp;L에 인식되는 금액은 <strong>합작 지분율과 연결 회계 처리 방식</strong>에 따라 달라진다. 차기 분기보고서·합작 공시 확인 필수.
+</p>
+
+<!-- ============================================================ -->
+<!-- PAGE 6 : 글로벌 네트워크                                       -->
+<!-- ============================================================ -->
+<div class="pb"></div>
+
+<h2><span class="num">08</span>글로벌 수출 네트워크 — 누가 줄 서 있는가</h2>
+
+<p class="lead">
+  강진 20만톤이 가동되어도 <span class="navy-bold">팔 데가 있는가</span>는 별개의 질문이다. 정읍 준공식에 모인 200여명 글로벌 인사들은 단순 의례적 참석이 아니라 <span class="accent">후속 본계약을 위한 사전 위치 점검</span>이었다. 정읍을 hub로 한 4개 권역 8개 파트너 네트워크는 강진 가동 후 즉시 매출로 전환될 대기 행렬이다.
+</p>
+
+<div class="chart-box">
+  <div class="chart-title">정읍 글로벌 수출 네트워크 — 4개 권역 8개 파트너</div>
+  <div class="chart-sub">진한 박스 = 본계약/PSA 체결 · 옅은 박스 = 직접 방문/MOU · 점선 = 잠재 수요처</div>
+
+  <svg viewBox="0 0 680 460" xmlns="http://www.w3.org/2000/svg" style="width:100%; height:auto; max-height:420px;">
+    <text x="340" y="22" fill="#888" font-family="Noto Sans CJK KR, sans-serif" font-size="12" text-anchor="middle" font-weight="600">유럽</text>
+    <text x="585" y="180" fill="#888" font-family="Noto Sans CJK KR, sans-serif" font-size="12" text-anchor="middle" font-weight="600">중동</text>
+    <text x="340" y="455" fill="#888" font-family="Noto Sans CJK KR, sans-serif" font-size="12" text-anchor="middle" font-weight="600">동남아</text>
+    <text x="85" y="100" fill="#888" font-family="Noto Sans CJK KR, sans-serif" font-size="12" text-anchor="middle" font-weight="600">한국</text>
+
+    <g stroke="#bbb" stroke-width="1" opacity="0.6" fill="none">
+      <line x1="275" y1="200" x2="250" y2="106"/>
+      <line x1="340" y1="195" x2="340" y2="106"/>
+      <line x1="405" y1="200" x2="430" y2="106"/>
+      <line x1="405" y1="225" x2="520" y2="230"/>
+      <line x1="340" y1="275" x2="340" y2="370"/>
+      <line x1="275" y1="205" x2="150" y2="160"/>
+      <line x1="275" y1="240" x2="150" y2="240"/>
+      <line x1="275" y1="270" x2="150" y2="320"/>
+    </g>
+
+    <g font-family="Noto Sans CJK KR, sans-serif">
+      <rect x="130" y="42" width="120" height="64" rx="6" fill="#0F2A47" stroke="#0F2A47"/>
+      <text x="190" y="63" fill="#fff" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700">★ 사비엔 (GB)</text>
+      <text x="190" y="80" fill="#fff" text-anchor="middle" dominant-baseline="central" font-size="9">PSA 체결</text>
+      <text x="190" y="95" fill="#F5B041" text-anchor="middle" dominant-baseline="central" font-size="9" font-weight="700">미주·EU 독점</text>
+
+      <rect x="275" y="42" width="130" height="64" rx="6" fill="#ebf0f5" stroke="#0F2A47" stroke-width="1"/>
+      <text x="340" y="63" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-size="11.5" font-weight="700">BASF (DE)</text>
+      <text x="340" y="80" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-size="9">직접 방문</text>
+      <text x="340" y="95" fill="#555" text-anchor="middle" dominant-baseline="central" font-size="9">화학 글로벌 1위</text>
+
+      <rect x="425" y="42" width="130" height="64" rx="6" fill="#ebf0f5" stroke="#0F2A47" stroke-width="1"/>
+      <text x="490" y="63" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-size="11.5" font-weight="700">Trafigura (SG)</text>
+      <text x="490" y="80" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-size="9">직접 방문</text>
+      <text x="490" y="95" fill="#555" text-anchor="middle" dominant-baseline="central" font-size="9">글로벌 트레이더</text>
+
+      <rect x="20" y="115" width="130" height="80" rx="6" fill="#0F2A47" stroke="#0F2A47"/>
+      <text x="85" y="136" fill="#fff" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700">★ 로우카본 (KR)</text>
+      <text x="85" y="153" fill="#fff" text-anchor="middle" dominant-baseline="central" font-size="9">강진산단 MOA</text>
+      <text x="85" y="167" fill="#fff" text-anchor="middle" dominant-baseline="central" font-size="9">20만 t · 450억</text>
+      <text x="85" y="184" fill="#F5B041" text-anchor="middle" dominant-baseline="central" font-size="9.5" font-weight="700">정읍 × 30</text>
+
+      <rect x="20" y="210" width="130" height="58" rx="6" fill="#ebf0f5" stroke="#0F2A47" stroke-width="1"/>
+      <text x="85" y="230" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-size="11.5" font-weight="700">조달청 (KR)</text>
+      <text x="85" y="246" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-size="9">청장 직접 방문</text>
+      <text x="85" y="259" fill="#555" text-anchor="middle" dominant-baseline="central" font-size="9">공공조달 판로</text>
+
+      <rect x="20" y="295" width="130" height="58" rx="6" fill="#f5f5f5" stroke="#888" stroke-width="0.8" stroke-dasharray="4 3"/>
+      <text x="85" y="315" fill="#555" text-anchor="middle" dominant-baseline="central" font-size="11.5" font-weight="700">○ 국내 NCC</text>
+      <text x="85" y="331" fill="#555" text-anchor="middle" dominant-baseline="central" font-size="9">LG화학 · GS칼텍스</text>
+      <text x="85" y="345" fill="#888" text-anchor="middle" dominant-baseline="central" font-size="8.5">잠재 수요처</text>
+
+      <rect x="520" y="195" width="130" height="80" rx="6" fill="#ebf0f5" stroke="#0F2A47" stroke-width="1"/>
+      <text x="585" y="216" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-size="11.5" font-weight="700">PEDCO (SA)</text>
+      <text x="585" y="234" fill="#0F2A47" text-anchor="middle" dominant-baseline="central" font-size="9">직접 방문</text>
+      <text x="585" y="248" fill="#555" text-anchor="middle" dominant-baseline="central" font-size="9">사우디 정유</text>
+      <text x="585" y="263" fill="#555" text-anchor="middle" dominant-baseline="central" font-size="8.5">+ SIRC 동행</text>
+
+      <rect x="275" y="370" width="130" height="64" rx="6" fill="#0F2A47" stroke="#0F2A47"/>
+      <text x="340" y="391" fill="#fff" text-anchor="middle" dominant-baseline="central" font-size="11" font-weight="700">✓ 남안 (VN)</text>
+      <text x="340" y="408" fill="#fff" text-anchor="middle" dominant-baseline="central" font-size="9">본계약 체결 (2024)</text>
+      <text x="340" y="423" fill="#F5B041" text-anchor="middle" dominant-baseline="central" font-size="9.5" font-weight="700">연 최대 150억</text>
+
+      <rect x="275" y="195" width="130" height="80" rx="8" fill="#E67E22" stroke="#A85B16" stroke-width="1.5"/>
+      <text x="340" y="218" fill="#fff" text-anchor="middle" dominant-baseline="central" font-size="15" font-weight="700">정읍</text>
+      <text x="340" y="238" fill="#fff" text-anchor="middle" dominant-baseline="central" font-size="9">웨이브 정읍 Hub</text>
+      <text x="340" y="252" fill="#fff" text-anchor="middle" dominant-baseline="central" font-size="9">6,500 t/y · ISCC PLUS</text>
+      <text x="340" y="266" fill="#fff" text-anchor="middle" dominant-baseline="central" font-size="8.5">2025-11-18 가동</text>
+    </g>
+  </svg>
+</div>
+
+<table>
+  <thead>
+    <tr><th style="width:16%;">파트너</th><th style="width:8%;">권역</th><th style="width:18%;">계약 상태</th><th>투자 임팩트</th></tr>
+  </thead>
+  <tbody>
+    <tr><td class="label">사비엔</td><td>영국</td><td><strong style="color:var(--orange);">★ PSA 체결</strong></td><td>미주·EU 독점 + 양사 지분 연동</td></tr>
+    <tr><td class="label">로우카본</td><td>한국</td><td><strong style="color:var(--orange);">★ MOA + 450억</strong></td><td>강진 30배 확장 — 최대 catalyst</td></tr>
+    <tr><td class="label">남안그룹</td><td>베트남</td><td><strong style="color:var(--navy);">✓ 본계약 (2024)</strong></td><td>연 최대 150억 — 즉시 인식 가능</td></tr>
+    <tr><td class="label">BASF</td><td>독일</td><td>직접 방문</td><td>잠재 거대 수요처 — EU 재생함량 충족</td></tr>
+    <tr><td class="label">Trafigura</td><td>싱가포르</td><td>직접 방문</td><td>글로벌 유통 채널</td></tr>
+    <tr><td class="label">PEDCO + SIRC</td><td>사우디</td><td>직접 방문</td><td>중동 진출 교두보</td></tr>
+    <tr><td class="label">조달청</td><td>한국</td><td>청장 방문 (26.04)</td><td>가장 빠른 매출 인식 통로</td></tr>
+    <tr><td class="label">국내 NCC</td><td>한국</td><td>○ 잠재 수요</td><td>드롭인 원료 직접 거래 가능</td></tr>
+  </tbody>
+</table>
+
+<!-- ============================================================ -->
+<!-- PAGE 7 : 시나리오 + 가이드 + 결론                              -->
+<!-- ============================================================ -->
+<div class="pb"></div>
+
+<h2><span class="num">09</span>시나리오 분석</h2>
+
+<div class="grid-2">
+  <div class="scenario bull">
+    <div class="head">▲ Bull Case</div>
+    <ul>
+      <li>순환경제규제특구·법 개정 통과 → 폐기물 진입장벽 하락</li>
+      <li>강진산단 본계약 체결 + 27~28년 가동 가시화</li>
+      <li>BASF·Trafigura·PEDCO 본계약 전환</li>
+      <li>EU CBAM 적용 본격화 → ISCC PLUS 재생유 수요 폭증</li>
+      <li>정읍 매출 분기 인식 + 우리기술 P&amp;L 가시화</li>
+      <li>"원전주 + 도시유전주" 더블 테마 → 멀티플 re-rating</li>
+    </ul>
+  </div>
+  <div class="scenario bear">
+    <div class="head">▼ Bear Case</div>
+    <ul>
+      <li>합작 지분율이 작아 우리기술 P&amp;L 임팩트 미미</li>
+      <li>법 개정 정치 일정 지연</li>
+      <li>강진 MOA → 본계약 전환 실패 또는 지연</li>
+      <li>정읍 가동률 저조 (원료 수급·가격 변동)</li>
+      <li>경제성 미확보 — 단가 부담</li>
+      <li>5배 급등 후 재료 소진 시 -30% 추가 조정</li>
+    </ul>
+  </div>
+</div>
+
+<h2><span class="num">10</span>투자자 유형별 진입 가이드</h2>
+
+<table>
+  <thead><tr><th style="width:16%;">유형</th><th style="width:18%;">권고 스탠스</th><th>실행 가이드</th></tr></thead>
+  <tbody>
+    <tr><td class="label">밸류 투자자</td><td><strong style="color:var(--orange);">조정 후 분할</strong></td><td>합작 지분율·연결회계 확인 후 진입. 26Q2~Q3 실적 확인이 우선.</td></tr>
+    <tr><td class="label">테마/모멘텀</td><td><strong style="color:var(--navy);">이벤트 트레이딩</strong></td><td>법 개정 통과·강진 본계약·EU 수출계약 단독 보도가 트리거.</td></tr>
+    <tr><td class="label">장기 성장</td><td><strong style="color:var(--navy);">분할 매수 (강추)</strong></td><td>1차 18,000원대, 2차 14,000원대 + 3~5년 보유.</td></tr>
+    <tr><td class="label">단기 트레이더</td><td><strong style="color:var(--orange);">변동성 활용</strong></td><td>도시유전 키워드 뉴스 흐름 모니터링. -15% 손절선 필수.</td></tr>
+  </tbody>
+</table>
+
+<h2><span class="num">11</span>모니터링 체크리스트</h2>
+
+<div class="checklist">
+  <div class="item"><span class="num">01</span><span class="desc"><strong>합작 지분율·연결회계</strong> — 우리기술이 웨이브 정읍에 보유한 지분율과 손익 인식 방식 <em>※ 가장 큰 미확인 변수</em></span></div>
+  <div class="item"><span class="num">02</span><span class="desc"><strong>정읍공장 첫 매출 인식</strong> — 26Q1~Q2 우리기술 P&amp;L 첫 반영 여부</span></div>
+  <div class="item"><span class="num">03</span><span class="desc"><strong>법 개정·규제특구 일정</strong> — 순환자원 인정 기준 완화안, 순환경제규제특구 지정 시기</span></div>
+  <div class="item"><span class="num">04</span><span class="desc"><strong>강진산단 본계약 전환</strong> — 로우카본 MOA → 본계약, 450억 투자 집행 일정</span></div>
+  <div class="item"><span class="num">05</span><span class="desc"><strong>해외 수출 계약</strong> — BASF·Trafigura·사비엔·PEDCO 본계약, EU·미주 ISCC PLUS 거래</span></div>
+  <div class="item"><span class="num">06</span><span class="desc"><strong>나프타 거시 변수</strong> — 중동 정세, WTI·브렌트, NCC 스프레드</span></div>
+  <div class="item"><span class="num">07</span><span class="desc"><strong>원전 사이드</strong> — 신한울 3·4 매출 본격화, SMR 추가 수주, 체코 본계약</span></div>
+</div>
+
+<h2><span class="num">12</span>결론</h2>
+
+<p class="lead" style="border-left-color: var(--orange); font-size:9.5pt;">
+  우리기술은 도시유전 시점으로 보면 <strong>"원전 캐시플로우 위에 얹힌 한국형 도시유전 콜옵션"</strong>이다. 옵션 가치를 결정하는 4중 catalyst가 동시 점화 중이고 글로벌 8개 파트너가 줄을 서 있지만, 단기 5배 급등으로 옵션 프리미엄이 이미 비싸졌다. <strong>매수 자체는 합리적이나 진입 가격이 핵심</strong> — 18,000원대 1차, 14,000원대 2차 분할 매수가 위험 대비 수익이 가장 좋은 진입 방식이며, <strong>합작 지분율 · 26Q1~Q2 매출 인식 · 강진 본계약</strong> 세 가지는 반드시 확인 후 비중을 늘려야 한다.
+</p>
+
+<div class="disclaimer">
+  본 자료는 공시·언론보도·증권정보 사이트 등 공개 정보를 토대로 정리한 분석 참고용 자료이며, 특정 종목의 매수·매도 추천이 아닙니다. 자료 작성 시점 이후 사실관계가 변경될 수 있으며, 추정치(≈ 표시)는 작성자의 판단에 따른 근사치입니다. 합작 지분율·매출 인식 방식 등 일부 핵심 변수는 우리기술 별도 분기보고서·합작 공시 확인이 필요합니다. 투자 결정과 그 결과에 대한 책임은 전적으로 투자자 본인에게 있습니다.
+</div>
+
+<div class="footer">
+  <span>Equity Research · 우리기술 (032820) — 도시유전 시점 v4.0</span>
+  <span>Generated: 2026-05-04 · Confidential</span>
+</div>
+
+</body>
+</html>
