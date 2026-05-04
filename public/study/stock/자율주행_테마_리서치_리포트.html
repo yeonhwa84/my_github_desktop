@@ -1,0 +1,1242 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>자율주행 테마 — Equity Research Report</title>
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  :root {
+    --navy: #1a2841;
+    --navy-light: #2c3e5e;
+    --orange: #c2410c;
+    --orange-light: #ea580c;
+    --buy: #15803d;
+    --buy-bg: #f0fdf4;
+    --buy-border: #86efac;
+    --hold: #b45309;
+    --hold-bg: #fffbeb;
+    --hold-border: #fcd34d;
+    --avoid: #b91c1c;
+    --avoid-bg: #fef2f2;
+    --avoid-border: #fca5a5;
+    --gray-50: #f9fafb;
+    --gray-100: #f3f4f6;
+    --gray-200: #e5e7eb;
+    --gray-300: #d1d5db;
+    --gray-400: #9ca3af;
+    --gray-500: #6b7280;
+    --gray-600: #4b5563;
+    --gray-700: #374151;
+    --gray-900: #111827;
+  }
+
+  body {
+    font-family: "Noto Sans CJK KR", "Noto Sans KR", -apple-system, sans-serif;
+    font-size: 14px;
+    line-height: 1.65;
+    color: var(--gray-900);
+    background: #fafafa;
+  }
+
+  .mono { font-family: "JetBrains Mono", "SF Mono", Menlo, monospace; }
+
+  .container {
+    max-width: 960px;
+    margin: 0 auto;
+    background: white;
+    min-height: 100vh;
+  }
+
+  /* ── 상단 브랜딩 바 ── */
+  .topbar {
+    background: var(--navy);
+    color: white;
+    padding: 10px 40px;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 11px;
+    letter-spacing: 0.08em;
+  }
+  .topbar .brand { font-weight: 600; }
+  .topbar .brand-accent { color: #fb923c; }
+  .topbar .meta { color: #cbd5e1; }
+
+  /* ── 콘텐츠 영역 ── */
+  .content { padding: 32px 40px 60px; }
+
+  /* ── 리포트 헤더 ── */
+  .report-header {
+    border-bottom: 2px solid var(--navy);
+    padding-bottom: 24px;
+    margin-bottom: 28px;
+  }
+  .header-tag {
+    display: inline-block;
+    font-size: 10px;
+    background: var(--orange);
+    color: white;
+    padding: 4px 10px;
+    letter-spacing: 0.15em;
+    font-weight: 600;
+    margin-bottom: 12px;
+  }
+  .report-title {
+    font-size: 28px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.25;
+    margin-bottom: 8px;
+  }
+  .report-subtitle {
+    font-size: 14px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+
+  /* ── 투자의견 박스 ── */
+  .rating-panel {
+    display: grid;
+    grid-template-columns: auto 1fr;
+    gap: 24px;
+    background: var(--navy);
+    color: white;
+    padding: 24px 28px;
+    margin-bottom: 28px;
+    align-items: center;
+  }
+  .rating-badge {
+    text-align: center;
+    padding: 14px 20px;
+    background: rgba(255,255,255,0.08);
+    border: 1px solid rgba(255,255,255,0.15);
+  }
+  .rating-badge .label {
+    font-size: 9px;
+    letter-spacing: 0.18em;
+    color: #cbd5e1;
+    margin-bottom: 4px;
+  }
+  .rating-badge .verdict {
+    font-size: 22px;
+    font-weight: 700;
+    color: #fb923c;
+    letter-spacing: 0.04em;
+  }
+  .rating-badge .sub {
+    font-size: 10px;
+    color: #cbd5e1;
+    margin-top: 2px;
+  }
+  .rating-text .headline {
+    font-size: 17px;
+    font-weight: 600;
+    margin-bottom: 8px;
+    color: white;
+  }
+  .rating-text .body {
+    font-size: 13px;
+    color: #e2e8f0;
+    line-height: 1.65;
+  }
+
+  /* ── KPI 그리드 ── */
+  .kpi-grid {
+    display: grid;
+    grid-template-columns: repeat(4, 1fr);
+    gap: 1px;
+    background: var(--gray-200);
+    border: 1px solid var(--gray-200);
+    margin-bottom: 32px;
+  }
+  .kpi-card {
+    background: white;
+    padding: 16px 18px;
+  }
+  .kpi-card .label {
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--gray-500);
+    margin-bottom: 6px;
+    font-weight: 500;
+  }
+  .kpi-card .value {
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--navy);
+    line-height: 1.15;
+    margin-bottom: 4px;
+  }
+  .kpi-card .value-sub {
+    font-size: 11px;
+    color: var(--gray-500);
+  }
+  .kpi-card.accent .value { color: var(--orange); }
+
+  /* ── 섹션 헤더 ── */
+  .section { margin-bottom: 32px; }
+  .section-head {
+    display: flex;
+    align-items: baseline;
+    border-bottom: 1px solid var(--gray-300);
+    padding-bottom: 6px;
+    margin-bottom: 16px;
+  }
+  .section-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 11px;
+    color: var(--orange);
+    font-weight: 600;
+    letter-spacing: 0.1em;
+    margin-right: 12px;
+  }
+  .section-title {
+    font-size: 17px;
+    font-weight: 700;
+    color: var(--navy);
+  }
+  .section-sub {
+    font-size: 12px;
+    color: var(--gray-500);
+    margin-left: auto;
+  }
+
+  /* ── 3계층 카드 ── */
+  .thesis-grid {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 12px;
+  }
+  .thesis-card {
+    border-top: 4px solid;
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-top-width: 4px;
+    padding: 16px 18px;
+  }
+  .thesis-card.signal { border-top-color: var(--buy); }
+  .thesis-card.noise { border-top-color: var(--gray-500); }
+  .thesis-card.trap { border-top-color: var(--avoid); }
+
+  .thesis-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.12em;
+    font-weight: 600;
+    margin-bottom: 6px;
+  }
+  .thesis-card.signal .thesis-tag { color: var(--buy); }
+  .thesis-card.noise .thesis-tag { color: var(--gray-500); }
+  .thesis-card.trap .thesis-tag { color: var(--avoid); }
+
+  .thesis-headline {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 8px;
+    line-height: 1.4;
+  }
+  .thesis-summary {
+    font-size: 12px;
+    color: var(--gray-600);
+    margin-bottom: 10px;
+    line-height: 1.55;
+  }
+  .thesis-list {
+    list-style: none;
+    font-size: 12px;
+    line-height: 1.6;
+  }
+  .thesis-list li {
+    padding: 4px 0 4px 14px;
+    position: relative;
+    border-top: 1px dashed var(--gray-200);
+    color: var(--gray-700);
+  }
+  .thesis-list li:first-child { border-top: 0; }
+  .thesis-list li::before {
+    content: "▸";
+    position: absolute;
+    left: 0;
+    color: var(--gray-400);
+    font-size: 9px;
+    top: 8px;
+  }
+
+  /* ── 종목 커버리지 테이블 ── */
+  .coverage-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12.5px;
+    background: white;
+  }
+  .coverage-table thead th {
+    background: var(--navy);
+    color: white;
+    padding: 10px 12px;
+    text-align: left;
+    font-weight: 500;
+    font-size: 11px;
+    letter-spacing: 0.04em;
+  }
+  .coverage-table thead th.center { text-align: center; }
+  .coverage-table thead th.right { text-align: right; }
+  .coverage-table td {
+    padding: 14px 12px;
+    border-bottom: 1px solid var(--gray-200);
+    vertical-align: top;
+  }
+  .coverage-table tr:hover td { background: var(--gray-50); }
+
+  .ticker-cell .name {
+    font-weight: 600;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .ticker-cell .code {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10.5px;
+    color: var(--gray-500);
+  }
+
+  .rating-pill {
+    display: inline-block;
+    padding: 4px 10px;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.04em;
+    border-radius: 3px;
+    min-width: 60px;
+    text-align: center;
+  }
+  .pill-buy { background: var(--buy-bg); color: var(--buy); border: 1px solid var(--buy-border); }
+  .pill-hold { background: var(--hold-bg); color: var(--hold); border: 1px solid var(--hold-border); }
+  .pill-avoid { background: var(--avoid-bg); color: var(--avoid); border: 1px solid var(--avoid-border); }
+
+  .grade-pill {
+    display: inline-block;
+    width: 24px;
+    height: 24px;
+    line-height: 24px;
+    text-align: center;
+    font-weight: 700;
+    color: white;
+    font-size: 12px;
+    border-radius: 3px;
+  }
+  .grade-A { background: var(--buy); }
+  .grade-B { background: var(--hold); }
+  .grade-C { background: var(--avoid); }
+
+  .thesis-text {
+    color: var(--gray-700);
+    font-size: 12px;
+    line-height: 1.55;
+  }
+  .action-text {
+    color: var(--gray-700);
+    font-size: 12px;
+    line-height: 1.5;
+  }
+  .action-text .strong { font-weight: 600; color: var(--navy); }
+
+  /* ── 카탈리스트 ── */
+  .catalyst-list {
+    border-left: 2px solid var(--navy);
+    padding-left: 0;
+  }
+  .catalyst-item {
+    display: grid;
+    grid-template-columns: 110px 1fr;
+    gap: 16px;
+    padding: 14px 16px 14px 0;
+    border-bottom: 1px solid var(--gray-200);
+    position: relative;
+  }
+  .catalyst-item:last-child { border-bottom: 0; }
+  .catalyst-item::before {
+    content: "";
+    position: absolute;
+    left: -7px;
+    top: 22px;
+    width: 12px;
+    height: 12px;
+    background: var(--orange);
+    border: 2px solid white;
+    border-radius: 50%;
+  }
+  .catalyst-date {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 12px;
+    color: var(--orange);
+    font-weight: 700;
+    padding-left: 16px;
+    padding-top: 2px;
+  }
+  .catalyst-content .title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .catalyst-content .desc {
+    font-size: 12px;
+    color: var(--gray-600);
+    line-height: 1.55;
+    margin-bottom: 6px;
+  }
+  .catalyst-action {
+    background: var(--gray-50);
+    border-left: 2px solid var(--orange);
+    padding: 6px 10px;
+    font-size: 11.5px;
+    color: var(--gray-700);
+    line-height: 1.5;
+  }
+  .catalyst-action strong { color: var(--orange); font-weight: 600; }
+
+  /* ── 팩트체크 ── */
+  .factcheck-table {
+    width: 100%;
+    border-collapse: collapse;
+    font-size: 12px;
+    background: white;
+  }
+  .factcheck-table thead th {
+    background: var(--gray-100);
+    color: var(--navy);
+    padding: 8px 12px;
+    text-align: left;
+    font-weight: 600;
+    font-size: 11px;
+    border-bottom: 2px solid var(--navy);
+  }
+  .factcheck-table td {
+    padding: 10px 12px;
+    border-bottom: 1px solid var(--gray-200);
+    vertical-align: top;
+    line-height: 1.5;
+  }
+  .factcheck-table .col-claim { font-weight: 500; color: var(--gray-900); width: 32%; }
+  .factcheck-table .col-status { width: 12%; }
+  .factcheck-table .col-detail { color: var(--gray-600); width: 56%; font-size: 11.5px; }
+
+  .verdict-pill {
+    display: inline-block;
+    padding: 2px 8px;
+    font-size: 10px;
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    border-radius: 2px;
+  }
+  .verdict-true { background: var(--buy-bg); color: var(--buy); }
+  .verdict-partial { background: var(--hold-bg); color: var(--hold); }
+  .verdict-false { background: var(--avoid-bg); color: var(--avoid); }
+
+  /* ── 리스크 ── */
+  .risk-grid {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 12px;
+  }
+  .risk-card {
+    background: var(--avoid-bg);
+    border: 1px solid var(--avoid-border);
+    border-left: 4px solid var(--avoid);
+    padding: 14px 16px;
+  }
+  .risk-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    color: var(--avoid);
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .risk-headline {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .risk-impact {
+    display: inline-block;
+    background: var(--navy);
+    color: white;
+    padding: 3px 10px;
+    font-size: 11px;
+    font-family: "JetBrains Mono", monospace;
+    margin-bottom: 8px;
+    letter-spacing: 0.03em;
+  }
+  .risk-desc {
+    font-size: 12px;
+    color: var(--gray-700);
+    line-height: 1.55;
+  }
+  .risk-desc strong { color: var(--navy); font-weight: 600; }
+
+  /* ── Bottom Line ── */
+  .bottom-line {
+    background: linear-gradient(to right, var(--navy) 0%, var(--navy-light) 100%);
+    color: white;
+    padding: 24px 28px;
+    margin-top: 8px;
+  }
+  .bottom-line .label {
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: #fb923c;
+    margin-bottom: 8px;
+    font-weight: 600;
+  }
+  .bottom-line .text {
+    font-size: 14.5px;
+    line-height: 1.65;
+  }
+  .bottom-line .text strong { color: #fdba74; font-weight: 600; }
+  .bottom-line .takeaways {
+    margin-top: 14px;
+    padding-top: 14px;
+    border-top: 1px solid rgba(255,255,255,0.15);
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 16px;
+  }
+  .takeaway .num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    color: #fb923c;
+    letter-spacing: 0.1em;
+    margin-bottom: 3px;
+  }
+  .takeaway .text {
+    font-size: 12px;
+    color: #e2e8f0;
+    line-height: 1.5;
+  }
+
+  /* ── 푸터 ── */
+  .footer {
+    margin-top: 40px;
+    padding-top: 16px;
+    border-top: 1px solid var(--gray-200);
+    font-size: 11px;
+    color: var(--gray-500);
+    line-height: 1.6;
+  }
+  .footer .disclaimer { font-style: italic; margin-top: 4px; }
+
+  /* ── 새 섹션: 왜 자율주행인가 ── */
+  .subsection-title {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    margin: 24px 0 12px;
+    padding-left: 10px;
+    border-left: 3px solid var(--orange);
+    line-height: 1.4;
+  }
+  .section > .subsection-title:first-of-type { margin-top: 4px; }
+
+  /* AI 가치사슬 진화 */
+  .value-chain {
+    display: grid;
+    grid-template-columns: 1fr 18px 1fr 18px 1fr 18px 1fr;
+    gap: 6px;
+    align-items: stretch;
+    margin-bottom: 4px;
+  }
+  .chain-stage {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    border-top: 3px solid var(--gray-400);
+    padding: 12px 13px;
+  }
+  .chain-stage.current {
+    background: #fff7ed;
+    border-color: var(--orange);
+    border-top-color: var(--orange);
+  }
+  .stage-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    letter-spacing: 0.1em;
+    color: var(--gray-500);
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .chain-stage.current .stage-num { color: var(--orange); }
+  .stage-name {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 2px;
+  }
+  .stage-role {
+    font-size: 10.5px;
+    color: var(--gray-600);
+    margin-bottom: 8px;
+    letter-spacing: 0.02em;
+    font-weight: 500;
+  }
+  .stage-desc {
+    font-size: 11px;
+    color: var(--gray-700);
+    line-height: 1.5;
+  }
+  .chain-arrow {
+    color: var(--gray-400);
+    font-size: 16px;
+    align-self: center;
+    text-align: center;
+    font-weight: 700;
+  }
+  .chain-arrow.active { color: var(--orange); }
+
+  /* 증거 카드 */
+  .evidence-grid {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 10px;
+  }
+  .evidence-card {
+    background: white;
+    border: 1px solid var(--gray-200);
+    border-left: 3px solid var(--orange);
+    padding: 14px 16px;
+  }
+  .ev-num {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    color: var(--orange);
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .ev-title {
+    font-size: 14px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 6px;
+  }
+  .ev-body {
+    font-size: 12px;
+    color: var(--gray-700);
+    line-height: 1.6;
+  }
+  .ev-body strong { color: var(--navy); font-weight: 600; }
+
+  /* B2B vs B2C 비교 */
+  .bb-compare {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .bb-card {
+    border: 1px solid var(--gray-200);
+    padding: 14px 16px;
+    background: white;
+  }
+  .bb-card.bb-b2c {
+    background: #fff7ed;
+    border-color: var(--orange);
+  }
+  .bb-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.1em;
+    color: var(--gray-500);
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .bb-card.bb-b2c .bb-tag { color: var(--orange); }
+  .bb-headline {
+    font-size: 16px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .bb-meta {
+    font-size: 11px;
+    color: var(--gray-600);
+    margin-bottom: 10px;
+    padding-bottom: 8px;
+    border-bottom: 1px solid var(--gray-200);
+  }
+  .bb-list {
+    list-style: none;
+    font-size: 12px;
+    color: var(--gray-700);
+  }
+  .bb-list li {
+    padding: 4px 0 4px 12px;
+    position: relative;
+    line-height: 1.5;
+  }
+  .bb-list li::before {
+    content: "·";
+    position: absolute;
+    left: 4px;
+    font-weight: 700;
+    color: var(--gray-400);
+    font-size: 14px;
+  }
+  .bb-list strong { color: var(--orange); font-weight: 600; }
+
+  /* NVIDIA 양면 시장 전략 */
+  .nvidia-strategy {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 10px;
+  }
+  .strat-center {
+    grid-column: 1 / -1;
+    background: var(--navy);
+    color: white;
+    padding: 14px 16px;
+    text-align: center;
+  }
+  .strat-label {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 10px;
+    letter-spacing: 0.18em;
+    color: #fb923c;
+    margin-bottom: 4px;
+    font-weight: 600;
+  }
+  .strat-product {
+    font-size: 15px;
+    font-weight: 700;
+  }
+  .strat-product .accent { color: #fb923c; }
+  .strat-side {
+    background: white;
+    border: 1px solid var(--gray-200);
+    padding: 12px 14px;
+    border-top: 3px solid var(--orange);
+  }
+  .strat-side-tag {
+    font-family: "JetBrains Mono", monospace;
+    font-size: 9px;
+    color: var(--orange);
+    letter-spacing: 0.1em;
+    font-weight: 600;
+    margin-bottom: 4px;
+  }
+  .strat-companies {
+    font-size: 13px;
+    font-weight: 700;
+    color: var(--navy);
+    margin-bottom: 4px;
+  }
+  .strat-side-desc {
+    font-size: 11.5px;
+    color: var(--gray-600);
+    line-height: 1.5;
+  }
+  .strat-summary {
+    grid-column: 1 / -1;
+    background: var(--gray-50);
+    border-left: 3px solid var(--orange);
+    padding: 10px 14px;
+    font-size: 12px;
+    color: var(--gray-700);
+    line-height: 1.6;
+  }
+  .strat-summary strong { color: var(--navy); font-weight: 600; }
+
+  /* 한국 종목 이유 */
+  .korea-reason {
+    background: var(--gray-50);
+    border: 1px solid var(--gray-200);
+    padding: 14px 18px;
+  }
+  .korea-reason p {
+    font-size: 12.5px;
+    color: var(--gray-700);
+    line-height: 1.7;
+    margin-bottom: 8px;
+  }
+  .korea-reason p:last-child { margin-bottom: 0; }
+  .korea-reason strong { color: var(--navy); font-weight: 600; }
+
+  /* 반응형 */
+  @media (max-width: 768px) {
+    .content { padding: 20px; }
+    .topbar { padding: 8px 20px; font-size: 10px; }
+    .kpi-grid, .thesis-grid, .risk-grid, .bottom-line .takeaways,
+    .evidence-grid, .bb-compare, .nvidia-strategy { grid-template-columns: 1fr 1fr; }
+    .value-chain { grid-template-columns: 1fr; }
+    .chain-arrow { display: none; }
+    .rating-panel { grid-template-columns: 1fr; gap: 16px; }
+    .report-title { font-size: 22px; }
+    .coverage-table { font-size: 11px; }
+    .coverage-table td, .coverage-table th { padding: 8px; }
+  }
+</style>
+</head>
+<body>
+
+<div class="container">
+
+  <!-- ─── 상단 바 ─── -->
+  <div class="topbar">
+    <div class="brand">EQUITY RESEARCH <span class="brand-accent">·</span> 자율주행 / 피지컬 AI</div>
+    <div class="meta">2026.05.03 · 전체 4페이지 분량</div>
+  </div>
+
+  <div class="content">
+
+    <!-- ─── 리포트 헤더 ─── -->
+    <div class="report-header">
+      <span class="header-tag">THEMATIC INITIATION</span>
+      <h1 class="report-title">자율주행이 다음 메가 테마인가</h1>
+      <p class="report-subtitle">NVIDIA 젠슨 황의 GTC 2026 발언과 한국 관련주 분석 — "예고 → 상한가" 프레임의 검증</p>
+    </div>
+
+    <!-- ─── 투자의견 패널 ─── -->
+    <div class="rating-panel">
+      <div class="rating-badge">
+        <div class="label">THEME RATING</div>
+        <div class="verdict">OVERWEIGHT</div>
+        <div class="sub">12~24개월 관점</div>
+      </div>
+      <div class="rating-text">
+        <div class="headline">자율주행은 다음 메가 테마로 부상할 가능성 — 단, 영상의 "추격 매수" 결론은 위험</div>
+        <div class="body">GTC 2026의 4사 OEM 편입과 Waymo $16B 펀딩은 산업 변곡점을 시사. 그러나 광통신·양자 일부 종목은 펀더멘털과 가격이 분리된 유동성 게임 구간. <strong style="color: #fdba74;">실적 받쳐주는 A급 종목 중심으로 분할 진입</strong>하고, <strong style="color: #fdba74;">5월 20일 NVIDIA 실적 → 6월 GTC Taipei</strong> 두 데이터 포인트로 단계적 비중 조정을 권고.</div>
+      </div>
+    </div>
+
+    <!-- ─── KPI 대시보드 ─── -->
+    <div class="kpi-grid">
+      <div class="kpi-card">
+        <div class="label">THEME RATING</div>
+        <div class="value">OW</div>
+        <div class="value-sub">Overweight</div>
+      </div>
+      <div class="kpi-card accent">
+        <div class="label">탑 픽 (TOP PICK)</div>
+        <div class="value">현대오토에버</div>
+        <div class="value-sub">매출 +14.7%, 영익 +17.8%</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">핵심 카탈리스트</div>
+        <div class="value mono">5/20</div>
+        <div class="value-sub">NVIDIA Q1 FY27 실적</div>
+      </div>
+      <div class="kpi-card">
+        <div class="label">회피 종목</div>
+        <div class="value">대한광통신</div>
+        <div class="value-sub">목표가 갭 <span class="mono" style="color: var(--avoid);">-86%</span></div>
+      </div>
+    </div>
+
+    <!-- ─── SECTION 1: 왜 자율주행인가 ─── -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">01</span>
+        <span class="section-title">왜 자율주행이 다음 메가 테마인가</span>
+        <span class="section-sub">구조적 변곡점의 4가지 증거</span>
+      </div>
+
+      <h3 class="subsection-title">AI 산업의 진화 단계 — 우리는 지금 4단계에 있다</h3>
+      <div class="value-chain">
+        <div class="chain-stage">
+          <div class="stage-num">STAGE 1</div>
+          <div class="stage-name">광통신</div>
+          <div class="stage-role">인프라 (Infrastructure)</div>
+          <div class="stage-desc">AI 데이터센터를 연결하는 혈관. GPU 수만 장을 묶기 위한 광케이블 수요 폭발.</div>
+        </div>
+        <div class="chain-arrow">▶</div>
+        <div class="chain-stage">
+          <div class="stage-num">STAGE 2</div>
+          <div class="stage-name">양자</div>
+          <div class="stage-role">보안 (Security)</div>
+          <div class="stage-desc">AI 자산을 보호하는 자물쇠. 양자 컴퓨팅 시대의 암호 체계 재편 수요.</div>
+        </div>
+        <div class="chain-arrow">▶</div>
+        <div class="chain-stage">
+          <div class="stage-num">STAGE 3</div>
+          <div class="stage-name">로봇</div>
+          <div class="stage-role">구체화 · B2B</div>
+          <div class="stage-desc">AI가 화면 밖으로 나옴. 단, 공장 안에서만 — 일반인 체감 어려움.</div>
+        </div>
+        <div class="chain-arrow active">▶</div>
+        <div class="chain-stage current">
+          <div class="stage-num">STAGE 4 · NOW</div>
+          <div class="stage-name">자율주행</div>
+          <div class="stage-role">구체화 · B2C</div>
+          <div class="stage-desc">AI가 도로 위로. 모든 사람이 직접 타는 mass-market 폭발 단계.</div>
+        </div>
+      </div>
+      <p style="font-size: 11.5px; color: var(--gray-500); margin-top: 8px; line-height: 1.6;">광통신·양자·로봇·자율주행이 따로 노는 게 아니라 <strong style="color: var(--navy); font-weight: 600;">하나의 AI 가치 사슬</strong>로 연결돼 있습니다. 도로의 자율주행 차량이 늘어나면 → 실시간 데이터가 데이터센터로 모이고 → 광통신망이 더 깔리고 → 데이터 보안 수요가 커지는 톱니바퀴 구조. 자율주행은 <strong style="color: var(--navy); font-weight: 600;">사슬의 마지막 고리이자, 다른 모든 단계의 수요를 다시 자극하는 트리거</strong>입니다.</p>
+
+      <h3 class="subsection-title">왜 지금이 변곡점인가 — 4가지 조건이 동시 충족됐다</h3>
+      <div class="evidence-grid">
+        <div class="evidence-card">
+          <div class="ev-num">EVIDENCE 01</div>
+          <div class="ev-title">기술 임계점 통과</div>
+          <div class="ev-body">NVIDIA Alpamayo가 카메라로 보고 → 언어로 추론하고 → 핸들·페달을 직접 제어하는 <strong>VLM(Vision-Language-Action) 모델</strong>로 공개. 룰 기반 자동주행에서 추론 기반 자율주행으로 패러다임 전환. ChatGPT 모먼트 비유는 마케팅이 아닌 기술적 사실.</div>
+        </div>
+        <div class="evidence-card">
+          <div class="ev-num">EVIDENCE 02</div>
+          <div class="ev-title">자본의 검증</div>
+          <div class="ev-body">Waymo가 Sequoia·DST·Fidelity 등 일급 기관으로부터 <strong>$16B 펀딩, 기업가치 $126B</strong> 평가. 글로벌 자율주행 시장은 2035년까지 연 $300B(약 440조원) 규모로 전망(골드만삭스). R&D 단계가 아닌 상업적 확장 단계 진입.</div>
+        </div>
+        <div class="evidence-card">
+          <div class="ev-num">EVIDENCE 03</div>
+          <div class="ev-title">OEM 락인 합의</div>
+          <div class="ev-body">현대차·BYD·Nissan·Geely가 Drive Hyperion 정식 채택(GTC 2026). Mercedes·Toyota·GM은 이미 사용 중. <strong>이 8개사 합산 연간 차량 생산이 글로벌의 상당 비중</strong>. 5~10년 단위 양산 프로그램 락인이라 단기 테마성이 아님.</div>
+        </div>
+        <div class="evidence-card">
+          <div class="ev-num">EVIDENCE 04</div>
+          <div class="ev-title">규제·도시 진전</div>
+          <div class="ev-body">미국 6개 metro에서 무인 유료 운행 중(SF·Phoenix·LA·Austin·Atlanta·Miami). 2026년 중 London·Tokyo 진출 예정. 한국 강남에서도 SWM 로보택시 운영. <strong>실험이 아니라 사업 단계</strong>로 이동 완료.</div>
+        </div>
+      </div>
+
+      <h3 class="subsection-title">로봇과 자율주행의 결정적 차이 — 폭발력</h3>
+      <div class="bb-compare">
+        <div class="bb-card bb-b2b">
+          <div class="bb-tag">로봇 · B2B</div>
+          <div class="bb-headline">공장 안에서 움직임</div>
+          <div class="bb-meta">기업 ↔ 기업 시장 (Business to Business)</div>
+          <ul class="bb-list">
+            <li>삼성전자·현대차 조립라인 등이 주 무대</li>
+            <li>일반 투자자가 직접 체감하기 어려움</li>
+            <li>화나·KUKA·ABB·야스카와 4대장 중심</li>
+            <li>주가 모멘텀이 산업·실적 발표에 의존</li>
+          </ul>
+        </div>
+        <div class="bb-card bb-b2c">
+          <div class="bb-tag">자율주행 · B2C</div>
+          <div class="bb-headline">도로 위에서 움직임</div>
+          <div class="bb-meta">기업 ↔ 소비자 시장 (Business to Consumer)</div>
+          <ul class="bb-list">
+            <li>택시·자가용·배달 트럭 모두 대상</li>
+            <li>모든 사람이 직접 타고 보고 경험</li>
+            <li><strong>ChatGPT 모먼트 — 직접 쓴 순간 인식 폭발</strong></li>
+            <li>대중적 체험으로 주가 모멘텀 가속 가능</li>
+          </ul>
+        </div>
+      </div>
+      <p style="font-size: 11.5px; color: var(--gray-500); margin-top: 8px; line-height: 1.6;">ChatGPT가 폭발적으로 인식된 이유는 단 하나 — <strong style="color: var(--navy); font-weight: 600;">사람들이 직접 써봤기 때문</strong>입니다. 자율주행도 동일 메커니즘을 따를 가능성이 높습니다. 게다가 <strong style="color: var(--navy); font-weight: 600;">데이터 플라이휠</strong>이 작동합니다 — 더 많이 달릴수록 AI가 똑똑해지고, 똑똑해질수록 더 많은 사람이 타고, 그 데이터가 다시 학습에 들어가는 자기강화 구조.</p>
+
+      <h3 class="subsection-title">NVIDIA가 위닝 포지션인 이유 — 양면 시장 전략</h3>
+      <div class="nvidia-strategy">
+        <div class="strat-center">
+          <div class="strat-label">N V I D I A</div>
+          <div class="strat-product"><span class="accent">Drive Hyperion</span> + <span class="accent">Alpamayo VLM</span> 스택 공급</div>
+        </div>
+        <div class="strat-side strat-left">
+          <div class="strat-side-tag">로보택시 진영 (B2C 직영)</div>
+          <div class="strat-companies">Waymo · Pony.ai · WeRide · Zoox</div>
+          <div class="strat-side-desc">자체 데이터로 차량 직접 운영. NVIDIA 스택으로 학습·추론.</div>
+        </div>
+        <div class="strat-side strat-right">
+          <div class="strat-side-tag">전통 OEM 진영 (양산 차량)</div>
+          <div class="strat-companies">현대차 · BYD · Mercedes · Toyota · GM · Nissan</div>
+          <div class="strat-side-desc">스택을 받아서 양산 차량에 통합. 글로벌 차량 생산의 핵심.</div>
+        </div>
+        <div class="strat-summary">
+          <strong>핵심 통찰:</strong> NVIDIA는 직접 차를 만들지 않고 양쪽 모두에 두뇌를 공급. 로보택시 진영과 OEM 진영이 경쟁할수록 NVIDIA의 라이센스 매출이 커지는 구조. AI 반도체 시장에서 GPU를 모든 빅테크에 팔던 전략과 동일한 플레이북. 결과는 <strong>"누가 이기든 NVIDIA 승리"</strong>.
+        </div>
+      </div>
+
+      <h3 class="subsection-title">한국 종목이 진짜 수혜인 이유</h3>
+      <div class="korea-reason">
+        <p>현대차는 GTC 2026 키노트에서 직접 호명된 4사 중 하나입니다. <strong>단순한 테마 연계가 아니라 Drive Hyperion 정식 파트너로 양산 차량에 NVIDIA 스택을 통째로 적용하기로 합의</strong>한 단계로, 정의선 회장과 젠슨 황의 1:1 미팅이 작년부터 3차례 진행됐습니다. Motional을 통한 L4 로보택시 사업도 별도로 진행 중이며, 미국 라스베이거스에서 우버와 함께 시범 서비스를 운영하고 있습니다.</p>
+        <p>이것이 의미하는 바는 <strong>"엔비디아 발표 → 한국 종목 단기 급등"이 아니라 "5~10년 단위 양산 프로그램 락인"</strong>이라는 점입니다. 단기 테마성 반등이 아닌 구조적 매출 성장 가능성이 있는 영역이며, 그래서 본 보고서는 현대오토에버·현대차를 A급 코어 포지션으로 분류했습니다.</p>
+      </div>
+    </div>
+
+    <!-- ─── SECTION 2: 투자 논거 (3계층) ─── -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">02</span>
+        <span class="section-title">투자 논거 — 정보를 3계층으로 분리</span>
+        <span class="section-sub">테마 영상 분석의 표준 프레임</span>
+      </div>
+
+      <div class="thesis-grid">
+        <div class="thesis-card signal">
+          <div class="thesis-tag">SIGNAL · 베팅 가능</div>
+          <div class="thesis-headline">자본·양산이 묶인 확정 사건</div>
+          <div class="thesis-summary">단기 변동에 흔들리지 않는 산업 변곡점. 비중 결정에 직접 사용.</div>
+          <ul class="thesis-list">
+            <li>Drive Hyperion 신규 4사 편입 (현대차·BYD·Nissan·Geely)</li>
+            <li>Waymo $16B 펀딩 / $126B 기업가치</li>
+            <li>Mercedes CLA NVIDIA 풀스택 양산 시작</li>
+            <li>현대차 Motional 통한 L4 로보택시 협력</li>
+          </ul>
+        </div>
+
+        <div class="thesis-card noise">
+          <div class="thesis-tag">NOISE · 무시</div>
+          <div class="thesis-headline">"예고-상한가" 인과 프레임</div>
+          <div class="thesis-summary">방향성 참고용. 비중 결정 근거로는 사용 금지.</div>
+          <ul class="thesis-list">
+            <li>사후 편집된 선택 편향에 가까움</li>
+            <li>예측 도구로서 통계적 유효성 부족</li>
+            <li>"한 사람이 다 만들었다" 식 단순 인과</li>
+            <li>다음 테마 미리 찍는 근거로 부적절</li>
+          </ul>
+        </div>
+
+        <div class="thesis-card trap">
+          <div class="thesis-tag">TRAP · 회피</div>
+          <div class="thesis-headline">펀더멘털·가격 괴리 종목</div>
+          <div class="thesis-summary">산업이 아닌 유동성 게임. 추격 매수 시 자본 손실 위험.</div>
+          <ul class="thesis-list">
+            <li>대한광통신 — 가격 39배↑, 매출 -8.7%, 적자 지속</li>
+            <li>양자 테마주 — 매출 검증 기업 거의 없음</li>
+            <li>애널리스트 목표주가 -86% 갭</li>
+            <li>거래소 투자경고·거래정지 빈발</li>
+          </ul>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── SECTION 2: 종목 커버리지 ─── -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">03</span>
+        <span class="section-title">종목 커버리지 — 투자의견 매트릭스</span>
+        <span class="section-sub">총 6개 종목 / 매수 2 · 중립 2 · 회피 2</span>
+      </div>
+
+      <table class="coverage-table">
+        <thead>
+          <tr>
+            <th class="center" style="width: 5%;">등급</th>
+            <th style="width: 18%;">종목</th>
+            <th class="center" style="width: 9%;">투자의견</th>
+            <th style="width: 30%;">투자 논거</th>
+            <th style="width: 26%;">전략 / 진입 기준</th>
+            <th class="center" style="width: 12%;">비중 가이드</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="center"><span class="grade-pill grade-A">A</span></td>
+            <td class="ticker-cell">
+              <div class="name">현대오토에버</div>
+              <div class="code">307950 · KOSPI</div>
+            </td>
+            <td class="center"><span class="rating-pill pill-buy">매수</span></td>
+            <td class="thesis-text">2025년 3분기 누적 매출 +14.7%, 영업이익 +17.8%. 모빌진 플랫폼이 SDV 전환과 직결. 그룹 내 로보틱스 핵심 계열사로 지정.</td>
+            <td class="action-text">분할 매수. <span class="strong">322,000원 이하</span> 또는 분기 실적 발표 후 진입.</td>
+            <td class="center mono" style="font-weight: 600; color: var(--navy);">코어 60~70%</td>
+          </tr>
+          <tr>
+            <td class="center"><span class="grade-pill grade-A">A</span></td>
+            <td class="ticker-cell">
+              <div class="name">현대차</div>
+              <div class="code">005380 · KOSPI</div>
+            </td>
+            <td class="center"><span class="rating-pill pill-buy">매수</span></td>
+            <td class="thesis-text">GTC 2026 키노트에서 직접 호명. Drive Hyperion 정식 파트너. 자율주행 모멘텀이 차량 판매·환율 변수에 묻히는 한계는 인지.</td>
+            <td class="action-text">분할 매수. <span class="strong">조정 시 추가</span>. 자율주행 알파보다 본업 베타 우위.</td>
+            <td class="center mono" style="font-weight: 600; color: var(--navy);">코어 30~40%</td>
+          </tr>
+          <tr>
+            <td class="center"><span class="grade-pill grade-B">B</span></td>
+            <td class="ticker-cell">
+              <div class="name">HL만도</div>
+              <div class="code">204320 · KOSPI</div>
+            </td>
+            <td class="center"><span class="rating-pill pill-hold">중립</span></td>
+            <td class="thesis-text">자율주행 부품 글로벌 OEM 납품. 매출 +16%, 영업이익 +20% 성장. OEM 발주에 종속된 구조.</td>
+            <td class="action-text">실적 모멘텀 동반될 때만. <span class="strong">비중 제한</span>.</td>
+            <td class="center mono" style="font-weight: 600; color: var(--navy);">B급 50~60%</td>
+          </tr>
+          <tr>
+            <td class="center"><span class="grade-pill grade-B">B</span></td>
+            <td class="ticker-cell">
+              <div class="name">기타 모빌리티 부품주</div>
+              <div class="code">현대모비스 · LG전자</div>
+            </td>
+            <td class="center"><span class="rating-pill pill-hold">중립</span></td>
+            <td class="thesis-text">6월 GTC Taipei에서 신규 호명 가능성. 이벤트 대기 단계.</td>
+            <td class="action-text"><span class="strong">GTC Taipei 후속 발표</span> 확인 후 진입.</td>
+            <td class="center mono" style="font-weight: 600; color: var(--navy);">B급 40~50%</td>
+          </tr>
+          <tr>
+            <td class="center"><span class="grade-pill grade-C">C</span></td>
+            <td class="ticker-cell">
+              <div class="name">SWM</div>
+              <div class="code">소형주 · 변동성↑</div>
+            </td>
+            <td class="center"><span class="rating-pill pill-avoid">회피</span></td>
+            <td class="thesis-text">한국 유일 강남 도심 로보택시 운영. NVIDIA·Lenovo와 4세대 AP700 공동 개발. 시총 작아 변동성 베타 비대칭.</td>
+            <td class="action-text"><span class="strong">손절선 -15% 고정</span>. 단기 트레이딩만.</td>
+            <td class="center mono" style="font-weight: 600; color: var(--avoid);">5% 이내</td>
+          </tr>
+          <tr>
+            <td class="center"><span class="grade-pill grade-C">C</span></td>
+            <td class="ticker-cell">
+              <div class="name">대한광통신·양자주</div>
+              <div class="code">010170 · 외</div>
+            </td>
+            <td class="center"><span class="rating-pill pill-avoid">회피</span></td>
+            <td class="thesis-text">서사는 살아있으나 가격이 펀더멘털을 한참 앞섬. 광통신 산업 자체는 유효하나 종목 선별 다시 필요.</td>
+            <td class="action-text"><span class="strong">신규 진입 비추</span>. 보유분은 분할 정리.</td>
+            <td class="center mono" style="font-weight: 600; color: var(--avoid);">신규 0%</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ─── SECTION 3: 카탈리스트 ─── -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">04</span>
+        <span class="section-title">핵심 카탈리스트 — 향후 60일</span>
+        <span class="section-sub">진입·매도 결정의 근거</span>
+      </div>
+
+      <div class="catalyst-list">
+        <div class="catalyst-item">
+          <div class="catalyst-date">5월 20일</div>
+          <div class="catalyst-content">
+            <div class="title">NVIDIA Q1 FY27 실적 발표</div>
+            <div class="desc">컨센서스 매출 약 $78.8B / EPS $1.78. 핵심은 전체 매출이 아니라 <strong>Automotive 부문 매출과 가이던스</strong>, 그리고 컨퍼런스콜에서 Drive Hyperion 파트너 후속 코멘트.</div>
+            <div class="catalyst-action">→ 강한 가이던스: <strong>A급 종목 추가 진입 신호</strong> &nbsp;|&nbsp; 약한 가이던스: <strong>차익실현 구간으로 전환</strong></div>
+          </div>
+        </div>
+        <div class="catalyst-item">
+          <div class="catalyst-date">6월 초</div>
+          <div class="catalyst-content">
+            <div class="title">GTC Taipei</div>
+            <div class="desc">공식 테마에 Physical AI · Robotics · AI Factory 포함. 한국·일본 신규 티어1 호명 여부와 자율주행 파트너십 후속 데모가 핵심.</div>
+            <div class="catalyst-action">→ 모비스·LG전자 자동차 부문 거론 시: <strong>2차 수혜주 발굴 기회</strong></div>
+          </div>
+        </div>
+        <div class="catalyst-item">
+          <div class="catalyst-date">2026 중</div>
+          <div class="catalyst-content">
+            <div class="title">Waymo London 상용 개시</div>
+            <div class="desc">미국 외 첫 글로벌 검증. Moove와 파트너십으로 안전 운전자 동승 테스트 시작 후 상용화 예정.</div>
+            <div class="catalyst-action">→ 성공적 개시 시: <strong>자율주행 글로벌 리레이팅 트리거</strong></div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── SECTION 4: 영상 주장 팩트체크 ─── -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">05</span>
+        <span class="section-title">영상 주장 팩트체크</span>
+        <span class="section-sub">2026년 5월 기준 검증</span>
+      </div>
+
+      <table class="factcheck-table">
+        <thead>
+          <tr>
+            <th class="col-claim">영상의 주장</th>
+            <th class="col-status">검증</th>
+            <th class="col-detail">실제 사실 / 차이점</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+            <td class="col-claim">젠슨 황 GTC에서 "자율주행의 ChatGPT 모먼트" 선언 + 4사 호명</td>
+            <td><span class="verdict-pill verdict-true">사실</span></td>
+            <td class="col-detail">GTC 2026(3월)에서 Drive Hyperion 신규 파트너로 BYD·Geely·Isuzu·Nissan 발표. 현대차/기아는 별도로 L2+ 양산 및 Motional 통한 L4 로보택시 협력 공식화.</td>
+          </tr>
+          <tr>
+            <td class="col-claim">Waymo 11개 도시에서 사람 없는 택시 유료 운영 중</td>
+            <td><span class="verdict-pill verdict-partial">부분 사실</span></td>
+            <td class="col-detail">실제 유료 운영 metro area는 6개 (SF·Phoenix·LA·Austin·Atlanta·Miami). 휴스턴·댈러스·네슈빌 등은 향후 확장 대상이지 운영 중 아님.</td>
+          </tr>
+          <tr>
+            <td class="col-claim">Waymo 주간 운행 45만 건, 24조원 투자</td>
+            <td><span class="verdict-pill verdict-partial">부분 사실</span></td>
+            <td class="col-detail">주간 운행 25~40만 건(시점에 따라 변동), 펀딩은 $16B(약 22조원) 규모로 기업가치 $126B 평가. 영상의 24조원은 약간 과장.</td>
+          </tr>
+          <tr>
+            <td class="col-claim">대한광통신 1년 만에 3,500% 상승</td>
+            <td><span class="verdict-pill verdict-true">사실</span></td>
+            <td class="col-detail">565원 → 22,000원 고점 기준 약 39배 상승은 실측 정확. 다만 같은 기간 매출 8.7% 감소, 영업적자 지속 — 펀더멘털과 가격 괴리 심각.</td>
+          </tr>
+          <tr>
+            <td class="col-claim">"젠슨 황 예고 → 일주일 뒤 상한가" 패턴 반복</td>
+            <td><span class="verdict-pill verdict-false">선택 편향</span></td>
+            <td class="col-detail">CES·GTC에서 강조된 주제는 광통신·양자·로봇·자율주행 외 디지털 트윈·AI 팩토리·옴니버스 등 수십 개. 사후 폭등한 테마만 모아본 결과로 예측 도구로 사용 불가.</td>
+          </tr>
+          <tr>
+            <td class="col-claim">5월 20일 NVIDIA 실적이 다음 촉매</td>
+            <td><span class="verdict-pill verdict-true">사실</span></td>
+            <td class="col-detail">NVIDIA Q1 FY27 실적 발표 일정 확정. 단, 핵심은 전체 매출이 아니라 Automotive 부문 매출 및 Drive Hyperion 가이던스.</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
+
+    <!-- ─── SECTION 5: 리스크 ─── -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">06</span>
+        <span class="section-title">핵심 리스크 — 진입 전 점검</span>
+        <span class="section-sub">자율주행 테마 베타 요인</span>
+      </div>
+
+      <div class="risk-grid">
+        <div class="risk-card">
+          <div class="risk-tag">RISK 01 · REGULATORY</div>
+          <div class="risk-headline">규제 사고 한 건의 파급력</div>
+          <div class="risk-impact">단기 -20~30% 조정 가능</div>
+          <div class="risk-desc">현재 NHTSA·NTSB가 Austin·Atlanta에서 Waymo 스쿨버스 미정지 사고 조사 중. 중국 바이두 아폴로고 사고 후 신규 자율주행 허가 중단 사례. <strong>사망 사고 1건 발생 시 자율주행 전체 테마 단기 큰 폭 조정 가능</strong>. 알파가 아니라 베타로 받아들여야 함.</div>
+        </div>
+        <div class="risk-card">
+          <div class="risk-tag">RISK 02 · ROTATION</div>
+          <div class="risk-headline">테마 로테이션 패턴</div>
+          <div class="risk-impact">이미 50~100% 오른 후 진입 위험</div>
+          <div class="risk-desc">광통신·양자·로봇이 차례로 차익실현 매물을 만들고 있음. 자율주행도 동일 패턴 반복 가능성 높음. <strong>신규 진입은 테마 초입 1회</strong>에 집중하고, 중후반 추격 매수는 위험/보상 비율이 맞지 않음. 분할 매수와 명확한 손절선이 필수.</div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── Bottom Line ─── -->
+    <div class="section">
+      <div class="section-head">
+        <span class="section-num">07</span>
+        <span class="section-title">Bottom Line</span>
+        <span class="section-sub">최종 결론</span>
+      </div>
+
+      <div class="bottom-line">
+        <div class="label">FINAL VERDICT</div>
+        <div class="text">방향은 맞지만 강도와 비중을 과장한 영상의 결론을 그대로 따르지 마십시오. 자율주행은 <strong>다음 12~24개월 핵심 테마 중 하나가 맞으나</strong>, 검증된 실적주 중심으로 분할 진입하고, <strong>5월 20일 NVIDIA 실적과 6월 GTC Taipei 데이터로 확신도를 갱신</strong>하는 단계적 접근이 합리적입니다. 그 전까지는 <strong>관찰 단계</strong>가 정답입니다.</div>
+        <div class="takeaways">
+          <div class="takeaway">
+            <div class="num">TAKEAWAY 01</div>
+            <div class="text">A급 (현대오토에버·현대차) 분할 매수로 코어 구축</div>
+          </div>
+          <div class="takeaway">
+            <div class="num">TAKEAWAY 02</div>
+            <div class="text">5/20 NVIDIA Automotive 매출로 비중 갱신</div>
+          </div>
+          <div class="takeaway">
+            <div class="num">TAKEAWAY 03</div>
+            <div class="text">대한광통신·양자 추격 매수 절대 금지</div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- ─── 푸터 ─── -->
+    <div class="footer">
+      <div><strong>EQUITY · THEMATIC RESEARCH</strong> &nbsp;|&nbsp; 자율주행 / 피지컬 AI &nbsp;|&nbsp; 발행일 2026.05.03</div>
+      <div class="disclaimer">본 보고서는 공개된 자료에 기반한 분석 의견이며 매수/매도 권유가 아닙니다. 투자 의사결정의 책임은 투자자 본인에게 있습니다.</div>
+    </div>
+
+  </div>
+</div>
+
+</body>
+</html>
