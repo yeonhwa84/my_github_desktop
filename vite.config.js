@@ -14,5 +14,6 @@ export default defineConfig({
     server: {
         port: 5173,
         open: true,
+        host: true, // LAN 접근 허용 (모바일 실기기 테스트)
     },
 });
