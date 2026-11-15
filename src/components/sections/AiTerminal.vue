@@ -184,7 +184,8 @@ async function answerFaq(text, entry) {
     messages.push({ from: 'user', text });
     await scrollEnd();
     await delay(180);
-    const body = typeof entry.a === 'string' ? [{ k: 'p', v: entry.a }] : entry.a;
+    const ans = typeof entry.a === 'function' ? entry.a() : entry.a; // 함수면 호출(나이 등 동적 답변)
+    const body = typeof ans === 'string' ? [{ k: 'p', v: ans }] : ans;
     await streamBlocks('about', [{ k: 'h', v: entry.q || '답변' }, ...body]);
     busy.value = false;
 }
