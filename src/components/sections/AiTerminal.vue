@@ -7,7 +7,7 @@
 //  - 겨울/AI 다크 팔레트 + 모노 터미널 미학, PC·모바일 반응형
 // 데이터: profile.js / skills.js / projects.js / experience.js
 // =========================================================
-import { reactive, ref, computed, onMounted, nextTick } from 'vue';
+import { reactive, ref, computed, onMounted, onBeforeUnmount, nextTick } from 'vue';
 import { profile } from '@/data/profile';
 import { skillCategories } from '@/data/skills';
 import { projects } from '@/data/projects';
@@ -270,11 +270,61 @@ function clearLog() {
     reply('greet');
 }
 
-onMounted(() => reply('greet'));
+// === 배경 FX: 은은한 눈 + 간간이 귀여운 이모지 이벤트 ===
+const reduceMotion = typeof window !== 'undefined'
+    && window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+
+function snowStyle(k) {
+    const left = (k * 53) % 100;
+    const size = 4 + (k % 4) * 2;        // 4~10px
+    const dur = 9 + (k % 6) * 2.4;       // 9~21s
+    const delay = -((k * 2.3) % 14);
+    const op = 0.18 + (k % 3) * 0.12;
+    return {
+        left: `${left}%`, width: `${size}px`, height: `${size}px`,
+        '--sdur': `${dur}s`, animationDelay: `${delay}s`, opacity: op,
+    };
+}
+
+const EMOJIS = ['❄️', '✦', '⭐', '🧊', '💙', '🤖', '🫧', '🐧', '☃️', '💫', '🌟', '🩵'];
+const fx = reactive([]);
+let fxId = 0;
+let fxTimer = null;
+
+function spawnFx() {
+    const id = ++fxId;
+    const f = {
+        id,
+        emoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
+        left: 6 + Math.random() * 88,            // %
+        size: 16 + Math.random() * 14,           // px
+        dur: 5.5 + Math.random() * 3,            // s
+        drift: (Math.random() * 2 - 1) * 46,     // px 좌우 흔들림
+    };
+    fx.push(f);
+    setTimeout(() => {
+        const i = fx.findIndex((x) => x.id === id);
+        if (i !== -1) fx.splice(i, 1);
+    }, f.dur * 1000 + 300);
+    fxTimer = setTimeout(spawnFx, 12000 + Math.random() * 12000); // 12~24초마다
+}
+
+onMounted(() => {
+    reply('greet');
+    if (!reduceMotion) fxTimer = setTimeout(spawnFx, 4000);
+});
+onBeforeUnmount(() => clearTimeout(fxTimer));
 </script>
 
 <template>
     <div class="term">
+        <!-- 은은하게 움직이는 배경(오로라 + 눈) -->
+        <div class="bgfx" aria-hidden="true">
+            <span class="aurora a1" />
+            <span class="aurora a2" />
+            <i v-for="k in 14" :key="'s' + k" class="snow" :style="snowStyle(k)" />
+        </div>
+
         <div class="win">
             <!-- 터미널 헤더 -->
             <header class="bar">
@@ -413,6 +463,16 @@ onMounted(() => reply('greet'));
                 </form>
             </div>
         </div>
+
+        <!-- 간간이 떠오르는 귀여운 이모지 이벤트 -->
+        <div class="fxlayer" aria-hidden="true">
+            <span
+                v-for="f in fx"
+                :key="f.id"
+                class="fxe"
+                :style="{ left: f.left + '%', fontSize: f.size + 'px', '--dur': f.dur + 's', '--drift': f.drift + 'px' }"
+            >{{ f.emoji }}</span>
+        </div>
     </div>
 </template>
 
@@ -443,9 +503,56 @@ $mono:   'JetBrains Mono', 'SF Mono', ui-monospace, Consolas, monospace;
     padding: 28px 16px;
     font-family: $mono;
     color: $text;
+    position: relative;
+    overflow: hidden;
+}
+
+// === 배경 FX ===
+.bgfx { position: absolute; inset: 0; z-index: 0; pointer-events: none; }
+.aurora {
+    position: absolute; border-radius: 50%; opacity: 0.5;
+    filter: blur(60px) hue-rotate(0deg);
+}
+.a1 {
+    width: 420px; height: 420px; left: -90px; top: -70px;
+    background: rgba(47, 107, 237, 0.5);
+    animation: float1 26s ease-in-out infinite, hue 48s ease-in-out infinite;
+}
+.a2 {
+    width: 360px; height: 360px; right: -70px; bottom: -50px;
+    background: rgba(123, 97, 255, 0.42);
+    animation: float2 32s ease-in-out infinite, hue 60s ease-in-out infinite reverse;
+}
+.snow {
+    position: absolute; top: -14px; border-radius: 50%;
+    background: radial-gradient(circle, #d6ecff, rgba(120, 170, 255, 0.5));
+    animation: fall var(--sdur) linear infinite;
+}
+@keyframes float1 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(44px, 32px); } }
+@keyframes float2 { 0%, 100% { transform: translate(0, 0); } 50% { transform: translate(-44px, -30px); } }
+@keyframes hue { 0%, 100% { filter: blur(60px) hue-rotate(0deg); } 50% { filter: blur(60px) hue-rotate(26deg); } }
+@keyframes fall {
+    0% { transform: translateY(0) translateX(0); }
+    100% { transform: translateY(102vh) translateX(20px); }
+}
+
+// === 이모지 이벤트 레이어 (창 위) ===
+.fxlayer { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
+.fxe {
+    position: absolute; bottom: -12px; user-select: none; line-height: 1;
+    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
+    animation: rise var(--dur) ease-in forwards;
+}
+@keyframes rise {
+    0%   { opacity: 0; transform: translateY(0) translateX(0) scale(0.6); }
+    15%  { opacity: 1; transform: translateY(-12vh) translateX(calc(var(--drift) * 0.2)) scale(1); }
+    80%  { opacity: 1; }
+    100% { opacity: 0; transform: translateY(-82vh) translateX(var(--drift)) scale(1.05); }
 }
 
 .win {
+    position: relative;
+    z-index: 1;
     width: 100%;
     max-width: 860px;
     height: calc(100dvh - 56px);
@@ -653,5 +760,8 @@ $mono:   'JetBrains Mono', 'SF Mono', ui-monospace, Consolas, monospace;
     .mochi, .tip, .spark { animation: none; }
     .blk { animation: none; }
     .cursor { animation: none; }
+    .aurora { animation: none; }
+    .snow { display: none; }
+    .fxe { display: none; }
 }
 </style>
