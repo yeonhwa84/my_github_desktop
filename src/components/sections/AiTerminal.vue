@@ -12,12 +12,14 @@ import { profile } from '@/data/profile';
 import { skillCategories } from '@/data/skills';
 import { projects } from '@/data/projects';
 import { experienceRecent } from '@/data/experience';
+import WorkerScene from '@/components/sections/WorkerScene.vue';
 
 const strip = (s) => String(s).replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
 
 // === 주제별 표정 [눈, 입] ===
 const EXPR = {
     greet:      ['arc', 'smile'],
+    now:        ['star', 'grin'],
     about:      ['wink', 'smile'],
     skills:     ['star', 'grin'],
     projects:   ['wide', 'o'],
@@ -32,7 +34,16 @@ const ANSWERS = {
     greet: () => [
         { k: 'h', v: '안녕하세요! 저는 모찌예요 ✦ 이연화(Yeonhwa Lee)님의 AI 포트폴리오 어시스턴트입니다.' },
         { k: 'p', v: '17년차 풀스택 개발자 · 현재 PL. 궁금한 걸 아래에서 고르거나 직접 입력해 보세요.' },
-        { k: 'note', v: '사용 가능: about · skills · projects · experience · stance · contact' },
+        { k: 'note', v: '사용 가능: now · about · skills · projects · experience · stance · contact' },
+    ],
+    now: () => [
+        { k: 'h', v: '지금 이렇게 일하고 있어요 👩‍💻' },
+        { k: 'kv', key: '소속', v: `${profile.nowLeading.company} · ${profile.nowLeading.location}` },
+        { k: 'kv', key: '역할', v: profile.nowLeading.role },
+        { k: 'kv', key: '기간', v: profile.nowLeading.period },
+        { k: 'kv', key: '범위', v: profile.nowLeading.scope },
+        { k: 'item', title: '진행 중인 일', meta: profile.nowLeading.kicker, desc: profile.nowLeading.note, tags: profile.nowLeading.stack },
+        { k: 'note', v: '매일 조금씩, 끝까지 — 부지런히 가고 있어요. (위 작업장에서 일꾼들이 쉬지 않아요 ✦)' },
     ],
     about: () => [
         { k: 'p', v: strip(profile.about.lead) },
@@ -100,6 +111,7 @@ const ANSWERS = {
 };
 
 const CHIPS = [
+    { id: 'now', label: 'now' },
     { id: 'about', label: 'about' },
     { id: 'skills', label: 'skills' },
     { id: 'projects', label: 'projects' },
@@ -111,6 +123,7 @@ const CHIPS = [
 // 입력 텍스트 → 주제 매칭
 function resolveTopic(text) {
     const t = text.toLowerCase();
+    if (/현재|지금|now|작업\s*중|상태|근황/.test(t)) return 'now';
     if (/소개|about|누구|프로필|profile/.test(t)) return 'about';
     if (/기술|스킬|skill|스택|stack/.test(t)) return 'skills';
     if (/프로젝트|project|포폴|포트폴리오|작업|work/.test(t)) return 'projects';
@@ -257,6 +270,9 @@ onMounted(() => reply('greet'));
                     <span>Senior Full-Stack Developer · PL — AI 어시스턴트 <em>mochi</em>가 안내해요</span>
                 </div>
             </div>
+
+            <!-- 작업장: 일꾼들이 왔다 갔다 + 현재 작업 현황 -->
+            <WorkerScene />
 
             <!-- 대화 로그 -->
             <div class="log" ref="logEl">
