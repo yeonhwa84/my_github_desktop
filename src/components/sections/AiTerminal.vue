@@ -286,27 +286,26 @@ function snowStyle(k) {
     };
 }
 
-const EMOJIS = ['❄️', '✦', '⭐', '🧊', '💙', '🤖', '🫧', '🐧', '☃️', '💫', '🌟', '🩵'];
 const fx = reactive([]);
 let fxId = 0;
 let fxTimer = null;
 
+// 간간이 스쳐 지나가는 별똥별 (겨울밤 느낌)
 function spawnFx() {
     const id = ++fxId;
     const f = {
         id,
-        emoji: EMOJIS[Math.floor(Math.random() * EMOJIS.length)],
-        left: 6 + Math.random() * 88,            // %
-        size: 16 + Math.random() * 14,           // px
-        dur: 5.5 + Math.random() * 3,            // s
-        drift: (Math.random() * 2 - 1) * 46,     // px 좌우 흔들림
+        top: 4 + Math.random() * 42,          // % (상단에서 진입)
+        ang: 14 + Math.random() * 16,         // deg (사선 각도)
+        dist: 620 + Math.random() * 260,      // px 이동거리
+        dur: 1.1 + Math.random() * 0.9,       // s (빠르게 스쳐감)
     };
     fx.push(f);
     setTimeout(() => {
         const i = fx.findIndex((x) => x.id === id);
         if (i !== -1) fx.splice(i, 1);
     }, f.dur * 1000 + 300);
-    fxTimer = setTimeout(spawnFx, 12000 + Math.random() * 12000); // 12~24초마다
+    fxTimer = setTimeout(spawnFx, 9000 + Math.random() * 9000); // 9~18초마다
 }
 
 onMounted(() => {
@@ -464,14 +463,14 @@ onBeforeUnmount(() => clearTimeout(fxTimer));
             </div>
         </div>
 
-        <!-- 간간이 떠오르는 귀여운 이모지 이벤트 -->
+        <!-- 간간이 스쳐 지나가는 별똥별 -->
         <div class="fxlayer" aria-hidden="true">
-            <span
+            <i
                 v-for="f in fx"
                 :key="f.id"
-                class="fxe"
-                :style="{ left: f.left + '%', fontSize: f.size + 'px', '--dur': f.dur + 's', '--drift': f.drift + 'px' }"
-            >{{ f.emoji }}</span>
+                class="star"
+                :style="{ top: f.top + '%', '--ang': f.ang + 'deg', '--dist': f.dist + 'px', '--dur': f.dur + 's' }"
+            />
         </div>
     </div>
 </template>
@@ -538,16 +537,21 @@ $mono:   'JetBrains Mono', 'SF Mono', ui-monospace, Consolas, monospace;
 
 // === 이모지 이벤트 레이어 (창 위) ===
 .fxlayer { position: absolute; inset: 0; z-index: 3; pointer-events: none; overflow: hidden; }
-.fxe {
-    position: absolute; bottom: -12px; user-select: none; line-height: 1;
-    filter: drop-shadow(0 2px 6px rgba(0, 0, 0, 0.3));
-    animation: rise var(--dur) ease-in forwards;
+.star {
+    position: absolute; left: -120px; width: 3px; height: 3px; border-radius: 50%;
+    background: #e6f4ff; box-shadow: 0 0 7px 2px rgba(180, 220, 255, 0.85);
+    animation: shoot var(--dur) ease-in forwards;
 }
-@keyframes rise {
-    0%   { opacity: 0; transform: translateY(0) translateX(0) scale(0.6); }
-    15%  { opacity: 1; transform: translateY(-12vh) translateX(calc(var(--drift) * 0.2)) scale(1); }
-    80%  { opacity: 1; }
-    100% { opacity: 0; transform: translateY(-82vh) translateX(var(--drift)) scale(1.05); }
+.star::before {
+    content: ''; position: absolute; right: 2px; top: 50%;
+    width: 84px; height: 2px; transform: translateY(-50%); border-radius: 2px;
+    background: linear-gradient(90deg, rgba(190, 225, 255, 0), rgba(210, 235, 255, 0.9));
+}
+@keyframes shoot {
+    0%   { opacity: 0; transform: rotate(var(--ang)) translateX(0); }
+    12%  { opacity: 1; }
+    88%  { opacity: 1; }
+    100% { opacity: 0; transform: rotate(var(--ang)) translateX(var(--dist)); }
 }
 
 .win {
@@ -762,6 +766,6 @@ $mono:   'JetBrains Mono', 'SF Mono', ui-monospace, Consolas, monospace;
     .cursor { animation: none; }
     .aurora { animation: none; }
     .snow { display: none; }
-    .fxe { display: none; }
+    .star { display: none; }
 }
 </style>
