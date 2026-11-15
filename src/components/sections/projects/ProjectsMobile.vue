@@ -7,6 +7,9 @@ const accentMap = {
     butter: 'is-sun',
     rose:   'is-coral',
 };
+
+// 실무 SI와 개인 실습·사이드를 섹터 라벨로 구분
+const isLab = (p) => /실습|사이드/.test(p.sector);
 </script>
 
 <template>
@@ -18,14 +21,17 @@ const accentMap = {
                 <span class="title-pop">Projects.</span>
             </h2>
             <p class="lead">
-                그린필드 신규 구축과 레거시 전환, 양쪽 결의 대표 프로젝트 4건.
+                실무 SI 4건과 최근 개인 실습·사이드 프로젝트. 카드의 링크로 결과물을 바로 볼 수 있어요.
             </p>
         </header>
 
         <div class="cards">
+            <template v-for="(p, i) in projects" :key="p.num">
+            <div
+                v-if="i === 0 || isLab(projects[i - 1]) !== isLab(p)"
+                class="m-group"
+            >{{ isLab(p) ? '개인 실습 · 사이드' : '실무 · SI' }}</div>
             <article
-                v-for="p in projects"
-                :key="p.num"
                 class="card"
                 :class="accentMap[p.accent]"
             >
@@ -42,8 +48,17 @@ const accentMap = {
                     <span v-for="s in p.stack" :key="s" class="chip">{{ s }}</span>
                 </div>
 
+                <a
+                    v-if="p.link"
+                    class="c-link"
+                    :href="p.link"
+                    target="_blank"
+                    rel="noopener"
+                >{{ p.linkLabel || '보기' }} ↗</a>
+
                 <span class="c-deco" />
             </article>
+            </template>
         </div>
     </section>
 </template>
@@ -90,6 +105,17 @@ const accentMap = {
     flex-direction: column;
     gap: 14px;
 }
+
+.m-group {
+    font-family: $mc-font-mono;
+    font-size: 11px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: $mc-ink-4;
+    margin: 14px 0 -2px;
+}
+.m-group:first-child { margin-top: 0; }
 
 .card {
     background: $mc-surface;
@@ -199,4 +225,21 @@ const accentMap = {
     font-size: 10.5px;
     font-weight: 700;
 }
+
+.c-link {
+    display: inline-flex;
+    align-items: center;
+    margin-top: 14px;
+    padding: 8px 15px;
+    border-radius: $mc-radius-pill;
+    font-family: $mc-font-mono;
+    font-size: 11px;
+    font-weight: 700;
+    color: #fff;
+    background: $mc-ink;
+    text-decoration: none;
+    position: relative;
+    z-index: 1;
+}
+.c-link:active { transform: scale(0.98); }
 </style>

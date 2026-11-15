@@ -1,6 +1,9 @@
 <script setup>
 import { projects } from '@/data/projects';
 import SectionHead from '@/components/ui/SectionHead.vue';
+
+// 실무 SI와 개인 실습·사이드를 섹터 라벨로 구분해 그룹 헤더를 표시
+const isLab = (p) => /실습|사이드/.test(p.sector);
 </script>
 
 <template>
@@ -12,14 +15,17 @@ import SectionHead from '@/components/ui/SectionHead.vue';
                     <span class="accent">Projects.</span>
                 </template>
                 <template #lead>
-                    그린필드 신규 구축과 레거시 전환, 양쪽 결의 대표 프로젝트 4건.
+                    실무 SI 4건과 최근 개인 실습·사이드 프로젝트. 카드의 링크로 결과물을 바로 볼 수 있어요.
                 </template>
             </SectionHead>
 
             <div class="project-list">
+                <template v-for="(p, i) in projects" :key="p.num">
+                <div
+                    v-if="i === 0 || isLab(projects[i - 1]) !== isLab(p)"
+                    class="group-label mono"
+                >{{ isLab(p) ? '개인 실습 · 사이드' : '실무 · SI' }}</div>
                 <article
-                    v-for="(p, i) in projects"
-                    :key="p.num"
                     class="project-row"
                     :class="`is-${p.accent}`"
                     data-reveal
@@ -36,10 +42,18 @@ import SectionHead from '@/components/ui/SectionHead.vue';
 
                     <div class="row-stack">
                         <span v-for="s in p.stack" :key="s" class="chip mono">{{ s }}</span>
+                        <a
+                            v-if="p.link"
+                            class="row-link mono"
+                            :href="p.link"
+                            target="_blank"
+                            rel="noopener"
+                        >{{ p.linkLabel || '보기' }} ↗</a>
                     </div>
 
                     <div class="row-divider" :style="{ animationDelay: `${i * 100}ms` }" />
                 </article>
+                </template>
             </div>
         </div>
     </section>
@@ -49,6 +63,18 @@ import SectionHead from '@/components/ui/SectionHead.vue';
 @use '@/assets/styles/variables' as *;
 
 .projects { background: $bg-warm; }
+
+.group-label {
+    font-size: 12px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    color: $ink-4;
+    padding-top: 14px;
+    border-top: 1px solid $border;
+    margin-top: 28px;
+}
+.group-label:first-child { border-top: none; margin-top: 0; padding-top: 0; }
 
 .project-list {
     display: flex;
@@ -145,6 +171,24 @@ import SectionHead from '@/components/ui/SectionHead.vue';
     font-size: 11px;
     font-weight: 500;
 }
+
+.row-link {
+    padding: 5px 13px;
+    border-radius: 999px;
+    font-size: 11px;
+    font-weight: 700;
+    color: $coral;
+    border: 1px solid currentColor;
+    text-decoration: none;
+    transition: background 0.2s $ease, color 0.2s $ease;
+}
+.is-sage   .row-link { color: $sage; }
+.is-butter .row-link { color: $butter-deep; }
+.is-rose   .row-link { color: $rose; }
+.row-link:hover        { color: #fff; background: $coral; }
+.is-sage   .row-link:hover { background: $sage; }
+.is-butter .row-link:hover { background: $butter-deep; }
+.is-rose   .row-link:hover { background: $rose; }
 
 .row-divider {
     grid-area: div;
