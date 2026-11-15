@@ -145,8 +145,35 @@ const logEl = ref(null);
 const pendingQ = ref('');   // 봇이 모르던 질문(남기기 대기)
 const sending = ref(false);
 
-const eye = computed(() => (EXPR[activeTopic.value] || EXPR.greet)[0]);
-const mouth = computed(() => (EXPR[activeTopic.value] || EXPR.greet)[1]);
+const blink = ref(false);
+const moodOverride = ref(null); // [eye, mouth] 임시 표정
+const baseExpr = computed(() => EXPR[activeTopic.value] || EXPR.greet);
+const eye = computed(() => (blink.value ? 'blink' : (moodOverride.value || baseExpr.value)[0]));
+const mouth = computed(() => (moodOverride.value || baseExpr.value)[1]);
+
+// 표정 다양화: 깜빡임 + 간간이 랜덤 표정
+const MOODS = [
+    ['arc', 'grin'], ['wink', 'smile'], ['star', 'grin'], ['heart', 'smile'],
+    ['sleepy', 'flat'], ['wide', 'o'], ['arc', 'tongue'], ['curious', 'smirk'],
+    ['dot', 'smile'], ['heart', 'grin'],
+];
+let blinkT = null;
+let moodT = null;
+function scheduleBlink() {
+    blinkT = setTimeout(() => {
+        blink.value = true;
+        setTimeout(() => { blink.value = false; scheduleBlink(); }, 150);
+    }, 2500 + Math.random() * 3500);
+}
+function scheduleMood() {
+    moodT = setTimeout(() => {
+        if (!busy.value) {
+            moodOverride.value = MOODS[Math.floor(Math.random() * MOODS.length)];
+            setTimeout(() => { moodOverride.value = null; }, 1700);
+        }
+        scheduleMood();
+    }, 5500 + Math.random() * 5000);
+}
 
 const delay = (ms) => new Promise((r) => setTimeout(r, ms));
 
@@ -310,9 +337,13 @@ function spawnFx() {
 
 onMounted(() => {
     reply('greet');
-    if (!reduceMotion) fxTimer = setTimeout(spawnFx, 4000);
+    if (!reduceMotion) {
+        fxTimer = setTimeout(spawnFx, 4000);
+        scheduleBlink();
+        scheduleMood();
+    }
 });
-onBeforeUnmount(() => clearTimeout(fxTimer));
+onBeforeUnmount(() => { clearTimeout(fxTimer); clearTimeout(blinkT); clearTimeout(moodT); });
 </script>
 
 <template>
@@ -363,6 +394,23 @@ onBeforeUnmount(() => clearTimeout(fxTimer));
                             <path d="M38 44 L39.6 48.4 L44 50 L39.6 51.6 L38 56 L36.4 51.6 L32 50 L36.4 48.4 Z" fill="#16233b" />
                             <path d="M62 44 L63.6 48.4 L68 50 L63.6 51.6 L62 56 L60.4 51.6 L56 50 L60.4 48.4 Z" fill="#16233b" />
                         </g>
+                        <g v-else-if="eye === 'blink'">
+                            <path d="M33 50 Q38 54 43 50" stroke="#16233b" stroke-width="3" fill="none" stroke-linecap="round" />
+                            <path d="M57 50 Q62 54 67 50" stroke="#16233b" stroke-width="3" fill="none" stroke-linecap="round" />
+                        </g>
+                        <g v-else-if="eye === 'sleepy'">
+                            <path d="M33 50 Q38 52 43 50" stroke="#16233b" stroke-width="3" fill="none" stroke-linecap="round" />
+                            <path d="M57 50 Q62 52 67 50" stroke="#16233b" stroke-width="3" fill="none" stroke-linecap="round" />
+                        </g>
+                        <g v-else-if="eye === 'heart'" fill="#ff7a9a">
+                            <path transform="translate(34.3 45) scale(0.7)" d="M5 9 C5 9 0 5.5 0 2.8 C0 1 1.6 0 3 0 C4 0 4.7 0.7 5 1.3 C5.3 0.7 6 0 7 0 C8.4 0 10 1 10 2.8 C10 5.5 5 9 5 9 Z" />
+                            <path transform="translate(58.3 45) scale(0.7)" d="M5 9 C5 9 0 5.5 0 2.8 C0 1 1.6 0 3 0 C4 0 4.7 0.7 5 1.3 C5.3 0.7 6 0 7 0 C8.4 0 10 1 10 2.8 C10 5.5 5 9 5 9 Z" />
+                        </g>
+                        <g v-else-if="eye === 'curious'">
+                            <circle cx="38" cy="50" r="6" fill="#fff" stroke="#16233b" stroke-width="2" />
+                            <circle cx="39" cy="51" r="3" fill="#16233b" />
+                            <circle cx="62" cy="50" r="3" fill="#16233b" />
+                        </g>
                         <g v-else>
                             <circle cx="38" cy="50" r="6" fill="#fff" stroke="#16233b" stroke-width="2" /><circle cx="39" cy="51" r="3" fill="#16233b" />
                             <circle cx="62" cy="50" r="6" fill="#fff" stroke="#16233b" stroke-width="2" /><circle cx="63" cy="51" r="3" fill="#16233b" />
@@ -372,6 +420,11 @@ onBeforeUnmount(() => clearTimeout(fxTimer));
                         <path v-else-if="mouth === 'grin'" d="M43 63 Q50 73 57 63 Z" fill="#16233b" />
                         <circle v-else-if="mouth === 'o'" cx="50" cy="66" r="4" fill="none" stroke="#16233b" stroke-width="3" />
                         <line v-else-if="mouth === 'flat'" x1="45" y1="66" x2="55" y2="66" stroke="#16233b" stroke-width="3" stroke-linecap="round" />
+                        <g v-else-if="mouth === 'tongue'">
+                            <path d="M44 64 Q50 69 56 64" stroke="#16233b" stroke-width="3" fill="none" stroke-linecap="round" />
+                            <path d="M48 66 Q50 71 53 66 Z" fill="#ff7a9a" />
+                        </g>
+                        <path v-else-if="mouth === 'smirk'" d="M45 65 Q51 68 56 62" stroke="#16233b" stroke-width="3" fill="none" stroke-linecap="round" />
                         <path v-else d="M43 64 Q46.5 68 50 64 Q53.5 68 57 64" stroke="#16233b" stroke-width="3" fill="none" stroke-linecap="round" />
                         <path class="spark s1" d="M80 27 l1.3 3.4 3.4 1.3 -3.4 1.3 -1.3 3.4 -1.3 -3.4 -3.4 -1.3 3.4 -1.3 Z" fill="#22B8CF" />
                         <path class="spark s2" d="M19 35 l1 2.6 2.6 1 -2.6 1 -1 2.6 -1 -2.6 -2.6 -1 2.6 -1 Z" fill="#7B61FF" />
@@ -620,7 +673,9 @@ $mono:   'JetBrains Mono', 'SF Mono', ui-monospace, Consolas, monospace;
 // === 로그 ===
 .log {
     flex: 1;
+    min-height: 0;          // flex 스크롤 영역이 줄어들어 하단(입력창)이 안 밀리게
     overflow-y: auto;
+    overflow-x: hidden;
     padding: 18px;
     display: flex;
     flex-direction: column;
@@ -645,7 +700,7 @@ $mono:   'JetBrains Mono', 'SF Mono', ui-monospace, Consolas, monospace;
     padding-left: 13px;
     display: flex; flex-direction: column; gap: 9px;
 }
-.blk { animation: fadein 0.26s ease; }
+.blk { animation: fadein 0.26s ease; min-width: 0; word-break: break-word; overflow-wrap: anywhere; }
 @keyframes fadein { from { opacity: 0; transform: translateY(4px); } to { opacity: 1; transform: none; } }
 
 .t-h { color: $cyan; font-weight: 700; font-size: 13.5px; }
@@ -753,11 +808,23 @@ $mono:   'JetBrains Mono', 'SF Mono', ui-monospace, Consolas, monospace;
 @media (max-width: 640px) {
     .term { padding: 0; }
     .win { height: 100dvh; max-height: none; border-radius: 0; border: none; }
-    .hero { padding: 13px 15px; }
-    .mochi { width: 50px; height: 50px; }
-    .hero-txt strong { font-size: 15px; }
-    .log { padding: 15px; font-size: 12.5px; }
+    .bar { padding: 9px 12px; .path { font-size: 11px; } }
+    .hero { padding: 11px 14px; gap: 11px; }
+    .mochi { width: 46px; height: 46px; }
+    .hero-txt strong { font-size: 14.5px; }
+    .hero-txt span { font-size: 10.5px; }
+    .log { padding: 14px; font-size: 12.5px; gap: 12px; }
     .it-top { flex-direction: column; gap: 2px; }
+    .dock { padding: 10px 11px calc(10px + env(safe-area-inset-bottom, 0px)); gap: 8px; }
+    .chip { font-size: 11px; padding: 6px 11px; }
+    .inbar { padding: 9px 11px; }
+}
+
+// 아주 좁은 폰: 칩 가로 스크롤로 줄바꿈 폭주 방지
+@media (max-width: 380px) {
+    .chips { flex-wrap: nowrap; overflow-x: auto; -webkit-overflow-scrolling: touch; scrollbar-width: none; }
+    .chips::-webkit-scrollbar { display: none; }
+    .chip { flex: none; }
 }
 
 @media (prefers-reduced-motion: reduce) {

@@ -154,7 +154,7 @@ $cyan:   #35c6dd;
 .floor {
     position: relative; flex: 1; height: 100%;
     border-bottom: 2px solid rgba(120, 150, 210, 0.25);
-    min-width: 120px;
+    min-width: 72px;
 }
 .worker {
     position: absolute; left: 2%;
@@ -199,11 +199,17 @@ $cyan:   #35c6dd;
 }
 
 @media (max-width: 640px) {
-    .scene { gap: 8px; padding: 0 10px; height: 66px; }
-    .status { width: 96px; }
-    .ticker { width: 118px; .line { font-size: 10px; } }
+    .scene { gap: 8px; padding: 0 10px; height: 64px; }
+    .status { width: 86px; }
+    .ticker { width: 100px; .line { font-size: 10px; } }
     // 좁은 화면에선 느린 일꾼 2명 숨겨 혼잡 완화
     .worker:nth-child(n + 3) { display: none; }
+}
+
+// 아주 좁은 폰: 티커 숨기고 작업장+상태만
+@media (max-width: 380px) {
+    .ticker { display: none; }
+    .status { width: 80px; }
 }
 
 @media (prefers-reduced-motion: reduce) {
