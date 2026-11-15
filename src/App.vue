@@ -1,44 +1,14 @@
 <script setup>
-import { computed } from 'vue';
-import { useRoute } from 'vue-router';
-import { useDevice } from '@/composables/useDevice';
-import { mobileTabs } from '@/data/mobileTabs';
-
-import AppNavbar from '@/components/layout/AppNavbar.vue';
-import AppFooter from '@/components/layout/AppFooter.vue';
-import GuideMascot from '@/components/ui/GuideMascot.vue';
-
-const { isMobile } = useDevice();
-const route = useRoute();
-
-const tabIndex = computed(() => {
-    const i = mobileTabs.findIndex((t) => t.name === route.name);
-    return i === -1 ? 0 : i;
-});
-
-// 탭 인덱스 변화 방향에 따라 슬라이드 좌/우 결정
-let prevIndex = tabIndex.value;
-const transitionName = computed(() => {
-    if (!isMobile.value) return 'fade';
-    const next = tabIndex.value;
-    const dir = next > prevIndex ? 'tab-slide-left' : next < prevIndex ? 'tab-slide-right' : 'fade';
-    prevIndex = next;
-    return dir;
-});
+// 모찌 AI 터미널 단일 화면(옵션 3). 네비/푸터/플로팅 마스코트는
+// 터미널이 자체적으로 모든 안내를 담당하므로 제거.
 </script>
 
 <template>
-    <AppNavbar />
-
     <RouterView v-slot="{ Component }">
-        <transition :name="transitionName" mode="out-in">
-            <component :is="Component" :key="route.name" />
+        <transition name="fade" mode="out-in">
+            <component :is="Component" />
         </transition>
     </RouterView>
-
-    <AppFooter v-if="!isMobile" />
-
-    <GuideMascot />
 </template>
 
 <style lang="scss">
