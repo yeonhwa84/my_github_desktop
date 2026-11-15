@@ -13,6 +13,8 @@ import { skillCategories } from '@/data/skills';
 import { projects } from '@/data/projects';
 import { experienceRecent } from '@/data/experience';
 import WorkerScene from '@/components/sections/WorkerScene.vue';
+import { faq } from '@/data/faq';
+import { INBOX_URL } from '@/data/inbox';
 
 const strip = (s) => String(s).replace(/<[^>]+>/g, '').replace(/&nbsp;/g, ' ').trim();
 
@@ -140,6 +142,8 @@ const activeTopic = ref('greet');
 const busy = ref(false);
 const input = ref('');
 const logEl = ref(null);
+const pendingQ = ref('');   // 봇이 모르던 질문(남기기 대기)
+const sending = ref(false);
 
 const eye = computed(() => (EXPR[activeTopic.value] || EXPR.greet)[0]);
 const mouth = computed(() => (EXPR[activeTopic.value] || EXPR.greet)[1]);
@@ -151,10 +155,8 @@ async function scrollEnd() {
     if (logEl.value) logEl.value.scrollTop = logEl.value.scrollHeight;
 }
 
-async function reply(topic) {
+async function streamBlocks(topic, blocks) {
     activeTopic.value = topic;
-    const builder = ANSWERS[topic] || ANSWERS.help;
-    const blocks = builder();
     const msg = reactive({ from: 'mochi', topic, blocks, shown: 0, done: false });
     messages.push(msg);
     await scrollEnd();
@@ -166,9 +168,82 @@ async function reply(topic) {
     msg.done = true;
 }
 
+async function reply(topic) {
+    await streamBlocks(topic, (ANSWERS[topic] || ANSWERS.help)());
+}
+
+// 방문자 질문 → FAQ(이연화님이 적어둔 답) 매칭
+function matchFaq(text) {
+    const t = text.toLowerCase();
+    return faq.find((f) => (f.keywords || []).some((k) => t.includes(String(k).toLowerCase())));
+}
+
+async function answerFaq(text, entry) {
+    if (busy.value) return;
+    busy.value = true;
+    messages.push({ from: 'user', text });
+    await scrollEnd();
+    await delay(180);
+    const body = typeof entry.a === 'string' ? [{ k: 'p', v: entry.a }] : entry.a;
+    await streamBlocks('about', [{ k: 'h', v: entry.q || '답변' }, ...body]);
+    busy.value = false;
+}
+
+// 못 받은 질문 → 남기기 제안
+async function leaveQuestion(text) {
+    if (busy.value) return;
+    busy.value = true;
+    pendingQ.value = text;
+    messages.push({ from: 'user', text });
+    await scrollEnd();
+    await delay(180);
+    await streamBlocks('help', [
+        { k: 'p', v: '음… 아직 제가 답변을 준비 못 한 질문이에요.' },
+        ...(INBOX_URL
+            ? [{ k: 'note', v: "아래 '📩 이 질문 남기기'를 누르면 이연화님께 전달돼요. 답이 준비되면 여기서 답해줄게요!" }]
+            : [{ k: 'note', v: '아래에서 다른 주제를 골라볼 수도 있어요.' }]),
+    ]);
+    busy.value = false;
+}
+
+// Formspree 전송
+async function sendQuestion(q) {
+    if (!INBOX_URL) return false;
+    try {
+        const res = await fetch(INBOX_URL, {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
+            body: JSON.stringify({ message: q, page: location.href, _subject: '[포트폴리오] 새 질문' }),
+        });
+        return res.ok;
+    } catch (e) {
+        return false;
+    }
+}
+
+async function submitQuestion() {
+    if (!pendingQ.value || sending.value) return;
+    sending.value = true;
+    const q = pendingQ.value;
+    const ok = await sendQuestion(q);
+    sending.value = false;
+    pendingQ.value = '';
+    if (ok) {
+        await streamBlocks('contact', [
+            { k: 'h', v: '고마워요! 질문을 잘 전달했어요 ✦' },
+            { k: 'p', v: `"${q}" — 답이 준비되면 이 터미널에서 바로 답할 수 있게 반영해 둘게요.` },
+        ]);
+    } else {
+        await streamBlocks('help', [
+            { k: 'p', v: '앗, 전송에 실패했어요. 잠시 후 다시 시도하거나 contact로 직접 연락 주세요!' },
+        ]);
+    }
+}
+
 async function run(topic, echo) {
     if (busy.value) return;
     busy.value = true;
+    pendingQ.value = '';
     messages.push({ from: 'user', text: echo || topic });
     await scrollEnd();
     await delay(180);
@@ -180,25 +255,12 @@ function submit() {
     const text = input.value.trim();
     if (!text || busy.value) return;
     input.value = '';
+    pendingQ.value = '';
     const topic = resolveTopic(text);
-    if (topic) {
-        run(topic, text);
-    } else {
-        // 모르는 입력 → 안내
-        messages.push({ from: 'user', text });
-        messages.push({
-            from: 'mochi',
-            topic: 'help',
-            blocks: [
-                { k: 'p', v: '음… 그건 잘 모르겠어요. 아래에서 골라주면 바로 안내할게요!' },
-                ...ANSWERS.help(),
-            ],
-            shown: 99,
-            done: true,
-        });
-        activeTopic.value = 'help';
-        scrollEnd();
-    }
+    if (topic) { run(topic, text); return; }
+    const hit = matchFaq(text);
+    if (hit) { answerFaq(text, hit); return; }
+    leaveQuestion(text);
 }
 
 function clearLog() {
@@ -319,6 +381,13 @@ onMounted(() => reply('greet'));
 
             <!-- 칩 + 입력 -->
             <div class="dock">
+                <div v-if="pendingQ && INBOX_URL" class="leave">
+                    <button class="leave-btn" :disabled="sending" @click="submitQuestion">
+                        <span>{{ sending ? '전송 중…' : '📩 이 질문 남기기' }}</span>
+                        <em>“{{ pendingQ }}”</em>
+                    </button>
+                    <button class="leave-x" aria-label="취소" @click="pendingQ = ''">×</button>
+                </div>
                 <div class="chips">
                     <button
                         v-for="c in CHIPS"
@@ -512,6 +581,26 @@ $mono:   'JetBrains Mono', 'SF Mono', ui-monospace, Consolas, monospace;
     padding: 12px 14px calc(12px + env(safe-area-inset-bottom, 0px));
     display: flex; flex-direction: column; gap: 10px;
 }
+// 질문 남기기 바
+.leave { display: flex; align-items: stretch; gap: 6px; }
+.leave-btn {
+    flex: 1; display: flex; flex-direction: column; gap: 2px; align-items: flex-start;
+    font-family: $mono; cursor: pointer; text-align: left;
+    background: linear-gradient(90deg, rgba(47, 107, 237, 0.26), rgba(53, 198, 221, 0.2));
+    border: 1px solid rgba(53, 198, 221, 0.5); border-radius: 11px;
+    padding: 8px 13px; color: #eaf4ff;
+    transition: filter 0.16s ease, transform 0.16s ease;
+    span { font-size: 12.5px; font-weight: 700; }
+    em { font-size: 11px; font-style: normal; color: #a9c4ff; max-width: 100%; overflow: hidden; text-overflow: ellipsis; white-space: nowrap; }
+    &:hover:not(:disabled) { filter: brightness(1.12); transform: translateY(-1px); }
+    &:disabled { opacity: 0.6; cursor: default; }
+}
+.leave-x {
+    flex: none; width: 34px; border: 1px solid $line; border-radius: 11px;
+    background: rgba(7, 14, 27, 0.6); color: $dim; font-size: 16px; cursor: pointer;
+    &:hover { color: #ff7a8a; border-color: rgba(255, 122, 138, 0.4); }
+}
+
 .chips { display: flex; flex-wrap: wrap; gap: 7px; }
 .chip {
     font-family: $mono; font-size: 11.5px; font-weight: 600;
