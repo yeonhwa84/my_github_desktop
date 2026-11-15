@@ -24,6 +24,7 @@ const isLab = (p) => /실습|사이드/.test(p.sector);
                 <div
                     v-if="i === 0 || isLab(projects[i - 1]) !== isLab(p)"
                     class="group-label mono"
+                    :class="{ lab: isLab(p) }"
                 >{{ isLab(p) ? '개인 실습 · 사이드' : '실무 · SI' }}</div>
                 <article
                     class="project-row"
@@ -65,15 +66,26 @@ const isLab = (p) => /실습|사이드/.test(p.sector);
 .projects { background: $bg-warm; }
 
 .group-label {
+    display: flex;
+    align-items: center;
+    gap: 10px;
     font-size: 12px;
     font-weight: 700;
     letter-spacing: 0.1em;
     text-transform: uppercase;
-    color: $ink-4;
+    color: $coral;
     padding-top: 14px;
     border-top: 1px solid $border;
     margin-top: 28px;
 }
+.group-label::before {
+    content: '';
+    width: 20px;
+    height: 3px;
+    border-radius: 2px;
+    background: currentColor;
+}
+.group-label.lab { color: $sage; }
 .group-label:first-child { border-top: none; margin-top: 0; padding-top: 0; }
 
 .project-list {

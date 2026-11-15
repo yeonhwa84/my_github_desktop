@@ -159,8 +159,8 @@ const onCta = (id) => (e) => {
 }
 
 @keyframes pulse {
-    0%, 100% { box-shadow: 0 0 0 3px rgba(255, 88, 65, 0.3); }
-    50%      { box-shadow: 0 0 0 7px rgba(255, 88, 65, 0); }
+    0%, 100% { box-shadow: 0 0 0 3px rgba(47, 107, 237, 0.3); }
+    50%      { box-shadow: 0 0 0 7px rgba(47, 107, 237, 0); }
 }
 
 .hero-grid {

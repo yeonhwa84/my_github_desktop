@@ -133,7 +133,7 @@ const links = [
     width: 42px;
     height: 42px;
     border-radius: 12px;
-    background: rgba(255, 88, 65, 0.18);
+    background: rgba(47, 107, 237, 0.18);
     color: $coral-soft;
     display: inline-flex;
     align-items: center;

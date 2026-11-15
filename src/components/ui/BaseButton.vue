@@ -51,7 +51,7 @@ defineProps({
     &:hover {
         background: $coral-deep;
         transform: translateY(-2px);
-        box-shadow: 0 14px 36px rgba(255, 88, 65, 0.35);
+        box-shadow: 0 14px 36px rgba(47, 107, 237, 0.35);
     }
 }
 

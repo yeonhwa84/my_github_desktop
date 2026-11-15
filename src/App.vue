@@ -6,6 +6,7 @@ import { mobileTabs } from '@/data/mobileTabs';
 
 import AppNavbar from '@/components/layout/AppNavbar.vue';
 import AppFooter from '@/components/layout/AppFooter.vue';
+import GuideMascot from '@/components/ui/GuideMascot.vue';
 
 const { isMobile } = useDevice();
 const route = useRoute();
@@ -36,6 +37,8 @@ const transitionName = computed(() => {
     </RouterView>
 
     <AppFooter v-if="!isMobile" />
+
+    <GuideMascot />
 </template>
 
 <style lang="scss">

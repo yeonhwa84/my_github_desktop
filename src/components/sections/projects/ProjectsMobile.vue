@@ -30,6 +30,7 @@ const isLab = (p) => /실습|사이드/.test(p.sector);
             <div
                 v-if="i === 0 || isLab(projects[i - 1]) !== isLab(p)"
                 class="m-group"
+                :class="{ lab: isLab(p) }"
             >{{ isLab(p) ? '개인 실습 · 사이드' : '실무 · SI' }}</div>
             <article
                 class="card"
@@ -107,14 +108,25 @@ const isLab = (p) => /실습|사이드/.test(p.sector);
 }
 
 .m-group {
+    display: flex;
+    align-items: center;
+    gap: 8px;
     font-family: $mc-font-mono;
     font-size: 11px;
     font-weight: 700;
     letter-spacing: 0.12em;
     text-transform: uppercase;
-    color: $mc-ink-4;
+    color: $mc-coral-deep;
     margin: 14px 0 -2px;
 }
+.m-group::before {
+    content: '';
+    width: 7px;
+    height: 7px;
+    border-radius: 50%;
+    background: currentColor;
+}
+.m-group.lab { color: $mc-aqua-deep; }
 .m-group:first-child { margin-top: 0; }
 
 .card {

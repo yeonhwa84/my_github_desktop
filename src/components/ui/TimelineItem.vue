@@ -41,7 +41,7 @@ defineProps({
     &.is-highlight {
         .tl-dot {
             background: $coral;
-            box-shadow: 0 0 0 4px $coral-bg, 0 0 0 8px rgba(255, 88, 65, 0.15);
+            box-shadow: 0 0 0 4px $coral-bg, 0 0 0 8px rgba(47, 107, 237, 0.15);
             animation: tlPulse 2s ease-in-out infinite;
             border-color: $surface;
         }
@@ -49,14 +49,14 @@ defineProps({
         .tl-card {
             background: linear-gradient(135deg, $coral-bg 0%, $surface 60%);
             border-color: $coral-soft;
-            box-shadow: 0 8px 24px rgba(255, 88, 65, 0.12);
+            box-shadow: 0 8px 24px rgba(47, 107, 237, 0.12);
         }
     }
 }
 
 @keyframes tlPulse {
-    0%, 100% { box-shadow: 0 0 0 4px $coral-bg, 0 0 0 8px rgba(255, 88, 65, 0.15); }
-    50%      { box-shadow: 0 0 0 4px $coral-bg, 0 0 0 12px rgba(255, 88, 65, 0); }
+    0%, 100% { box-shadow: 0 0 0 4px $coral-bg, 0 0 0 8px rgba(47, 107, 237, 0.15); }
+    50%      { box-shadow: 0 0 0 4px $coral-bg, 0 0 0 12px rgba(47, 107, 237, 0); }
 }
 
 .tl-dot {

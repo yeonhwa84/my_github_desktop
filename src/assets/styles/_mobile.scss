@@ -12,47 +12,47 @@
 //   $mc-coral = warm pop       (피치, 옛 rose-400 자리)
 // =========================================================
 
-// === Surfaces (cream / peach family) ===
-$mc-bg:          #FFF8F2;   // 메인 배경 — 따뜻한 크림
-$mc-bg-soft:     #FFFCF8;   // 옅은 크림 변형
-$mc-bg-tint:     #FFEFE3;   // 피치 틴트
-$mc-bg-cream:    #FFF1F5;   // 로즈 미스트 (포인트 섹션)
+// === Surfaces — Winter / icy cool ===
+$mc-bg:          #EEF3FA;   // 메인 배경 — 아이시 블루 틴트
+$mc-bg-soft:     #F6F9FD;   // 옅은 변형
+$mc-bg-tint:     #E3ECF8;   // 쿨 틴트
+$mc-bg-cream:    #EAF0FB;   // 프로스트 미스트 (포인트 섹션)
 $mc-surface:     #FFFFFF;
-$mc-surface-2:   #FFFAF5;
+$mc-surface-2:   #F4F8FD;
 
-// === Ink (warm charcoal — 브라운 틴트, 차가운 네이비 X) ===
-$mc-ink:         #2B1F1A;
-$mc-ink-2:       #4A3A33;
-$mc-ink-3:       #786558;
-$mc-ink-4:       #A89687;
-$mc-ink-5:       #DCCFC2;
+// === Ink (winter navy) ===
+$mc-ink:         #0F1A2B;
+$mc-ink-2:       #2B3B52;
+$mc-ink-3:       #5B6B82;
+$mc-ink-4:       #93A1B5;
+$mc-ink-5:       #CDD6E4;
 
 // === Borders ===
-$mc-border:      #F2DBC7;
-$mc-border-soft: #F8E9DA;
+$mc-border:      #DCE5F0;
+$mc-border-soft: #E9EFF7;
 
-// === Primary — Coral Pink (메인 액센트) ===
-$mc-aqua:        #FF7A8A;   // coral, 메인 액센트
-$mc-aqua-deep:   #E8546A;   // deeper coral
-$mc-aqua-light:  #FFB4BD;   // soft coral
-$mc-aqua-bg:     #FFE3E7;   // very pale coral
+// === Primary — Glacier Blue (메인 액센트) ===
+$mc-aqua:        #2F6BED;   // glacier blue, 메인 액센트
+$mc-aqua-deep:   #1F52C7;   // deeper blue
+$mc-aqua-light:  #AEC6F6;   // soft blue
+$mc-aqua-bg:     #E6EEFD;   // very pale blue
 
-// === Pop accent — Mustard (강조 포인트) ===
-$mc-sun:         #F5C24B;   // mustard
-$mc-sun-deep:    #D9A52E;
-$mc-sun-light:   #FCE0A0;
-$mc-sun-bg:      #FFF4D6;
+// === Pop accent — Ice Cyan (강조 포인트) ===
+$mc-sun:         #22B8CF;   // ice cyan
+$mc-sun-deep:    #0E99AE;
+$mc-sun-light:   #BDE9F1;
+$mc-sun-bg:      #E6F8FC;
 
-// === Secondary — Lavender (쿨 밸런스용) ===
-$mc-lime:        #B8A4FF;   // lavender
-$mc-lime-deep:   #8C76E6;
-$mc-lime-light:  #DCD0FF;
+// === Secondary — AI Violet (일렉트릭 바이올렛) ===
+$mc-lime:        #7B61FF;   // electric violet
+$mc-lime-deep:   #5B3FE0;
+$mc-lime-light:  #D5CCFF;
 $mc-lime-bg:     #EFEAFF;
 
-// === Warm pop — Peach ===
-$mc-coral:       #FFAA7A;   // peach
-$mc-coral-deep:  #F08555;
-$mc-coral-bg:    #FFE5D2;
+// === Cool pop — Steel Blue ===
+$mc-coral:       #5B86E5;   // steel blue
+$mc-coral-deep:  #3F6AD4;
+$mc-coral-bg:    #E6EDFB;
 
 // === Typography ===
 $mc-font-sans:    'Pretendard', 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
@@ -78,12 +78,12 @@ $mc-radius-xl:    36px;
 $mc-radius-pill:  999px;
 
 // === Shadows (warm-tinted, soft) ===
-$mc-shadow-xs:    0 1px 3px rgba(43, 31, 26, 0.05);
-$mc-shadow-sm:    0 4px 14px rgba(43, 31, 26, 0.06);
-$mc-shadow-md:    0 10px 28px rgba(43, 31, 26, 0.08);
-$mc-shadow-lg:    0 18px 44px rgba(43, 31, 26, 0.12);
-$mc-shadow-aqua:  0 10px 28px rgba(255, 122, 138, 0.22);   // coral glow
-$mc-shadow-sun:   0 10px 28px rgba(245, 194, 75, 0.28);    // mustard glow
+$mc-shadow-xs:    0 1px 3px rgba(20, 32, 56, 0.05);
+$mc-shadow-sm:    0 4px 14px rgba(20, 32, 56, 0.07);
+$mc-shadow-md:    0 10px 28px rgba(20, 32, 56, 0.10);
+$mc-shadow-lg:    0 18px 44px rgba(20, 32, 56, 0.14);
+$mc-shadow-aqua:  0 10px 28px rgba(47, 107, 237, 0.24);    // glacier glow
+$mc-shadow-sun:   0 10px 28px rgba(34, 184, 207, 0.26);    // cyan glow
 
 // === Motion ===
 $mc-ease:         cubic-bezier(0.22, 1, 0.36, 1);

@@ -2,60 +2,60 @@
 // Design Tokens — Editorial Warm 2026 Palette
 // =========================================================
 
-// Surface
-$bg-paper:     #f7f5f0;   // warm cream paper
-$bg-soft:      #fdfbf7;   // softer paper
-$bg-warm:      #f1ede4;   // deeper paper for contrast
+// Surface — Winter / icy cool
+$bg-paper:     #eef2f8;   // icy paper
+$bg-soft:      #f6f9fd;   // softer icy
+$bg-warm:      #e6ecf5;   // deeper cool (name kept)
 $surface:      #ffffff;
-$surface-2:    #faf8f3;
+$surface-2:    #f4f7fc;
 
-// Ink (text & borders)
-$ink:          #1a1a1a;
-$ink-2:        #3d3d3d;
-$ink-3:        #6b6b6b;
-$ink-4:        #a3a3a3;
-$ink-5:        #d4d4d4;
+// Ink (text & borders) — winter navy
+$ink:          #0f1a2b;
+$ink-2:        #2b3b52;
+$ink-3:        #5b6b82;
+$ink-4:        #93a1b5;
+$ink-5:        #cdd6e4;
 
 // Borders
-$border:       #e8e4dc;
-$border-soft:  #f0ebe1;
+$border:       #dde4ee;
+$border-soft:  #e9eef6;
 
-// Brand — Coral (primary accent, vivid)
-$coral:        #ff5841;
-$coral-deep:   #e63d28;
-$coral-soft:   #ffb8ac;
-$coral-bg:     #fff1ee;
+// Brand — primary: Glacier Blue (name $coral kept)
+$coral:        #2f6bed;
+$coral-deep:   #1f52c7;
+$coral-soft:   #aec6f6;
+$coral-bg:     #e9f0fe;
 
-// Brand — Sage (secondary, calm)
-$sage:         #3d5a4a;
-$sage-deep:    #284233;
-$sage-soft:    #b8c9bd;
-$sage-bg:      #ebf0ec;
+// Brand — secondary: Frost Teal (name $sage kept)
+$sage:         #0f7d93;
+$sage-deep:    #0a5f70;
+$sage-soft:    #a9d3dd;
+$sage-bg:      #e6f3f6;
 
-// Highlights
-$butter:       #fbe7c6;
-$butter-deep:  #f5d491;
-$butter-bg:    #fef9ee;
+// Highlights — periwinkle / AI violet (names kept)
+$butter:       #dfe6fb;
+$butter-deep:  #7c8cf8;
+$butter-bg:    #eef1fe;
 
-$rose:         #d4838a;
-$rose-soft:    #f3cdd1;
-$rose-bg:      #fbeef0;
+$rose:         #7c92b8;
+$rose-soft:    #cdd8ea;
+$rose-bg:      #eef2f8;
 
-// 2026 trendy accents
-$lilac:        #8c7bb6;
-$lilac-soft:   #d6cdea;
-$lilac-bg:     #f4f0fa;
+// AI / cool accents
+$lilac:        #7b61ff;
+$lilac-soft:   #d5ccff;
+$lilac-bg:     #f0ecff;
 
-$mint:         #5b9b85;
-$mint-soft:    #b8dbcd;
-$mint-bg:      #ebf5f1;
+$mint:         #2bb3c9;
+$mint-soft:    #bfe6ee;
+$mint-bg:      #e8f6f9;
 
-// Mocha (PANTONE 2025-26 vibe)
-$mocha:        #a4866a;
-$mocha-soft:   #d8c7b6;
-$mocha-bg:     #f6efe7;
+// Slate (cool neutral; name $mocha kept)
+$mocha:        #64748b;
+$mocha-soft:   #cbd5e1;
+$mocha-bg:     #eef2f7;
 
-$ink-warm:     #2a1f15;   // warm dark brown alternative
+$ink-warm:     #0b1220;   // cool dark alternative (name kept)
 
 // =========================================================
 // Typography — 2026 trend stack
@@ -88,11 +88,11 @@ $radius-2xl:   40px;
 // =========================================================
 // Shadows (warm-tinted, editorial)
 // =========================================================
-$shadow-xs:    0 1px 2px rgba(60, 40, 20, 0.04);
-$shadow-sm:    0 2px 6px rgba(60, 40, 20, 0.05);
-$shadow-md:    0 6px 18px rgba(60, 40, 20, 0.07);
-$shadow-lg:    0 14px 40px rgba(60, 40, 20, 0.10);
-$shadow-coral: 0 10px 30px rgba(255, 88, 65, 0.22);
+$shadow-xs:    0 1px 2px rgba(20, 32, 56, 0.05);
+$shadow-sm:    0 2px 6px rgba(20, 32, 56, 0.06);
+$shadow-md:    0 6px 18px rgba(20, 32, 56, 0.09);
+$shadow-lg:    0 14px 40px rgba(20, 32, 56, 0.12);
+$shadow-coral: 0 10px 30px rgba(47, 107, 237, 0.22);
 
 // =========================================================
 // Motion
