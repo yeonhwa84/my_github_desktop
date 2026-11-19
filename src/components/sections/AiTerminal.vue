@@ -238,10 +238,15 @@ async function leaveQuestion(text) {
 async function sendQuestion(q) {
     if (!INBOX_URL) return false;
     try {
+        // Formspree는 이 폼에서 JSON을 거부 → FormData(multipart)로 전송
+        const fd = new FormData();
+        fd.append('message', q);
+        fd.append('page', location.href);
+        fd.append('_subject', '[포트폴리오] 새 질문');
         const res = await fetch(INBOX_URL, {
             method: 'POST',
-            headers: { 'Content-Type': 'application/json', Accept: 'application/json' },
-            body: JSON.stringify({ message: q, page: location.href, _subject: '[포트폴리오] 새 질문' }),
+            headers: { Accept: 'application/json' },
+            body: fd,
         });
         return res.ok;
     } catch (e) {
